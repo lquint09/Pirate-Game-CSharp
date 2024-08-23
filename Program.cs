@@ -1,7 +1,7 @@
-using system;
 using system.windows.forms;
 using system.threading.tasks;
 using system.threading;
+using system;
 
 
 class Ship
@@ -155,10 +155,7 @@ class PirateGame
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
     }
-    private void ResumeGame()
-{
-    resetEvent.Set();
-}
+
 public async void StartGameAnimation()
 {
     While (true) // animation at the start of the game
@@ -180,7 +177,7 @@ public async void StartGameAnimation()
         task.delay(2000);
 
     }
-    }
+}
 
 public void Start() // initiallization options for the game
 {
@@ -232,14 +229,14 @@ public void StartGame() // Game Application itself
     }
 }
 
-    private async void DisplayMenu()
+private async void DisplayMenu()
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Options:\n1. Attack enemy ship\n2. Repair your ship\n3. Search for treasure\n4. Shop\n5. Quit\nEnter Choice: ");
     }
 
-    private void HandleChoice(string choice)
+private void HandleChoice(string choice)
     {
         switch (choice)
         {
@@ -271,16 +268,12 @@ public void StartGame() // Game Application itself
         }
     }
 
-  private void AttackSequence()
+private void AttackSequence()
 {
     Console.Clear();
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
-    Console.WriteLine($"Enemy ship health: {enemyShip.Health}");
-    Console.WriteLine($"Your current health: {playerShip.Health}");
-    Console.WriteLine("Do you want to fight this ship?");
-    Console.WriteLine("1. Fight ship");
-    Console.WriteLine("2. No");
+    Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
     string choice = Console.ReadLine();
 
     if (choice == "1")
@@ -290,22 +283,11 @@ public void StartGame() // Game Application itself
         {
             if (enemyShip.Health > 31)
             {
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}");
-            Console.WriteLine($"Your current health: {playerShip.Health}/{playerShip.MaxHealth}");
-            Console.WriteLine("Options:");
-            Console.WriteLine("1. Shoot cannons");
-            Console.WriteLine("2. Repair your ship");
-            Console.WriteLine("3. Leave fight");
+            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
             }
             if (enemyShip.Health < 30 && enemyShip.Health > 0)
             { 
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}");
-            Console.WriteLine($"Your current health: {playerShip.Health}/{playerShip.MaxHealth}");
-            Console.WriteLine("Options:");
-            Console.WriteLine("1. Shoot cannons");
-            Console.WriteLine("2. Repair your ship");
-            Console.WriteLine("3. Leave fight");
-            Console.WriteLine("4. Board Ship");
+            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
             }
 
             choice = Console.ReadLine();
@@ -383,16 +365,8 @@ private void Shop()
         while (true)
         {
             Console.WriteLine($"Health: {playerShip.Health}/{playerShip.MaxHealth}, Cannons: {playerShip.Cannons}/{playerShip.MaxCannons}, Crew: {playerShip.Crew}/{playerShip.MaxCrew}, Gold: {playerShip.Bank}, Captured ships: {playerShip.Items}");
-            Console.WriteLine("");
-            Console.WriteLine("     Welcome to the Shop    ");
-            Console.WriteLine("");
-            Console.WriteLine("Options:");
-            Console.WriteLine("1. Buy cannons (1000 coins)");
-            Console.WriteLine("2. Buy crew members (100 coins)");
-            Console.WriteLine("3. Upgrade ship (5000 coins)");
-            Console.WriteLine("4. Sell captured ship (1000 coins)");
-            Console.WriteLine("5. Leave shop");
-
+            Console.WriteLine(" \n     Welcome to the Shop    \n \nOptions\n1. Buy cannons (1000 coins)\n2. Buy crew members (100 coins)\n3. Upgrade ship (5000 coins)\n4. Sell captured ship (1000 coins)\n5. Leave shop");
+            
             string choice = Console.ReadLine();
             HandleShopChoice(choice);
             if (choice == "5") break;
