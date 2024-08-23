@@ -167,7 +167,7 @@ private void PauseGame()
 {
     resetEvent.Reset();
 }
-public void Start()
+public void Start() // initiallization options for the game
 {
     {
         Console.WriteLine("Press any key to continue. Press 'Esc' to exit.");
@@ -191,28 +191,12 @@ public void Start()
     }
 }
 
-public void StartGame()
+public void StartGame() // Game Application itself
 {
     ClearConsole();
     while (true)
     {
-        if (Console.KeyAvailable)
-        {
-            var key = Console.ReadKey(true).Key;
-            if (key == ConsoleKey.P) // Example: 'P' to pause
-            {
-                PauseGame();
-            }
-            else if (key == ConsoleKey.R) // Example: 'R' to resume
-            {
-                ResumeGame();
-            }
-            PauseAndWait(); // Pauses if not signaled
-        }
-        else
-        {
-            DisplayMenu();
-        }
+
 
         string choice = Console.ReadLine();
         HandleChoice(choice);
