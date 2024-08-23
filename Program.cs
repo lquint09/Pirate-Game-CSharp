@@ -75,7 +75,7 @@ class Ship
                 {
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
-                    ClearConsole();
+                    Console.Clear();
                     Console.WriteLine("You won the board");
                     Console.WriteLine($"You now have {Items} captured ships");
                     Console.WriteLine($"Crew {Crew}/{MaxCrew}");
@@ -85,7 +85,7 @@ class Ship
                 {
                     Crew = 25;
                     Health = 1;
-                    ClearConsole();
+                    Console.Clear();
                     Console.WriteLine("You lost the board");
                     Console.WriteLine($"Crew: {Crew}/{MaxCrew}");
                     Console.WriteLine($"Health: {Health}/{MaxHealth}");
@@ -110,7 +110,7 @@ class Ship
     {
         int treasureAmount = random.Next(5, 21);
         Bank += treasureAmount;
-        ClearConsole();
+        Console.Clear();
         Console.WriteLine($"{treasureAmount} gold found");
         Console.WriteLine($"Gold: {Bank}");
     }
