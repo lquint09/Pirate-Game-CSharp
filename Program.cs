@@ -229,7 +229,7 @@ public void StartGame() // Game Application itself
     }
 }
 
-private async void DisplayMenu()
+private async void DisplayMenu() // display menu after the game is initiallizes completely
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
