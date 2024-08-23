@@ -141,7 +141,6 @@ class Ship
             Console.WriteLine($"The enemy ship repaired itself to {Health}/{MaxHealth}");
         }
     }
-
 }
 
 class PirateGame
@@ -189,8 +188,6 @@ public void StartGame() // Game Application itself
     Console.Clear();
     while (true)
     {
-
-
         string choice = Console.ReadLine();
         HandleChoice(choice);
 
@@ -349,10 +346,6 @@ public void StartGame() // Game Application itself
     }
 }
 
-
-
-
-
 private void RepairShip()
     {
         console.clear();
@@ -495,8 +488,6 @@ private void Quit()
             }
         }
     }
-
-
 
 static void Main(string[] args)
     {
