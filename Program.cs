@@ -241,7 +241,6 @@ private void HandleChoice(string choice)
         switch (choice)
         {
             case "1":
-
                 Console.clear();
                 AttackSequence();
                 break;
