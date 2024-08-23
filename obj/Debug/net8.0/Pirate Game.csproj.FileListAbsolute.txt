@@ -1,0 +1,28 @@
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.exe
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.deps.json
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.runtimeconfig.json
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.dll
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.pdb
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.AssemblyInfoInputs.cache
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.AssemblyInfo.cs
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.csproj.CoreCompileInputs.cache
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.dll
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\refint\Pirate Game.dll
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.pdb
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.genruntimeconfig.cache
+c:\Users\lucqu\OneDrive\Documents\Pirate game\Pirate Game C#\Pirate Game\obj\Debug\net8.0\ref\Pirate Game.dll
+E:\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.exe
+E:\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.deps.json
+E:\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.runtimeconfig.json
+E:\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.dll
+E:\Pirate Game C#\Pirate Game\bin\Debug\net8.0\Pirate Game.pdb
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.GeneratedMSBuildEditorConfig.editorconfig
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.AssemblyInfoInputs.cache
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.AssemblyInfo.cs
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.csproj.CoreCompileInputs.cache
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.dll
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\refint\Pirate Game.dll
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.pdb
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.genruntimeconfig.cache
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\ref\Pirate Game.dll
