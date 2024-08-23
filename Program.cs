@@ -1,5 +1,7 @@
 using system;
 using system.windows.forms;
+using system.threading.tasks;
+using system.threading;
 
 
 class Ship
@@ -159,20 +161,23 @@ class PirateGame
 }
 public async void StartGameAnimation()
 {
-    While (true)
+    While (true) // animation at the start of the game
     {
         console.clear();
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+        task.delay(2000);
         console.clear();
         Console.WriteLine(" \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+        task.delay(2000);
         console.clear();
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+        task.delay(2000);
 
     }
     }
@@ -193,8 +198,8 @@ public void Start() // initiallization options for the game
                 Environment.Exit();
             }
             else
-            {// Perform action based on the key press
-            StartGame();
+            {
+            StartGame(); // Perform action based on the key press
             break;
             }
         }
