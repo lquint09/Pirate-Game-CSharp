@@ -63,7 +63,6 @@ class Ship
         }
     }
 
-
     public void BoardChance(Ship target)
     {
         Chance = random.Next(1,2);
@@ -158,12 +157,31 @@ class PirateGame
 {
     resetEvent.Set();
 }
+public async void StartGameAnimation()
+{
+    While (true)
+    {
+        console.clear();
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
+        Console.WriteLine(" \n \n \n ");
+        Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+        console.clear();
+        Console.WriteLine(" \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^");
+        Console.WriteLine(" \n \n \n ");
+        Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+        console.clear();
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
+        Console.WriteLine(" \n \n \n ");
+        Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
+
+    }
+    }
 
 public void Start() // initiallization options for the game
 {
     {
-        Console.WriteLine("Press any key to continue. Press 'Esc' to exit.");
 
+        StartGameAnimation();
         while (true)
         {
             // Read a single key press
