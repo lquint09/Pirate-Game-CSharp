@@ -1,8 +1,5 @@
-using System.Diagnostics;
-using System.Runtime;
-using System.Security.Cryptography;
-using System.Threading.Channels;
-using System.Timers;
+using system;
+using system.windows.forms;
 
 
 class Ship
@@ -172,6 +169,30 @@ private void PauseGame()
 }
 public void Start()
 {
+    {
+        Console.WriteLine("Press any key to continue. Press 'Esc' to exit.");
+
+        while (true)
+        {
+            // Read a single key press
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
+
+            // Check the key that was pressed
+            if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                Environment.Exit();
+            }
+            else
+            {// Perform action based on the key press
+            StartGame();
+            break;
+            }
+        }
+    }
+}
+
+public void StartGame()
+{
     ClearConsole();
     while (true)
     {
@@ -215,10 +236,7 @@ public void Start()
 }
 
 
-    private void PauseAndWait()
-    {
-        resetEvent.WaitOne();
-    }
+
 
     private async void DisplayMenu()
     {
@@ -362,19 +380,19 @@ public void Start()
 
 
 
-    private void RepairShip()
+private void RepairShip()
     {
         ClearConsole();
         playerShip.Repair();
     }
 
-    private void SearchTreasure()
+private void SearchTreasure()
     {
         ClearConsole();
         playerShip.Treasure();
     }
 
-    private void Shop()
+private void Shop()
     {
         ClearConsole();
         while (true)
@@ -396,7 +414,7 @@ public void Start()
         }
     }
 
-    private void HandleShopChoice(string choice)
+private void HandleShopChoice(string choice)
     {
         switch (choice)
         {
@@ -476,7 +494,7 @@ public void Start()
         }
     }
 
-    private void Quit()
+private void Quit()
     {
         ClearConsole();
         while (true)
@@ -490,7 +508,7 @@ public void Start()
             {
                 ClearConsole();
                 Console.WriteLine("Thanks for playing!");
-                Environment.Exit(0);
+                return;
             }
             else if (choice == "2")
             {
@@ -505,12 +523,12 @@ public void Start()
         }
     }
 
-    private static void ClearConsole()
+private static void ClearConsole()
     {
         Console.Clear();
     }
 
-    static void Main(string[] args)
+static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
         game.Start();
