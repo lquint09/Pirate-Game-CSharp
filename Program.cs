@@ -17,7 +17,7 @@ class Ship
     public int EnemyCrew { get; set; }
 
     private static readonly Random random = new Random();
-
+    
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew)
     {
         Name = name;
@@ -208,9 +208,6 @@ public void StartGame() // Game Application itself
         }
     }
 }
-
-
-
 
     private async void DisplayMenu()
     {
