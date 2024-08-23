@@ -254,7 +254,6 @@ public void StartGame() // Game Application itself
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
     Console.WriteLine($"Enemy ship health: {enemyShip.Health}");
-
     Console.WriteLine($"Your current health: {playerShip.Health}");
     Console.WriteLine("Do you want to fight this ship?");
     Console.WriteLine("1. Fight ship");
