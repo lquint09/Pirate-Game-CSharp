@@ -1,9 +1,3 @@
-using system.windows.forms;
-using system.threading.tasks;
-using system.threading;
-using system;
-
-
 class Ship
 {
     public string Name { get; set; }
@@ -146,9 +140,9 @@ class Ship
 
 class PirateGame
 {
+    bool stopRequested = false;
     private Ship playerShip;
     private Ship enemyShip;
-    private static ManualResetEvent resetEvent = new ManualResetEvent(true);
 
     public PirateGame()
     {
@@ -158,56 +152,60 @@ class PirateGame
 
 public async void StartGameAnimation()
 {
-    While (true) // animation at the start of the game
-    {
-        console.clear();
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
+    while (stopRequested == false) // animation at the start of the game
+    {        
+        Console.WriteLine($"Stop Req: {stopRequested}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
+        Console.Clear();
+        Console.WriteLine(" \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
-        task.delay(2000);
-        console.clear();
-        Console.WriteLine(" \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^");
+        await Task.Delay(1500);
+        Console.Clear();
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
-        task.delay(2000);
-        console.clear();
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
+        await Task.Delay(1500);
+        Console.Clear();
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Press any key to continue\nPress 'esc' to exit");
-        task.delay(2000);
+        await Task.Delay(1500);
 
     }
+    
+    
 }
 
 public void Start() // initiallization options for the game
 {
-    {
+    
 
         StartGameAnimation();
         while (true)
-        {
+        {   
             // Read a single key press
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
 
             // Check the key that was pressed
             if (keyInfo.Key == ConsoleKey.Escape)
             {
-                Environment.Exit();
+                Environment.Exit(0);
             }
             else
             {
+            stopRequested = true;
             StartGame(); // Perform action based on the key press
-            break;
             }
         }
-    }
+    
 }
 
 public void StartGame() // Game Application itself
 {
     Console.Clear();
-    while (true)
+    while (stopRequested == true)
     {
+        DisplayMenu();
         string choice = Console.ReadLine();
         HandleChoice(choice);
 
@@ -220,32 +218,33 @@ public void StartGame() // Game Application itself
 
         if (enemyShip.Health <= 0)
         {
-            Console.clear();
+            Console.Clear();
             playerShip.Stolen();
             Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
             enemyShip.Health = new Random().Next(75, 151);
             enemyShip.MaxHealth = enemyShip.Health;
         }
+        
     }
-}
 
-private async void DisplayMenu() // display menu after the game is initiallizes completely
+
+    void DisplayMenu() // display menu after the game is initiallizes completely
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^");
         Console.WriteLine(" \n \n \n ");
         Console.WriteLine("Options:\n1. Attack enemy ship\n2. Repair your ship\n3. Search for treasure\n4. Shop\n5. Quit\nEnter Choice: ");
     }
 
-private void HandleChoice(string choice)
+    void HandleChoice(string choice)
     {
         switch (choice)
         {
             case "1":
-                Console.clear();
+                Console.Clear();
                 AttackSequence();
                 break;
             case "2":
-                console.clear();
+                Console.Clear();
                 RepairShip();
                 break;
             case "3":
@@ -253,22 +252,23 @@ private void HandleChoice(string choice)
                 SearchTreasure();
                 break;
             case "4":
-                console.clear();
+                Console.Clear();
                 Shop();
                 break;
             case "5":
-                consoler.clear();
+                Console.Clear();
                 Quit();
                 break;
             default:
-                console.clear();
+                Console.Clear();
                 Console.WriteLine("Invalid choice. Try again.");
+                DisplayMenu();
                 break;
         }
     }
 
-private void AttackSequence()
-{
+ void AttackSequence()
+    {
     Console.Clear();
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
@@ -293,7 +293,7 @@ private void AttackSequence()
             switch (choice)
             {
                 case "1":
-                    console.clear();
+                    Console.Clear();
                     if (enemyShip.Health > 0)
                     {
                         playerShip.Attack(enemyShip);
@@ -312,26 +312,26 @@ private void AttackSequence()
                     break;
 
                 case "2":
-                    console.clear();
+                    Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     break;
 
                 case "3":
-                    console.clear();
+                    Console.Clear();
                     Console.WriteLine("You have left the fight");
                     return;
 
                 case "4":
                     if (enemyShip.Health < 30 && enemyShip.Health > 0)
                     {
-                        console.clear();
+                        Console.Clear();
                         playerShip.BoardChance(enemyShip);
                         break;
                     }
                     else
                     {
-                        console.clear();
+                        Console.Clear();
                         Console.WriteLine("Invalid choice. Try again.");
                         break;
                     }
@@ -344,23 +344,23 @@ private void AttackSequence()
         Console.Clear();
         Console.WriteLine("You didn't take the fight");
     }
-}
+    }
 
-private void RepairShip()
+ void RepairShip()
     {
-        console.clear();
+        Console.Clear();
         playerShip.Repair();
     }
 
-private void SearchTreasure()
+ void SearchTreasure()
     {
-        console.clear();
+        Console.Clear();
         playerShip.Treasure();
     }
 
-private void Shop()
+ void Shop()
     {
-        console.clear();
+        Console.Clear();
         while (true)
         {
             Console.WriteLine($"Health: {playerShip.Health}/{playerShip.MaxHealth}, Cannons: {playerShip.Cannons}/{playerShip.MaxCannons}, Crew: {playerShip.Crew}/{playerShip.MaxCrew}, Gold: {playerShip.Bank}, Captured ships: {playerShip.Items}");
@@ -372,12 +372,12 @@ private void Shop()
         }
     }
 
-private void HandleShopChoice(string choice)
+ void HandleShopChoice(string choice)
     {
         switch (choice)
         {
             case "1":
-                console.clear();
+                Console.Clear();
                 if (playerShip.Bank < 1000)
                 {
                     Console.WriteLine("You don't have enough coins");
@@ -394,7 +394,7 @@ private void HandleShopChoice(string choice)
                 }
                 break;
             case "2":
-                console.clear();
+                Console.Clear();
                 if (playerShip.Bank < 100)
                 {
                     Console.WriteLine("You don't have enough coins");
@@ -415,7 +415,7 @@ private void HandleShopChoice(string choice)
                 }
                 break;
             case "3":
-                console.clear();
+                Console.Clear();
                 if (playerShip.Bank < 5000)
                 {
                     Console.WriteLine("You don't have enough coins");
@@ -430,7 +430,7 @@ private void HandleShopChoice(string choice)
                 }
                 break;
             case "4":
-                console.clear();
+                Console.Clear();
                 if (playerShip.Items < 1)
                 {
                     Console.WriteLine("You don't have any captured ships");
@@ -443,18 +443,18 @@ private void HandleShopChoice(string choice)
                 }
                 break;
             case "5":
-                console.clear();
+                Console.Clear();
                 break;
             default:
-                console.clear();
+                Console.Clear();
                 Console.WriteLine("Invalid choice. Try again.");
                 break;
         }
     }
 
-private void Quit()
+ void Quit()
     {
-        console.clear();
+        Console.Clear();
         while (true)
         {
             Console.WriteLine("Are you sure you want to quit?\n1. Yes\n 2. No");
@@ -462,23 +462,23 @@ private void Quit()
             string choice = Console.ReadLine();
             if (choice == "1")
             {
-                console.clear();
+                Console.Clear();
                 Console.WriteLine("Thanks for playing!");
-                return;
+                Environment.Exit(0);
             }
             else if (choice == "2")
             {
-                console.clear();
+                Console.Clear();
                 break;
             }
             else
             {
-                console.clear();
+                Console.Clear();
                 Console.WriteLine("Invalid choice. Try again.");
             }
         }
     }
-
+}
 static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
