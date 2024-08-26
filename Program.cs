@@ -130,9 +130,10 @@ class Ship
 class PirateGame
 {
     bool menuanimationcancel = false;
-    bool attackanimationcancel = false;
-    bool shopanimationcancel = false;
-    bool repairanimationcancel = false;
+    bool attackanimationcancel = true;
+    bool shopanimationcancel = true;
+    bool repairanimationcancel = true;
+    bool boardchancesuccesanimationcancel = true;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame()
@@ -146,13 +147,13 @@ public async void StartGameAnimation()
     {        
         Console.WriteLine($"Stop Req: {menuanimationcancel}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
         Console.Clear();
-        Console.WriteLine(" \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit ");
+        Console.WriteLine("             |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit ");
         await Task.Delay(1500);
         Console.Clear();
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit");
+        Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit");
         await Task.Delay(1500);
         Console.Clear();
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n  Press 'esc' to exit");
+        Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n  Press 'esc' to exit");
         await Task.Delay(1500);
     }
 }
