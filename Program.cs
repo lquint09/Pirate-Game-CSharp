@@ -26,7 +26,7 @@ class Ship
         Chance = random.Next(1, 6);
         EnemyCrew = random.Next(10, 51);
     }
-    public void Attack(Ship target)
+    public void Attack(Ship target) // player shit attack function
     {
         int chance = random.Next(1, 11);
         if (chance >= 2)
@@ -40,7 +40,7 @@ class Ship
             Console.WriteLine("You missed");
         }
     }
-    public void Assault(Ship target)
+    public void Assault(Ship target) // enemy ship attack fucntion
     {
         int chance = random.Next(1, 11);
         if (chance >= 2)
@@ -102,7 +102,7 @@ class Ship
         Console.WriteLine($"{treasureAmount} gold found");
         Console.WriteLine($"Gold: {Bank}");
     }
-    public void Stolen()
+    public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 251);
         Bank += stolenAmount;
