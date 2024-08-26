@@ -280,6 +280,9 @@ class PirateGame
                 Console.Clear();
                 SearchTreasure();
                 break;
+            case "4":
+                Console.Clear();
+                return;
             default:
                 Console.Clear();
                 Console.WriteLine("Invalid choice. Try again.");
