@@ -126,7 +126,7 @@ class Ship
             Console.WriteLine($"The enemy ship repaired itself to {Health}/{MaxHealth}");
         }
     }
-}
+    }
 class PirateGame
 {
     bool menuanimationcancel = false;
@@ -141,65 +141,62 @@ class PirateGame
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
     }
-public async void StartGameAnimation()
-{
-    while (menuanimationcancel == false) // animation at the start of the game
-    {        
-        Console.WriteLine($"Stop Req: {menuanimationcancel}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
-        Console.Clear();
-        Console.WriteLine("             |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit ");
-        await Task.Delay(1500);
-        Console.Clear();
-        Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit");
-        await Task.Delay(1500);
-        Console.Clear();
-        Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n  Press 'esc' to exit");
-        await Task.Delay(1500);
-    }
-}
-public void Start() // initiallization options for the game
-{
-    StartGameAnimation();
-    while (true)
-    {   
-        // Read a single key press
-        ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
-
-        // Check the key that was pressed
-        if (keyInfo.Key == ConsoleKey.Escape)
-        {
-            Environment.Exit(0);
-        }
-        else
-        {
-        menuanimationcancel = true;
-        StartGame(); // Perform action based on the key press
-        }
-    }
-}
-public void StartGame() // Game Application itself
-{
-    Console.Clear();
-    while (menuanimationcancel == true)
+    public async void StartGameAnimation()
     {
-        DisplayMenu();
-        string choice = Console.ReadLine();
-        HandleChoice(choice);
-        if (playerShip.Health < 1)
-        {
+        while (menuanimationcancel == false) // animation at the start of the game
+        {        
+            Console.WriteLine($"Stop Req: {menuanimationcancel}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
             Console.Clear();
-            Console.WriteLine("Your ship was destroyed. Game over!");
-            Environment.Exit(0);
+            Console.WriteLine("             |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit ");
+            await Task.Delay(1500);
+            Console.Clear();
+            Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit");
+            await Task.Delay(1500);
+            Console.Clear();
+            Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n  Press 'esc' to exit");
+            await Task.Delay(1500);
         }
-        if (enemyShip.Health <= 0)
-        {
-            Console.Clear();
-            playerShip.Stolen();
-            Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-            enemyShip.Health = new Random().Next(75, 151);
-            enemyShip.MaxHealth = enemyShip.Health;
-        }   
+    }   
+    public void Start() // initiallization options for the game
+    {   
+        StartGameAnimation();
+        while (true)
+        {   
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
+            if (keyInfo.Key == ConsoleKey.Escape) // Check the key that was pressed
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+            menuanimationcancel = true;
+            StartGame(); // Perform action based on the key press
+            }
+        }
     }
+    public void StartGame() // Game Application itself
+    {
+        Console.Clear();
+        while (menuanimationcancel == true)
+        {
+            DisplayMenu();
+            string choice = Console.ReadLine();
+            HandleChoice(choice);
+            if (playerShip.Health < 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Your ship was destroyed. Game over!");
+                Environment.Exit(0);
+            }
+            if (enemyShip.Health <= 0)
+            {
+                Console.Clear();
+                playerShip.Stolen();
+                Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
+                enemyShip.Health = new Random().Next(75, 151);
+                enemyShip.MaxHealth = enemyShip.Health;
+            }   
+        }
     void DisplayMenu() // display menu after the game is initiallizes completely
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Attack enemy ship\n2. Repair your ship\n3. Search for treasure\n4. Shop\n5. Quit\nEnter Choice: ");
@@ -235,92 +232,92 @@ public void StartGame() // Game Application itself
                 break;
         }
     }
- void AttackSequence()
-    {
-    Console.Clear();
-    enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
-    enemyShip.MaxHealth = enemyShip.Health;
-    Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
-    string choice = Console.ReadLine();
-    if (choice == "1")
+    void AttackSequence()
     {
         Console.Clear();
-        while (enemyShip.Health > 0 && playerShip.Health > 1)
+        enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
+        enemyShip.MaxHealth = enemyShip.Health;
+        Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
+        string choice = Console.ReadLine();
+        if (choice == "1")
         {
-            if (enemyShip.Health > 31)
+            Console.Clear();
+            while (enemyShip.Health > 0 && playerShip.Health > 1)
             {
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
-            }
-            if (enemyShip.Health < 30 && enemyShip.Health > 0)
-            { 
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
-            }
-            choice = Console.ReadLine();
-            switch (choice)
-            {
-            case "1":
-                Console.Clear();
-                if (enemyShip.Health > 0)
+                if (enemyShip.Health > 31)
                 {
-                    playerShip.Attack(enemyShip);
-                    if (enemyShip.Health <= 0)
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
+                }
+                if (enemyShip.Health < 30 && enemyShip.Health > 0)
+                { 
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
+                }
+                choice = Console.ReadLine();
+                switch (choice)
+                {
+                case "1":
+                    Console.Clear();
+                    if (enemyShip.Health > 0)
                     {
-                        Console.WriteLine("Enemy ship has been defeated!");
-                        playerShip.Stolen();
-                        Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                        return;
+                        playerShip.Attack(enemyShip);
+                        if (enemyShip.Health <= 0)
+                        {
+                            Console.WriteLine("Enemy ship has been defeated!");
+                            playerShip.Stolen();
+                            Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
+                            return;
+                        }
+                        else
+                        {
+                            enemyShip.Assault(playerShip);
+                        }
+                    }
+                    break;
+
+                case "2":
+                    Console.Clear();
+                    playerShip.Repair();
+                    enemyShip.EnemyRepair();
+                    break;
+
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("You have left the fight");
+                    return;
+
+                case "4":
+                    if (enemyShip.Health < 30 && enemyShip.Health > 0)
+                    {
+                        Console.Clear();
+                        playerShip.BoardChance(enemyShip);
+                        break;
                     }
                     else
                     {
-                        enemyShip.Assault(playerShip);
+                        Console.Clear();
+                        Console.WriteLine("Invalid choice. Try again.");
+                        break;
                     }
-                }
-                break;
-
-            case "2":
-                Console.Clear();
-                playerShip.Repair();
-                enemyShip.EnemyRepair();
-                break;
-
-            case "3":
-                Console.Clear();
-                Console.WriteLine("You have left the fight");
-                return;
-
-            case "4":
-                if (enemyShip.Health < 30 && enemyShip.Health > 0)
-                {
-                    Console.Clear();
-                    playerShip.BoardChance(enemyShip);
-                    break;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid choice. Try again.");
-                    break;
                 }
             }
         }
+        else if (choice == "2")
+        {
+            Console.Clear();
+            Console.WriteLine("You didn't take the fight");
+        }
     }
-    else if (choice == "2")
-    {
-        Console.Clear();
-        Console.WriteLine("You didn't take the fight");
-    }
-    }
-void RepairShip()
+    void RepairShip()
     {
         Console.Clear();
         playerShip.Repair();
     }
-void SearchTreasure()
+    void SearchTreasure()
     {
         Console.Clear();
         playerShip.Treasure();
     }
-void Shop()
+    void Shop()
     {
         Console.Clear();
         while (true)
@@ -331,7 +328,7 @@ void Shop()
             if (choice == "5") break;
         }
     }
-void HandleShopChoice(string choice)
+    void HandleShopChoice(string choice)
     {
         switch (choice)
         {
@@ -410,7 +407,7 @@ void HandleShopChoice(string choice)
                 break;
         }
     }
-void Quit()
+    void Quit()
     {
         Console.Clear();
         while (true)
@@ -436,8 +433,8 @@ void Quit()
             }
         }
     }
-}
-static void Main(string[] args)
+    }
+    static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
         game.Start();
