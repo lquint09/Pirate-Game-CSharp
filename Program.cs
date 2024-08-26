@@ -126,7 +126,7 @@ class Ship
             Console.WriteLine($"The enemy ship repaired itself to {Health}/{MaxHealth}");
         }
     }
-    }
+}
 class PirateGame
 {
     bool menuanimationcancel = false;
@@ -309,18 +309,15 @@ class PirateGame
                         }
                     }
                     break;
-
                 case "2":
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     break;
-
                 case "3":
                     Console.Clear();
                     Console.WriteLine("You have left the fight");
                     return;
-
                 case "4":
                     if (enemyShip.Health < 30 && enemyShip.Health > 0)
                     {
