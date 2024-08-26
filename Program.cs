@@ -215,7 +215,7 @@ class PirateGame
         Console.Clear();
         while (menuanimationcancel == true)
         {
-            DisplayMenu();
+            StartMenu();
             string choice = Console.ReadLine();
             HandleChoice(choice);
             if (playerShip.Health < 1)
@@ -237,7 +237,34 @@ class PirateGame
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Attack enemy ship\n2. Repair your ship\n3. Search for treasure\n4. Shop\n5. Quit\nEnter Choice: ");
     }
+    void StartMenu()
+    {
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Leave Outpost \n Shop \n3. Quit\nEnter Choice: ");
+    }
     void HandleChoice(string choice)
+    {
+        switch (choice)
+        {
+            case "1":
+                DisplayMenu()
+                string choice = Console.ReadLine();
+                GameChoice(choice);
+            case "2":
+                Console.Clear();
+                Shop();
+                break;
+            case "3":
+                Console.Clear()
+                Quit()
+                break;      
+            default:
+                Console.Clear();
+                Console.WriteLine("Invalid choice. Try again.");
+                DisplayMenu();
+                break;  
+        }
+    }
+    void GameChoice(string choice)
     {
         switch (choice)
         {
@@ -252,14 +279,6 @@ class PirateGame
             case "3":
                 Console.Clear();
                 SearchTreasure();
-                break;
-            case "4":
-                Console.Clear();
-                Shop();
-                break;
-            case "5":
-                Console.Clear();
-                Quit();
                 break;
             default:
                 Console.Clear();
