@@ -170,7 +170,6 @@ class PirateGame
         while (shopanimationcancel == false)
         {
             Console.WriteLine($"{shopanimationcancel}");
-
         }
     }   
     public async void repairanimation()
