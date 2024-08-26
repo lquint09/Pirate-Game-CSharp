@@ -129,7 +129,10 @@ class Ship
 }
 class PirateGame
 {
-    bool stopRequested = false;
+    bool menuanimationcancel = false;
+    bool attackanimationcancel = false;
+    bool shopanimationcancel = false;
+    bool repairanimationcancel = false;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame()
@@ -139,9 +142,9 @@ class PirateGame
     }
 public async void StartGameAnimation()
 {
-    while (stopRequested == false) // animation at the start of the game
+    while (menuanimationcancel == false) // animation at the start of the game
     {        
-        Console.WriteLine($"Stop Req: {stopRequested}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
+        Console.WriteLine($"Stop Req: {menuanimationcancel}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
         Console.Clear();
         Console.WriteLine(" \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\nPress 'esc' to exit ");
         await Task.Delay(1500);
@@ -168,7 +171,7 @@ public void Start() // initiallization options for the game
         }
         else
         {
-        stopRequested = true;
+        menuanimationcancel = true;
         StartGame(); // Perform action based on the key press
         }
     }
@@ -176,7 +179,7 @@ public void Start() // initiallization options for the game
 public void StartGame() // Game Application itself
 {
     Console.Clear();
-    while (stopRequested == true)
+    while (menuanimationcancel == true)
     {
         DisplayMenu();
         string choice = Console.ReadLine();
