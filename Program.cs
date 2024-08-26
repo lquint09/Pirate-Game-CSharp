@@ -134,6 +134,7 @@ class PirateGame
     bool shopanimationcancel = true;
     bool repairanimationcancel = true;
     bool boardchancesuccesanimationcancel = true;
+    bool boardchancefailanimationcancel = true;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame()
@@ -156,7 +157,43 @@ class PirateGame
             Console.WriteLine("              |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n  Press 'esc' to exit");
             await Task.Delay(1500);
         }
+    }
+    public async void attackanimation()
+    {
+        while (attackanimationcancel == false)
+        {
+            Console.WriteLine($"{attackanimationcancel}");
+        }
+    }
+    public async void shopanimation()
+    {
+        while (shopanimationcancel == false)
+        {
+            Console.WriteLine($"{shopanimationcancel}");
+
+        }
     }   
+    public async void repairanimation()
+    {
+        while (repairanimationcancel == false);
+        {
+            Console.WriteLine($"{repairanimationcancel}");
+        }
+    }
+    public async void boardchancesuccesanimation()
+    {
+        while (boardchancesuccesanimationcancel == false)
+        {
+            Console.WriteLine($"{boardchancesuccesanimationcancel}");
+        }
+    }
+    public async void boardchancefailanimationcancel()
+    {
+        while (boardchancefailanimationcancel == false)
+        {
+            Console.WriteLine($"{boardchancefailanimationcancel}");
+        }
+    }
     public void Start() // initiallization options for the game
     {   
         StartGameAnimation();
