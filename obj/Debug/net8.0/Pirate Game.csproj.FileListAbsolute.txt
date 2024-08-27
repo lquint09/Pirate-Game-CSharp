@@ -26,3 +26,4 @@ E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\refint\Pirate Game.dll
 E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.pdb
 E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.genruntimeconfig.cache
 E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\ref\Pirate Game.dll
+E:\Pirate Game C#\Pirate Game\obj\Debug\net8.0\Pirate Game.sourcelink.json
