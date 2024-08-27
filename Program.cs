@@ -192,6 +192,7 @@ class PirateGame
         while (shopanimationcancel == false)
         {
             Console.WriteLine($"{shopanimationcancel}");
+            Console.WriteLine($"             |>                    / \n        |    |    |               /    \n       )_)  )_)  )_)             /      /-\ \n      )___))___))___)\\          |      | |        /--\------------\ \n     )____)____)_____)\\        /       | |        |  |_____________| \n   _____|____|____|____\\____   \       | |      \n---\                  /----------|     /___\      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /---\ \n^^^^^      ^^^^     ^^         |     /-\         |___|      \n ^^      ^^^      ^^^          /     | | \n                               ");
         }
     }   
     public async void repairanimation()
