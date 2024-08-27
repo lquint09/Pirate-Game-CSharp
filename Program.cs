@@ -26,7 +26,7 @@ class Ship
         Chance = random.Next(1, 6);
         EnemyCrew = random.Next(10, 51);
     }
-    public void Attack(Ship target) // player shit attack function
+    public void Attack(Ship target) // player ship attack function
     {
         int chance = random.Next(1, 11);
         if (chance >= 2)
