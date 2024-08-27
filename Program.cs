@@ -200,6 +200,8 @@ class PirateGame
         while (LeavePortAnimationCancel == false)
         {
             Console.WriteLine($"{LeavePortAnimationCancel}")
+            Console.WriteLine("             |>                    / \n        |    |    |               /    \n       (_(  (_(  (_(             /      /-\ \n    //(___((___((___(            |      | |        /--\------------\ \n   //(____(____(_____(          /       | |        |  |_____________| \n__//____|____|____|____         \       | |      \n---\                  /----------|     /___\      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /---\ \n^^^^^      ^^^^     ^^         |     /–\         |___|      \n ^^      ^^^      ^^^          /     | | \n                              ")
+            LeavePortAnimationCancel = true
         }
     }
     public async void ReturnPortAnimation()
