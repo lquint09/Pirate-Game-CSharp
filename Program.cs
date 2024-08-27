@@ -26,7 +26,7 @@ class Ship
         Chance = random.Next(1, 6);
         EnemyCrew = random.Next(10, 51);
     }
-    public void Attack(Ship target) // player shit attack function
+    public void Attack(Ship target) // player ship attack function
     {
         int chance = random.Next(1, 11);
         if (chance >= 2)
@@ -132,8 +132,8 @@ class PirateGame
     bool menuanimationcancel = false;
     bool attackanimationcancel = true;
     bool shopanimationcancel = true;
-    bool repairanimationcancel = true;
-    bool boardchancesanimationcancel = true;
+    bool LeavePortAnimationCancel = true;
+    bool ReturnPortAnimationCanel = true;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame()
@@ -175,9 +175,16 @@ class PirateGame
         while (attackanimationcancel == false)
         {
             Console.WriteLine($"{attackanimationcancel}");
-            Console.WriteLine("             |>            \n       		                 |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ ");
+            Console.WriteLine("             |>            \n         |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ ");
+            await Task.Delay(1500);
+            Console.Clear();
+            Console.WriteLine("             |>            \n	     |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ "); 
+            await Task.Delay(1500);
+            Console.Clear();
+            Console.WriteLine("             |>            \n		 |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ "); 
+            await Task.Delay(1500);
             attackanimationcancel = true;
-
+            break;
         }
     }
     public async void shopanimation()
@@ -185,20 +192,25 @@ class PirateGame
         while (shopanimationcancel == false)
         {
             Console.WriteLine($"{shopanimationcancel}");
+            Console.WriteLine($"             |>                    / \n        |    |    |               /    \n       )_)  )_)  )_)             /      (-) \n      )___))___))___)\\          |      | |        /--(------------) \n     )____)____)_____)\\        /       | |        |  |_____________| \n   _____|____|____|____\\____   (       | |      \n---(                  /----------|     /___)      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /---) \n^^^^^      ^^^^     ^^         |     /-)         |___|      \n ^^      ^^^      ^^^          /     | | \n                               ");
         }
     }   
-    public async void repairanimation()
+    public async void LeavePortAnimation()
     {
-        while (repairanimationcancel == false)
+        while (LeavePortAnimationCancel == false)
         {
-            Console.WriteLine($"{repairanimationcancel}");
+            Console.WriteLine($"{LeavePortAnimationCancel}");
+            Console.WriteLine("             |>                    / \n        |    |    |               /    \n       (_(  (_(  (_(             /      (-) \n    //(___((___((___(            |      | |        /--(------------) \n   //(____(____(_____(          /       | |        |  |_____________| \n__//____|____|____|____         (       | |      \n---)                  /----------|     /___)      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /---) \n^^^^^      ^^^^     ^^         |     /–)         |___|      \n ^^      ^^^      ^^^          /     | | \n                              ");
+            LeavePortAnimationCancel = true;
         }
     }
-    public async void boardchanceanimation()
+    public async void ReturnPortAnimation()
     {
-        while (boardchancesanimationcancel == false)
+        while (LeavePortAnimationCancel == false)
         {
-            Console.WriteLine($"{boardchancesanimationcancel}");
+            Console.WriteLine($"{LeavePortAnimationCancel}");
+            Console.WriteLine($"hehehehaw");
+            LeavePortAnimationCancel = true;
         }
     }
     public void Start() // initiallization options for the game
@@ -331,6 +343,7 @@ class PirateGame
                     Console.Clear();
                     if (enemyShip.Health > 0)
                     {
+                        Task.Delay(3400);
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
