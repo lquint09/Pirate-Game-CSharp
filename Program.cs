@@ -132,8 +132,8 @@ class PirateGame
     bool menuanimationcancel = false;
     bool attackanimationcancel = true;
     bool shopanimationcancel = true;
-    bool repairanimationcancel = true;
-    bool boardchancesanimationcancel = true;
+    bool LeavePortAnimationCancel = true;
+    bool ReturnPortAnimationCanel = true;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame()
@@ -195,18 +195,18 @@ class PirateGame
             Console.WriteLine($"             |>                    / \n        |    |    |               /    \n       )_)  )_)  )_)             /      /-\ \n      )___))___))___)\\          |      | |        /--\------------\ \n     )____)____)_____)\\        /       | |        |  |_____________| \n   _____|____|____|____\\____   \       | |      \n---\                  /----------|     /___\      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /---\ \n^^^^^      ^^^^     ^^         |     /-\         |___|      \n ^^      ^^^      ^^^          /     | | \n                               ");
         }
     }   
-    public async void repairanimation()
+    public async void LeavePortAnimation()
     {
-        while (repairanimationcancel == false)
+        while (LeavePortAnimationCancel == false)
         {
-            Console.WriteLine($"{repairanimationcancel}");
+            Console.WriteLine($"{LeavePortAnimationCancel}")
         }
     }
-    public async void boardchanceanimation()
+    public async void ReturnPortAnimation()
     {
-        while (boardchancesanimationcancel == false)
+        while (ReturnPortAnimationCanel == false)
         {
-            Console.WriteLine($"{boardchancesanimationcancel}");
+            Console.WriteLine($"{ReturnPortAnimationCancel}")
         }
     }
     public void Start() // initiallization options for the game
