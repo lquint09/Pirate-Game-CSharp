@@ -139,7 +139,7 @@ class PirateGame
     private Ship enemyShip;
     public PirateGame()
     {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
     }
     public async void StartGameAnimation()
@@ -163,6 +163,7 @@ class PirateGame
         while (attackanimationcancel == false)
         {
             Console.WriteLine($"{attackanimationcancel}");
+            Console.WriteLine("             |>            \n       		                 |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\                  /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\                  /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ ")
         }
     }
     public async void shopanimation()
@@ -270,6 +271,7 @@ class PirateGame
         {
             case "1":
                 Console.Clear();
+                attackanimationcancel = true;
                 AttackSequence();
                 break;
             case "2":
