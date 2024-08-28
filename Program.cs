@@ -356,6 +356,14 @@ Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
 Console.Clear();
+if (enemyShip.Health > 31)
+                {
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
+                }
+                if (enemyShip.Health < 30 && enemyShip.Health > 0)
+                { 
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
+                }
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
 Console.WriteLine("       )_)  )_)  )_)                              |>");
@@ -367,9 +375,8 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      ____//___|____|____|_____ 
 Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\               /^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(500);
-Console.Clear();
-return;
+
+
 } // end of animation
     public void Start() // initiallization options for the game
     {   
@@ -485,24 +492,16 @@ return;
         string choice = Console.ReadLine();
         if (choice == "1")
         {   
+            Console.Clear();
             while (enemyShip.Health > 0 && playerShip.Health > 1)
             {
-                if (enemyShip.Health > 31)
-                {
-                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
-                }
-                if (enemyShip.Health < 30 && enemyShip.Health > 0)
-                { 
-                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
-                }
                 choice = Console.ReadLine();
                 switch (choice)
                 {
                 case "1":
+                    animation();
                     if (enemyShip.Health > 0)
                     {
-                        animation();
-                        await Task.Delay(6000);
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
