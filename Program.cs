@@ -360,7 +360,7 @@ if (enemyShip.Health > 31)
                 {
                 Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
                 }
-                if (enemyShip.Health < 30 && enemyShip.Health > 0)
+if (enemyShip.Health < 30 && enemyShip.Health > 0)
                 { 
                 Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
                 }
@@ -375,9 +375,8 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      ____//___|____|____|_____ 
 Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\               /^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-
-
 } // end of animation
+
     public void Start() // initiallization options for the game
     {   
         StartGameAnimation();
@@ -483,70 +482,70 @@ Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^
                 break;
         }
     }
-    async void AttackSequence()
-    {
-        Console.Clear();
-        enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
-        enemyShip.MaxHealth = enemyShip.Health;
-        Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
-        string choice = Console.ReadLine();
-        if (choice == "1")
-        {   
+        void AttackSequence()
+        {
             Console.Clear();
-            while (enemyShip.Health > 0 && playerShip.Health > 1)
+            enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
+            enemyShip.MaxHealth = enemyShip.Health;
+            Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
+            string choice = Console.ReadLine();
+            if (choice == "1")
             {
-                choice = Console.ReadLine();
-                switch (choice)
+                Console.Clear();
+                while (enemyShip.Health > 0 && playerShip.Health > 1)
                 {
-                case "1":
-                    animation();
-                    if (enemyShip.Health > 0)
+                    choice = Console.ReadLine();
+                    switch (choice)
                     {
-                        playerShip.Attack(enemyShip);
-                        if (enemyShip.Health <= 0)
-                        {
-                            Console.WriteLine("Enemy ship has been defeated!");
-                            playerShip.Stolen();
-                            Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                        }
-                        else
-                        {
-                            enemyShip.Assault(playerShip);
-                        }
-                    }
-                    break;
-                case "2":
-                    Console.Clear();
-                    playerShip.Repair();
-                    enemyShip.EnemyRepair();
-                    break;
-                case "3":
-                    Console.Clear();
-                    Console.WriteLine("You have left the fight");
-                    return;
-                case "4":
-                    if (enemyShip.Health < 30 && enemyShip.Health > 0)
-                    {
-                        Console.Clear();
-                        playerShip.BoardChance(enemyShip);
-                        break;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Invalid choice. Try again.");
-                        break;
+                        case "1":
+                            animation();
+                            if (enemyShip.Health > 0)
+                            {
+                                playerShip.Attack(enemyShip);
+                                if (enemyShip.Health <= 0)
+                                {
+                                    Console.WriteLine("Enemy ship has been defeated!");
+                                    playerShip.Stolen();
+                                    Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
+                                }
+                                else
+                                {
+                                    enemyShip.Assault(playerShip);
+                                }
+                            }
+                            break;
+                        case "2":
+                            Console.Clear();
+                            playerShip.Repair();
+                            enemyShip.EnemyRepair();
+                            break;
+                        case "3":
+                            Console.Clear();
+                            Console.WriteLine("You have left the fight");
+                            return;
+                        case "4":
+                            if (enemyShip.Health < 30 && enemyShip.Health > 0)
+                            {
+                                Console.Clear();
+                                playerShip.BoardChance(enemyShip);
+                                break;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Invalid choice. Try again.");
+                                break;
+                            }
                     }
                 }
             }
+            else if (choice == "2")
+            {
+                Console.Clear();
+                Console.WriteLine("You didn't take the fight");
+            }
         }
-        else if (choice == "2")
-        {
-            Console.Clear();
-            Console.WriteLine("You didn't take the fight");
-        }
-    }
-    void RepairShip()
+        void RepairShip()
     {
         Console.Clear();
         playerShip.Repair();
