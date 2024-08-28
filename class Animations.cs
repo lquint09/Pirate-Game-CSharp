@@ -13,7 +13,7 @@ Console.WriteLine("^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^       _____//___|____|_
 Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                          \\                //^^ ^^^^^ ^^^^^^^^");
 Console.WriteLine("^^^^^^^^^^^^               ^^^^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^            ^^^^^^^^^^^^                          ^^^^^^^^^^^^^            ^^^^^^^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -26,7 +26,7 @@ Console.WriteLine("^^^^^^   ^^^^^^^^^^^  ^^^^ ^^^  ^^^^^    _____//___|____|____
 Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                       \\                //^^ ^^^^^ ^   ^^^^^");
 Console.WriteLine("^^^^^^^  ^^^^^           ^^^  ^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^   ^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^            ^^^^^^^^^^^^                          ^^^^^^^^^            ^^^^^^^   ^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -39,7 +39,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^   ^^     _____//___|____|____|_
 Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                     \\                //^^ ^^^^^ ^^^^^^^^");
 Console.WriteLine("^^^^^^^^^^^^               ^^^^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^           ^^^        ^^^^^^^            ^^^^^^^^^^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -52,7 +52,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^           ^^^                   ^^^^^^^^^^^^^^^^^^^^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -65,7 +65,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^                   ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -78,7 +78,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^                   ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -91,7 +91,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^^^^^     ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^       ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -104,7 +104,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -117,7 +117,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -130,7 +130,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -143,7 +143,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine("             |>  ");
 Console.WriteLine("        |    |    |");
@@ -156,7 +156,7 @@ Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____
 Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
-await Task.Delay(1000);
+await Task.Delay(500);
 Console.Clear();
 Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}")
     }
