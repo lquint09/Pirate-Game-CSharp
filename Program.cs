@@ -502,13 +502,13 @@ return;
                     if (enemyShip.Health > 0)
                     {
                         animation();
+                        await Task.Delay(6000);
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
                             Console.WriteLine("Enemy ship has been defeated!");
                             playerShip.Stolen();
                             Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                            return;
                         }
                         else
                         {
