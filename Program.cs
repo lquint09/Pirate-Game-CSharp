@@ -258,7 +258,7 @@ Console.WriteLine("       )_)  )_)  )_)                               |>");
 Console.WriteLine("      )___))___))___)\\                       |    |    |");
 Console.WriteLine("     )____)____)_____)\\                     (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____              /(___((___((___( ");
-Console.WriteLine("----\\                /                    /(____(____(_____(");
+Console.WriteLine("----\\                /                   /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^       _____//___|____|____|_____ ");
 Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                 \\                 /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
@@ -369,6 +369,7 @@ Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
 Console.Clear();
+return;
 }
     public void Start() // initiallization options for the game
     {   
