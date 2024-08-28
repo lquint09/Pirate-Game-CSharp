@@ -170,24 +170,24 @@ class PirateGame
             }
         }
     }
-    public async void attackanimation()
+    public void attackanimation()
     {
         while (attackanimationcancel == false)
         {
             Console.WriteLine($"{attackanimationcancel}");
             Console.WriteLine("             |>            \n       |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ ");
-            await Task.Delay(1500);
+             Task.Delay(1500);
             Console.Clear();
             Console.WriteLine("             |>            \n       |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ "); 
-            await Task.Delay(1500);
+             Task.Delay(1500);
             Console.Clear();
             Console.WriteLine("             |>            \n       |    |    |             		   \n       )_)  )_)  )_)                                       |> \n      )___))___))___)\\                               |    |    | \n     )____)____)_____)\\                             (_(  (_(  (_(  \n    _____|____|____|____\\____                     //(___((___((___(  \n---\\                 /------------------------- //(____(____(_____( \n^^^^^ ^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^ ____//____|____|____|_____ \n^^^^^      ^^^^     ^^   ^^^^^^^ ^        ^^^^^^^^\\                 /^^\n ^^^^^ ^^^^^^^^                 ^^^^^^^^^^^^               ^^^^ ^^^^ \n ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^         ^^^^^^^^ "); 
-            await Task.Delay(1500);
+             Task.Delay(1500);
             attackanimationcancel = true;
             break;
         }
     }
-    public async void shopanimation()
+    public void shopanimation()
     {
         while (shopanimationcancel == false)
         {
@@ -195,7 +195,7 @@ class PirateGame
             Console.WriteLine($"             |>                    / \n        |    |    |               /    \n       )_)  )_)  )_)             /      /- \n      )___))___))___)\\          |      | |        /-------------- \n     )____)____)_____)\\        /       | |        |  |_____________| \n   _____|____|____|____\\____          | |      \n---                  /----------|     /___      \n^^^^^ ^^^^^^^^^^^^^^^^^^^       /                /--- \n^^^^^      ^^^^     ^^         |     /-         |___|      \n ^^      ^^^      ^^^          /     | | \n                               ");
         }
     }   
-    public async void LeavePortAnimation()
+    public void LeavePortAnimation()
     {
         while (LeavePortAnimationCancel == false)
         {
@@ -204,7 +204,7 @@ class PirateGame
             LeavePortAnimationCancel = true;
         }
     }
-    public async void ReturnPortAnimation()
+    public void ReturnPortAnimation()
     {
         while (ReturnPortAnimationCanel == false)
         {
@@ -219,9 +219,9 @@ Console.WriteLine("       )_)  )_)  )_)                                       |>
 Console.WriteLine("      )___))___))___)\\                               |    |    |");
 Console.WriteLine("     )____)____)_____)\\                             (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\_____                     /(___((___((___( ");
-Console.WriteLine("----\\              //                            /(____(____(_____(");
+Console.WriteLine("----\\                /                           /(____(____(_____(");
 Console.WriteLine("^^^^^^^^^^^^^^^^^^^^  ^^^^ ^^^^^^^^^^       _____//___|____|____|_____ ");
-Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                          \\                //^^ ^^^^^ ^^^^^^^^");
+Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                          \\                /^^ ^^^^^ ^^^^^^^^");
 Console.WriteLine("^^^^^^^^^^^^               ^^^^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^            ^^^^^^^^^^^^                          ^^^^^^^^^^^^^            ^^^^^^^^^^^^^ ");
 await Task.Delay(500);
@@ -232,9 +232,9 @@ Console.WriteLine("       )_)  )_)  )_)                                    |>");
 Console.WriteLine("      )___))___))___)\\                            |    |    |");
 Console.WriteLine("     )____)____)_____)\\                          (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\_____                  /(___((___((___( ");
-Console.WriteLine("----\\              //                         /(____(____(_____(");
+Console.WriteLine("----\\                /                        /(____(____(_____(");
 Console.WriteLine("^^^^^^   ^^^^^^^^^^^  ^^^^ ^^^  ^^^^^    _____//___|____|____|_____ ");
-Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                       \\                //^^ ^^^^^ ^   ^^^^^");
+Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                       \\                /^^ ^^^^^ ^   ^^^^^");
 Console.WriteLine("^^^^^^^  ^^^^^           ^^^  ^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^   ^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^            ^^^^^^^^^^^^                          ^^^^^^^^^            ^^^^^^^   ^^^^^^ ");
 await Task.Delay(500);
@@ -245,9 +245,9 @@ Console.WriteLine("       )_)  )_)  )_)                                  |>");
 Console.WriteLine("      )___))___))___)\\                          |    |    |");
 Console.WriteLine("     )____)____)_____)\\                        (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____                 /(___((___((___( ");
-Console.WriteLine("----\\              //                       /(____(____(_____(");
+Console.WriteLine("----\\                /                      /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^   ^^     _____//___|____|____|_____ ");
-Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                     \\                //^^ ^^^^^ ^^^^^^^^");
+Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                     \\                /^^ ^^^^^ ^^^^^^^^");
 Console.WriteLine("^^^^^^^^^^^^               ^^^^ ^^^^    ^^      ^^^      ^^^  ^^^^^^^^^^^^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^           ^^^        ^^^^^^^            ^^^^^^^^^^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -258,9 +258,9 @@ Console.WriteLine("       )_)  )_)  )_)                               |>");
 Console.WriteLine("      )___))___))___)\\                       |    |    |");
 Console.WriteLine("     )____)____)_____)\\                     (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____              /(___((___((___( ");
-Console.WriteLine("----\\              //                    /(____(____(_____(");
+Console.WriteLine("----\\                /                    /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^       _____//___|____|____|_____ ");
-Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^^^^^ ^        ^^^^^^^^                 \\                 /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^^^^^^           ^^^                   ^^^^^^^^^^^^^^^^^^^^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -271,9 +271,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\                    (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____        o o o/(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^                   ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -284,9 +284,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\            o o o   (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____             /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                 /                 /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^                 ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^                   ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -297,9 +297,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\          o o o       |    |    |");
 Console.WriteLine("     )____)____)_____)\\                    (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____             /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^^^^^     ^^^^ ^^^^          ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^       ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -310,9 +310,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\     o o o          (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\____             /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -323,9 +323,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\   o o              (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\_o__             /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                //^^ ^^^^^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^^^^^^                 \\                /^^ ^^^^^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -336,9 +336,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____o\\                    (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|_o__\\___               /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
-Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
+Console.WriteLine("----\\                 /                  /(____(____(_____(");
+Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^       _____//__|____|____|_____ ");
+Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\               /^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^^^^        ^^^^^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -349,9 +349,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\                    (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|_o__\\___              /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\               /^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -362,9 +362,9 @@ Console.WriteLine("       )_)  )_)  )_)                              |>");
 Console.WriteLine("      )___))___))___)\\                      |    |    |");
 Console.WriteLine("     )____)____)_____)\\                    (_(  (_(  (_(");
 Console.WriteLine("    ____|____|____|____\\___              /(___((___((___( ");
-Console.WriteLine("----\\              //                   /(____(____(_____(");
+Console.WriteLine("----\\                /                  /(____(____(_____(");
 Console.WriteLine("^^^^^^        ^^^^^^  ^^^^ ^^      _____//___|____|____|_____ ");
-Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\                //^^ ^^^^  ^ ^^  ^^^^");
+Console.WriteLine("^^^  ^^ ^        ^^^ ^^^^^                 \\               /^^ ^^^^  ^ ^^  ^^^^");
 Console.WriteLine("^^^^^^   ^^^^  ^^^^     ^^^^ ^^^^   ^^      ^^^    ^^^^ ^^^^^ ");
 Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^^   ^^^^^  ^^^^                   ^^^^^^^ ");
 await Task.Delay(500);
@@ -395,7 +395,9 @@ Console.Clear();
             Task.Delay(3000);
             StartMenu();
             string choice = Console.ReadLine();
+#pragma warning disable CS8604 // Possible null reference argument.
             HandleChoice(choice);
+#pragma warning restore CS8604 // Possible null reference argument.
             if (playerShip.Health < 1)
             {
                 Console.Clear();
@@ -423,8 +425,10 @@ Console.Clear();
         {
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\nEnter Choice: ");
         string choice = Console.ReadLine();
-        OutofPortChoice(choice);
-        if (choice == "4") break;
+#pragma warning disable CS8604 // Possible null reference argument.
+                OutofPortChoice(choice);
+#pragma warning restore CS8604 // Possible null reference argument.
+                if (choice == "4") break;
         }
     }
     void HandleChoice(string choice)
@@ -494,7 +498,6 @@ Console.Clear();
                 switch (choice)
                 {
                 case "1":
-                    animation();
                     if (enemyShip.Health > 0)
                     {
                         animation();
@@ -560,8 +563,10 @@ Console.Clear();
         {
             Console.WriteLine($"Health: {playerShip.Health}/{playerShip.MaxHealth}, Cannons: {playerShip.Cannons}/{playerShip.MaxCannons}, Crew: {playerShip.Crew}/{playerShip.MaxCrew}, Gold: {playerShip.Bank}, Captured ships: {playerShip.Items} \n     Welcome to the Shop    \n \nOptions\n1. Buy cannons (1000 coins)\n2. Buy crew members (100 coins)\n3. Upgrade ship (5000 coins)\n4. Sell captured ship (1000 coins)\n5. Leave shop");
             string choice = Console.ReadLine();
-            HandleShopChoice(choice);
-            if (choice == "5") break;
+#pragma warning disable CS8604 // Possible null reference argument.
+                HandleShopChoice(choice);
+#pragma warning restore CS8604 // Possible null reference argument.
+                if (choice == "5") break;
         }
     }
     void HandleShopChoice(string choice)
