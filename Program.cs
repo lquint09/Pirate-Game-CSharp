@@ -494,6 +494,7 @@ Console.Clear();
                 switch (choice)
                 {
                 case "1":
+                    animation();
                     if (enemyShip.Health > 0)
                     {
                         animation();
