@@ -476,7 +476,7 @@ return;
                 break;
         }
     }
-    void AttackSequence()
+    async void AttackSequence()
     {
         Console.Clear();
         enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
