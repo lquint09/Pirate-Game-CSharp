@@ -370,7 +370,7 @@ Console.WriteLine("^^^  ^^^           ^^^^^^      ^^^        ^^^^    ^^ ^^^^   ^
 await Task.Delay(500);
 Console.Clear();
 return;
-}
+} // end of animation
     public void Start() // initiallization options for the game
     {   
         StartGameAnimation();
