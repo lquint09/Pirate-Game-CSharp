@@ -457,7 +457,7 @@ class PirateGame
         Console.Clear();
         while (true)
         {
-            Console.WriteLine("Are you sure you want to quit?\n1. Yes\n 2. No");
+            Console.WriteLine("Are you sure you want to quit?\n1. Yes\n2. No");
 
             string choice = Console.ReadLine();
             if (choice == "1")
