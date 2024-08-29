@@ -1,4 +1,3 @@
-
 class Ship
 {
     public string Name { get; set; }
