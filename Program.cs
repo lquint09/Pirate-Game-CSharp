@@ -192,9 +192,8 @@ class PirateGame
             Task.Delay(3000);
             StartMenu();
             string choice = Console.ReadLine();
-#pragma warning disable CS8604 // Possible null reference argument.
+            #pragma warning disable CS8604 // Possible null reference argument.
             HandleChoice(choice);
-#pragma warning restore CS8604 // Possible null reference argument.
             if (playerShip.Health < 1)
             {
                 Console.Clear();
@@ -222,9 +221,8 @@ class PirateGame
         {
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\nEnter Choice: ");
         string choice = Console.ReadLine();
-#pragma warning disable CS8604 // Possible null reference argument.
+                #pragma warning disable CS8604 // Possible null reference argument.
                 OutofPortChoice(choice);
-#pragma warning restore CS8604 // Possible null reference argument.
                 if (choice == "4") break;
         }
     }
