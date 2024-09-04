@@ -106,7 +106,7 @@ class Ship
     {
         int stolenAmount = random.Next(0, 251);
         Bank += stolenAmount;
-        Console.WriteLine($"You sank the enemy ship and stole {stolenAmount} gold");
+        Console.WriteLine($"I You sank the enemy ship and stole {stolenAmount} gold I");
     }
     public void Inventory()
     {
@@ -302,9 +302,12 @@ class PirateGame
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
-                            Console.WriteLine("Enemy ship has been defeated!");
+                            Console.WriteLine("Notifacation")
+                            Console.WriteLine("---------------------------------")
+                            Console.WriteLine("I Enemy ship has been defeated! I");
                             playerShip.Stolen();
                             Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
+                            Console.WriteLine("---------------------------------")
                             return;
                         }
                         else
@@ -321,8 +324,8 @@ class PirateGame
                     break;
 
                 case "3":
-                    Console.Clear();
-                    Console.WriteLine("You have left the fight");
+                    Console.Clear();                
+                    Console.WriteLine("Notifaction\n---------------------------\nI You have left the fight I\n---------------------------");
                     return;
 
                 case "4":
@@ -335,7 +338,7 @@ class PirateGame
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Invalid choice. Try again.");
+                        Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");
                         break;
                     }
 
@@ -344,8 +347,8 @@ class PirateGame
     }
     else if (choice == "2")
     {
-        Console.Clear();
-        Console.WriteLine("You didn't take the fight");
+        Console.Clear();                
+        Console.WriteLine("Notifaction\n-----------------------------\nI You didn't take the fight I\n-----------------------------");
     }
     }
         void RepairShip()
@@ -363,7 +366,7 @@ class PirateGame
         Console.Clear();
         while (true)
         {
-Console.Writeline($"--------------------------------------------------------------------------------------------------------------------------------------------------\nI Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       Options                                      I \nI       1. Buy cannons (1000 coins)                  I   \nI       2. Buy crew members (100 coins)              I     \nI       3. Upgrade ship (5000 coins)                 I       \nI       4. Sell captured ship (1000 coins)           I         \nI       5. Leave shop                                I\n------------------------------------------------------");
+            Console.Writeline($"--------------------------------------------------------------------------------------------------------------------------------------------------\nI Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       Options                                      I \nI       1. Buy cannons (1000 coins)                  I   \nI       2. Buy crew members (100 coins)              I     \nI       3. Upgrade ship (5000 coins)                 I       \nI       4. Sell captured ship (1000 coins)           I         \nI       5. Leave shop                                I\n------------------------------------------------------");
             string choice = Console.ReadLine();
                 HandleShopChoice(choice);
                 if (choice == "5") break;
@@ -377,24 +380,24 @@ Console.Writeline($"------------------------------------------------------------
                 Console.Clear();
                 if (playerShip.Bank < 1000)
                 {
-                    Console.WriteLine("You don't have enough coins");
+                    Console.WriteLine("Notifaction\n-------------------------------\nI you don't have enough coins I\n-------------------------------")
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons)
                 {
                     playerShip.Bank -= 1000;
-                    playerShip.Cannons += 1;
-                    Console.WriteLine($"You now have {playerShip.Cannons} cannons");
+                    playerShip.Cannons += 1;         
+                    Console.WriteLine($"Notifaction\n---------------------------------------------\nI You now have {playerShip.Cannons} cannons I\n---------------------------------------------");
                 }
                 else
                 {
-                    Console.WriteLine("You have reached your max cannons amount (upgrade ship to increase)");
+                    Console.WriteLine("Notifaction\n----------------------------------------------------------------------\nI You have reached your max cannons amount (upgrade ship to increase) I\n----------------------------------------------------------------------");
                 }
                 break;
             case "2":
                 Console.Clear();
                 if (playerShip.Bank < 100)
-                {
-                    Console.WriteLine("You don't have enough coins");
+                {                                   
+                    Console.WriteLine("Notifcation\n-------------------------------\nI You don't have enough coins I\n-------------------------------");
                 }
                 else if (playerShip.Crew < playerShip.MaxCrew)
                 {
@@ -403,48 +406,48 @@ Console.Writeline($"------------------------------------------------------------
                     if (playerShip.Crew > playerShip.MaxCrew)
                     {
                         playerShip.Crew = playerShip.MaxCrew;
-                    }
-                    Console.WriteLine($"You now have {playerShip.Crew} crew members");
+                    }                                
+                    Console.WriteLine($"Notifaction\n-----------------------------------------------\nI You now have {playerShip.Crew} crew members I\n-----------------------------------------------");
                 }
                 else
-                {
-                    Console.WriteLine("You have reached your max crew amount (upgrade ship to increase)");
+                {                                   
+                    Console.WriteLine("Notifcation\n--------------------------------------------------------------------\n I You have reached your max crew amount (upgrade ship to increase) I\n--------------------------------------------------------------------");
                 }
                 break;
             case "3":
                 Console.Clear();
                 if (playerShip.Bank < 5000)
-                {
-                    Console.WriteLine("You don't have enough coins");
+                {                                   
+                    Console.WriteLine("Notfication\n-------------------------------\nI You don't have enough coins I\n-------------------------------");
                 }
                 else
                 {
                     playerShip.Bank -= 5000;
                     playerShip.MaxHealth += 50;
                     playerShip.MaxCrew += 50;
-                    playerShip.MaxCannons += 5;
-                    Console.WriteLine($"Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons}");
+                    playerShip.MaxCannons += 5;      
+                    Console.WriteLine($"Notfication\n---------------------------------------------------------------------------------------------------------------------\n I Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons} I\n---------------------------------------------------------------------------------------------------------------------");
                 }
                 break;
             case "4":
                 Console.Clear();
                 if (playerShip.Items < 1)
-                {
-                    Console.WriteLine("You don't have any captured ships");
+                {                                                                          
+                    Console.WriteLine("Notfication\n-------------------------------------I You don't have any captured ships I\n-------------------------------------");
                 }
                 else
                 {
                     playerShip.Items -= 1;
-                    playerShip.Bank += 1000;
-                    Console.WriteLine("You have sold a captured ship");
+                    playerShip.Bank += 1000;        
+                    Console.WriteLine("Notifaction\n---------------------------------\nI You have sold a captured ship I\n---------------------------------");
                 }
                 break;
             case "5":
                 Console.Clear();
                 break;
             default:
-                Console.Clear();
-                Console.WriteLine("Invalid choice. Try again.");
+                Console.Clear();                
+                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");
                 break;
         }
     }
@@ -470,8 +473,7 @@ Console.Writeline($"------------------------------------------------------------
             else
             {
                 Console.Clear();
-                Console.WriteLine("Invalid choice. Try again.");
-            }
+                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");            }
         }
     }
     }
