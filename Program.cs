@@ -148,7 +148,7 @@ public async void StartGameAnimation()
 
         // Your animation frames
         Console.Clear();
-        Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit ");
+        Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\n   Press 'esc' to exit ");
         await Task.Delay(1500);  // Delay for animation effect
 
         if (menuanimationcancel)
@@ -157,7 +157,7 @@ public async void StartGameAnimation()
         }
 
         Console.Clear();
-        Console.WriteLine("                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit");
+        Console.WriteLine("                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\n   Press 'esc' to exit");
         await Task.Delay(1500);
 
         if (menuanimationcancel)
@@ -166,7 +166,7 @@ public async void StartGameAnimation()
         }
 
         Console.Clear();
-        Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n Press 'esc' to exit");
+        Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n   Press 'esc' to exit");
         await Task.Delay(1500);
 
         if (menuanimationcancel)
