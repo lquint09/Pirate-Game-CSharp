@@ -106,7 +106,6 @@ class Ship
     {
         int stolenAmount = random.Next(0, 251);
         Bank += stolenAmount;
-        Console.WriteLine($"I You sank the enemy ship and stole {stolenAmount} gold I");
     }
     public void Inventory()
     {
@@ -302,12 +301,12 @@ class PirateGame
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
-                            Console.WriteLine("Notifacation")
-                            Console.WriteLine("---------------------------------")
-                            Console.WriteLine("I Enemy ship has been defeated! I");
+                            Console.WriteLine("----------------------------------------------")
+                            Console.WriteLine(" Enemy ship has been defeated! ");
                             playerShip.Stolen();
+                            Console.WriteLine($" You sank the enemy ship and stole {stolenAmount} gold ");
                             Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                            Console.WriteLine("---------------------------------")
+                            Console.WriteLine("----------------------------------------------")
                             return;
                         }
                         else
@@ -325,7 +324,7 @@ class PirateGame
 
                 case "3":
                     Console.Clear();                
-                    Console.WriteLine("---------------------------\nI You have left the fight I\n---------------------------");
+                    Console.WriteLine("---------------------------\n You have left the fight \n---------------------------");
                     return;
 
                 case "4":
