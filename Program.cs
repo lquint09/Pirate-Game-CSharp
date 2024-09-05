@@ -1,3 +1,7 @@
+using System.Net.Quic;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+
 class Ship
 {
     public string Name { get; set; }
@@ -37,7 +41,9 @@ class Ship
         }
         else
         {
-            Console.WriteLine("You missed");
+            Console.WriteLine("-------------");
+            Console.WriteLine(" You missed");
+            Console.WriteLine("-------------");
         }
     }
     public void Assault(Ship target) // enemy ship attack fucntion
@@ -51,7 +57,9 @@ class Ship
         }
         else
         {
-            Console.WriteLine("The enemy ship missed");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(" The enemy ship missed");
+            Console.WriteLine("-------------------------");
         }
     }
     public void BoardChance(Ship target)
@@ -66,9 +74,13 @@ class Ship
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine("You won the board");
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine($"You now have {Items} captured ships");
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine($"Crew {Crew}/{MaxCrew}");
+                    Console.WriteLine("----------------------------------------------");
                     target.Health = 0;
                 }
                 else
@@ -76,9 +88,13 @@ class Ship
                     Crew = 25;
                     Health = 1;
                     Console.Clear();
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine("You lost the board");
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine($"Crew: {Crew}/{MaxCrew}");
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine($"Health: {Health}/{MaxHealth}");
+                    Console.WriteLine("----------------------------------------------");
                     return;
                 }
             }
@@ -92,20 +108,29 @@ class Ship
         {
             Health = MaxHealth;
         }
-        Console.WriteLine($"Health: {Health}/{MaxHealth}");
+        Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
     }
     public void Treasure()
     {
         int treasureAmount = random.Next(5, 21);
         Bank += treasureAmount;
         Console.Clear();
+        Console.WriteLine("----------------------------------------------");
         Console.WriteLine($"{treasureAmount} gold found");
+        Console.WriteLine("----------------------------------------------");
         Console.WriteLine($"Gold: {Bank}");
+        Console.WriteLine("----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 251);
+        Console.WriteLine("----------------------------------------------");
+        Console.WriteLine(" Enemy ship has been defeated! ");
+        Console.WriteLine("----------------------------------------------");
         Console.WriteLine($" You sank the enemy ship and stole {stolenAmount} gold ");
+        Console.WriteLine("----------------------------------------------");
+        Console.WriteLine($" Health {Health}/{MaxHealth}");
+        Console.WriteLine("----------------------------------------------");
         Bank += stolenAmount;
     }
     public void Inventory()
@@ -123,7 +148,9 @@ class Ship
             {
                 Health = MaxHealth;
             }
+            Console.WriteLine("------------------------------------------------");
             Console.WriteLine($"The enemy ship repaired itself to {Health}/{MaxHealth}");
+            Console.WriteLine("------------------------------------------------");
         }
     }
 }
@@ -194,17 +221,18 @@ class PirateGame
             string choice = Console.ReadLine();
             #pragma warning disable CS8604 // Possible null reference argument.
             HandleChoice(choice);
-            if (playerShip.Health < 1)
+            if (playerShip.Health <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("Your ship was destroyed. Game over!");
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("    Your ship was destroyed. Game over!");
+                Console.WriteLine("----------------------------------------------");
                 Environment.Exit(0);
             }
             if (enemyShip.Health <= 0)
             {
                 Console.Clear();
                 playerShip.Stolen();
-                Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
                 enemyShip.Health = new Random().Next(75, 151);
                 enemyShip.MaxHealth = enemyShip.Health;
             }   
@@ -212,14 +240,14 @@ class PirateGame
 
     void StartMenu()
     {
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Leave Outpost \n2. Shop \n3. Quit\nEnter Choice: ");
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Quit\n-------------------------------------------------------");
     }
     void OutofPortMenu()
     {
         Console.Clear();
         while (true)
         {
-        Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \nOptions:\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\nEnter Choice: ");
+        Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^^    ^^\n      ^^^^      ^^^ \n \n \n \n-------------------------------------------------------\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n-------------------------------------------------------");
         string choice = Console.ReadLine();
                 #pragma warning disable CS8604 // Possible null reference argument.
                 OutofPortChoice(choice);
@@ -244,7 +272,9 @@ class PirateGame
                 break;      
             default:
                 Console.Clear();
-                Console.WriteLine("Invalid choice. Try again.");
+                Console.WriteLine("-------------------------------");
+                Console.WriteLine("  Invalid choice. Try again.");
+                Console.WriteLine("-------------------------------");
                 break;  
         }
     }
@@ -264,9 +294,14 @@ class PirateGame
                 Console.Clear();
                 SearchTreasure();
                 break;
+            case "4":
+                Console.Clear();
+                break;
             default:
                 Console.Clear();
-                Console.WriteLine("Invalid choice. Try again.");
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("  Invalid choice. Try again.");
+                Console.WriteLine("-----------------------------");
                 break;
         }
     }
@@ -275,7 +310,9 @@ class PirateGame
     Console.Clear();
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
-    Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n1. Fight ship\n2. No");
+    Console.WriteLine("-------------------------------------------------------");
+    Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No");
+    Console.WriteLine("-------------------------------------------------------");
     string choice = Console.ReadLine();
 
     if (choice == "1")
@@ -283,13 +320,19 @@ class PirateGame
         Console.Clear();
         while (enemyShip.Health > 0 && playerShip.Health > 1)
         {
+            if (playerShip.Health <= 0)
+            {
+                Console.WriteLine("-------------------------------------------------------\n Your ship was destroyed. Game Over.\n-------------------------------------------------------");
+                Environment.Exit(0);
+            }
             if (enemyShip.Health > 31)
             {
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight");
+            Console.WriteLine("-------------------------------------------------------");
+            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
             }
             if (enemyShip.Health < 30 && enemyShip.Health > 0)
             { 
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\nOptions:\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship");
+            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
             }
 
             choice = Console.ReadLine();
@@ -302,11 +345,7 @@ class PirateGame
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
-                            Console.WriteLine("----------------------------------------------");
-                            Console.WriteLine(" Enemy ship has been defeated! ");
                             playerShip.Stolen();
-                            Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                            Console.WriteLine("----------------------------------------------");
                             return;
                         }
                         else
@@ -365,7 +404,7 @@ class PirateGame
         Console.Clear();
         while (true)
         {
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\nI Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       Options                                      I \nI       1. Buy cannons (1000 coins)                  I   \nI       2. Buy crew members (100 coins)              I     \nI       3. Upgrade ship (5000 coins)                 I       \nI       4. Sell captured ship (1000 coins)           I         \nI       5. Leave shop                                I\n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
             string choice = Console.ReadLine();
                 HandleShopChoice(choice);
                 if (choice == "5") break;
@@ -455,7 +494,7 @@ class PirateGame
         Console.Clear();
         while (true)
         {
-            Console.WriteLine("Are you sure you want to quit?\n1. Yes\n2. No");
+            Console.WriteLine("-------------------------------------------------------\nAre you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
 
             string choice = Console.ReadLine();
             if (choice == "1")
