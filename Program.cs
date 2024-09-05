@@ -325,7 +325,7 @@ class PirateGame
 
                 case "3":
                     Console.Clear();                
-                    Console.WriteLine("Notifaction\n---------------------------\nI You have left the fight I\n---------------------------");
+                    Console.WriteLine("---------------------------\nI You have left the fight I\n---------------------------");
                     return;
 
                 case "4":
@@ -338,7 +338,7 @@ class PirateGame
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");
+                        Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                         break;
                     }
 
@@ -348,7 +348,7 @@ class PirateGame
     else if (choice == "2")
     {
         Console.Clear();                
-        Console.WriteLine("Notifaction\n-----------------------------\nI You didn't take the fight I\n-----------------------------");
+        Console.WriteLine("-----------------------------\n You didn't take the fight \n-----------------------------");
     }
     }
         void RepairShip()
@@ -380,24 +380,24 @@ class PirateGame
                 Console.Clear();
                 if (playerShip.Bank < 1000)
                 {
-                    Console.WriteLine("Notifaction\n-------------------------------\nI you don't have enough coins I\n-------------------------------")
+                    Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------")
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons)
                 {
                     playerShip.Bank -= 1000;
                     playerShip.Cannons += 1;         
-                    Console.WriteLine($"Notifaction\n---------------------------------------------\nI You now have {playerShip.Cannons} cannons I\n---------------------------------------------");
+                    Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------");
                 }
                 else
                 {
-                    Console.WriteLine("Notifaction\n----------------------------------------------------------------------\nI You have reached your max cannons amount (upgrade ship to increase) I\n----------------------------------------------------------------------");
+                    Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------");
                 }
                 break;
             case "2":
                 Console.Clear();
                 if (playerShip.Bank < 100)
                 {                                   
-                    Console.WriteLine("Notifcation\n-------------------------------\nI You don't have enough coins I\n-------------------------------");
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------");
                 }
                 else if (playerShip.Crew < playerShip.MaxCrew)
                 {
@@ -407,18 +407,18 @@ class PirateGame
                     {
                         playerShip.Crew = playerShip.MaxCrew;
                     }                                
-                    Console.WriteLine($"Notifaction\n-----------------------------------------------\nI You now have {playerShip.Crew} crew members I\n-----------------------------------------------");
+                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Crew} crew members \n-----------------------------------------------");
                 }
                 else
                 {                                   
-                    Console.WriteLine("Notifcation\n--------------------------------------------------------------------\n I You have reached your max crew amount (upgrade ship to increase) I\n--------------------------------------------------------------------");
+                    Console.WriteLine("--------------------------------------------------------------------\n  You have reached your max crew amount (upgrade ship to increase) \n--------------------------------------------------------------------");
                 }
                 break;
             case "3":
                 Console.Clear();
                 if (playerShip.Bank < 5000)
                 {                                   
-                    Console.WriteLine("Notfication\n-------------------------------\nI You don't have enough coins I\n-------------------------------");
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------");
                 }
                 else
                 {
@@ -426,20 +426,20 @@ class PirateGame
                     playerShip.MaxHealth += 50;
                     playerShip.MaxCrew += 50;
                     playerShip.MaxCannons += 5;      
-                    Console.WriteLine($"Notfication\n---------------------------------------------------------------------------------------------------------------------\n I Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons} I\n---------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons} \n---------------------------------------------------------------------------------------------------------------------");
                 }
                 break;
             case "4":
                 Console.Clear();
                 if (playerShip.Items < 1)
                 {                                                                          
-                    Console.WriteLine("Notfication\n-------------------------------------I You don't have any captured ships I\n-------------------------------------");
+                    Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------");
                 }
                 else
                 {
                     playerShip.Items -= 1;
                     playerShip.Bank += 1000;        
-                    Console.WriteLine("Notifaction\n---------------------------------\nI You have sold a captured ship I\n---------------------------------");
+                    Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------");
                 }
                 break;
             case "5":
@@ -447,7 +447,7 @@ class PirateGame
                 break;
             default:
                 Console.Clear();                
-                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                 break;
         }
     }
@@ -473,7 +473,7 @@ class PirateGame
             else
             {
                 Console.Clear();
-                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");            }
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");            }
         }
     }
     }
