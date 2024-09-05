@@ -37,9 +37,7 @@ class Ship
         }
         else
         {
-            Console.WriteLine("-------------");
-            Console.WriteLine(" You missed");
-            Console.WriteLine("-------------");
+            Console.WriteLine("-------------\n You missed\n-------------");
         }
     }
     public void Assault(Ship target) // enemy ship attack fucntion
@@ -53,9 +51,7 @@ class Ship
         }
         else
         {
-            Console.WriteLine("-------------------------");
-            Console.WriteLine(" The enemy ship missed");
-            Console.WriteLine("-------------------------");
+            Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
     }
     public void BoardChance(Ship target)
@@ -70,13 +66,7 @@ class Ship
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("You won the board");
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine($"You now have {Items} captured ships");
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine($"Crew {Crew}/{MaxCrew}");
-                    Console.WriteLine("----------------------------------------------");
+                    Console.WriteLine($"----------------------------------------------\nYou won the board\n----------------------------------------------\nYou now have {Items} captured ships\n----------------------------------------------\nCrew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0;
                 }
                 else
@@ -84,13 +74,7 @@ class Ship
                     Crew = 25;
                     Health = 1;
                     Console.Clear();
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("You lost the board");
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine($"Crew: {Crew}/{MaxCrew}");
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine($"Health: {Health}/{MaxHealth}");
-                    Console.WriteLine("----------------------------------------------");
+                    Console.WriteLine($"----------------------------------------------\nYou lost the board\n----------------------------------------------\nCrew: {Crew}/{MaxCrew}\n----------------------------------------------\nHealth: {Health}/{MaxHealth}\n----------------------------------------------");
                     return;
                 }
             }
@@ -111,22 +95,12 @@ class Ship
         int treasureAmount = random.Next(5, 21);
         Bank += treasureAmount;
         Console.Clear();
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine($"{treasureAmount} gold found");
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine($"Gold: {Bank}");
-        Console.WriteLine("----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Bank}\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
-        int stolenAmount = random.Next(0, 251);
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine(" Enemy ship has been defeated! ");
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine($" You sank the enemy ship and stole {stolenAmount} gold ");
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine($" Health {Health}/{MaxHealth}");
-        Console.WriteLine("----------------------------------------------");
+        int stolenAmount = random.Next(0, 250);
+        Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and stole {stolenAmount} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
         Bank += stolenAmount;
     }
     public void Inventory()
@@ -144,9 +118,7 @@ class Ship
             {
                 Health = MaxHealth;
             }
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine($"The enemy ship repaired itself to {Health}/{MaxHealth}");
-            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine($"------------------------------------------------\nThe enemy ship repaired itself to {Health}/{MaxHealth}\n------------------------------------------------");
         }
     }
 }
@@ -233,9 +205,7 @@ public async void StartGameAnimation()
             if (playerShip.Health <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("----------------------------------------------");
-                Console.WriteLine("    Your ship was destroyed. Game over!");
-                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
                 Environment.Exit(0);
             }
             if (enemyShip.Health <= 0)
@@ -281,9 +251,7 @@ public async void StartGameAnimation()
                 break;      
             default:
                 Console.Clear();
-                Console.WriteLine("-------------------------------");
-                Console.WriteLine("  Invalid choice. Try again.");
-                Console.WriteLine("-------------------------------");
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 break;  
         }
     }
@@ -308,9 +276,7 @@ public async void StartGameAnimation()
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("-----------------------------");
-                Console.WriteLine("  Invalid choice. Try again.");
-                Console.WriteLine("-----------------------------");
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 break;
         }
     }
@@ -319,9 +285,7 @@ void AttackSequence()
     Console.Clear();
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
-    Console.WriteLine("-------------------------------------------------------");
-    Console.WriteLine($"Enemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No");
-    Console.WriteLine("-------------------------------------------------------");
+    Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------");
     string choice = Console.ReadLine();
 
     if (choice == "1")
@@ -332,15 +296,12 @@ void AttackSequence()
             if (playerShip.Health <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("Your ship was destroyed. Game Over.");
-                Console.WriteLine("-------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------\nYour ship was destroyed. Game Over.\n-------------------------------------------------------");
                 Environment.Exit(0);  // Exit the program if player's health is 0 or less
             }
             if (enemyShip.Health > 31)
             {
-                Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+                Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
             }
             if (enemyShip.Health < 30 && enemyShip.Health > 0)
             {
@@ -397,9 +358,7 @@ void AttackSequence()
             if (playerShip.Health <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("Your ship was destroyed. Game Over.");
-                Console.WriteLine("-------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------\nYour ship was destroyed. Game Over.\n-------------------------------------------------------");
                 Environment.Exit(0);  // Exit the game if player's health is 0 or less
             }
         }
@@ -532,7 +491,8 @@ void AttackSequence()
             else
             {
                 Console.Clear();
-                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");            }
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");  
+            }
         }
     }
     }
