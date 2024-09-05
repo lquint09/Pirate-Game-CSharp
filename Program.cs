@@ -1,7 +1,3 @@
-using System.Net.Quic;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-
 class Ship
 {
     public string Name { get; set; }
@@ -164,36 +160,49 @@ class PirateGame
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
     }
-    public async void StartGameAnimation()
+public async void StartGameAnimation()
+{
+    while (!menuanimationcancel) // animation at the start of the game
     {
-        while (menuanimationcancel == false) // animation at the start of the game
-        {    
-            Console.Clear();
-            Console.WriteLine($"Stop Req: {menuanimationcancel}"); // don't remove, this makes the animation cancel work properly, if removed code completely breaks.
-            Console.Clear();
-            Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit ");
-            await Task.Delay(1500);
-            if (menuanimationcancel == true)
+        if (Console.KeyAvailable)  // Check if a key was pressed
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);  // Read key press without displaying it
+            if (keyInfo.Key == ConsoleKey.Escape)  // Check if the Escape key was pressed
             {
-                break;
-            }
-            Console.Clear();
-            Console.WriteLine("                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit");
-            await Task.Delay(1500);
-            if (menuanimationcancel == true)
-            {
-                break;
-            }
-            Console.Clear();
-            Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n Press 'esc' to exit");
-            await Task.Delay(1500);
-            if (menuanimationcancel == true)
-            {
-                break;
+                menuanimationcancel = true;  // Set flag to stop animation
+                Environment.Exit(0);  // Exit the program
             }
         }
-    }
 
+        // Your animation frames
+        Console.Clear();
+        Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit ");
+        await Task.Delay(1500);  // Delay for animation effect
+
+        if (menuanimationcancel)
+        {
+            break;
+        }
+
+        Console.Clear();
+        Console.WriteLine("                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\n Press 'esc' to exit");
+        await Task.Delay(1500);
+
+        if (menuanimationcancel)
+        {
+            break;
+        }
+
+        Console.Clear();
+        Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n Press 'esc' to exit");
+        await Task.Delay(1500);
+
+        if (menuanimationcancel)
+        {
+            break;
+        }
+    }
+}
     public void Start() // initiallization options for the game
     {   
         StartGameAnimation();
@@ -305,8 +314,8 @@ class PirateGame
                 break;
         }
     }
- void AttackSequence()
-    {
+void AttackSequence()
+{
     Console.Clear();
     enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health
     enemyShip.MaxHealth = enemyShip.Health;
@@ -318,21 +327,24 @@ class PirateGame
     if (choice == "1")
     {
         Console.Clear();
-        while (enemyShip.Health > 0 && playerShip.Health > 1)
+        while (enemyShip.Health > 0 && playerShip.Health > 0)  // Make sure playerShip.Health is > 0
         {
             if (playerShip.Health <= 0)
             {
-                Console.WriteLine("-------------------------------------------------------\n Your ship was destroyed. Game Over.\n-------------------------------------------------------");
-                Environment.Exit(0);
+                Console.Clear();
+                Console.WriteLine("-------------------------------------------------------");
+                Console.WriteLine("Your ship was destroyed. Game Over.");
+                Console.WriteLine("-------------------------------------------------------");
+                Environment.Exit(0);  // Exit the program if player's health is 0 or less
             }
             if (enemyShip.Health > 31)
             {
-            Console.WriteLine("-------------------------------------------------------");
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------");
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
             }
             if (enemyShip.Health < 30 && enemyShip.Health > 0)
-            { 
-            Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
+            {
+                Console.WriteLine($"Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
             }
 
             choice = Console.ReadLine();
@@ -362,7 +374,7 @@ class PirateGame
                     break;
 
                 case "3":
-                    Console.Clear();                
+                    Console.Clear();
                     Console.WriteLine("---------------------------\n You have left the fight \n---------------------------");
                     return;
 
@@ -379,17 +391,26 @@ class PirateGame
                         Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                         break;
                     }
+            }
 
+            // Final check for player's health after each action
+            if (playerShip.Health <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("-------------------------------------------------------");
+                Console.WriteLine("Your ship was destroyed. Game Over.");
+                Console.WriteLine("-------------------------------------------------------");
+                Environment.Exit(0);  // Exit the game if player's health is 0 or less
             }
         }
     }
     else if (choice == "2")
     {
-        Console.Clear();                
+        Console.Clear();
         Console.WriteLine("-----------------------------\n You didn't take the fight \n-----------------------------");
     }
-    }
-        void RepairShip()
+}
+    void RepairShip()
     {
         Console.Clear();
         playerShip.Repair();
