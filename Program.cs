@@ -105,8 +105,8 @@ class Ship
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 251);
+        Console.WriteLine($" You sank the enemy ship and stole {stolenAmount} gold ");
         Bank += stolenAmount;
-        Console.WriteLine($"I You sank the enemy ship and stole {stolenAmount} gold I");
     }
     public void Inventory()
     {
@@ -302,11 +302,11 @@ class PirateGame
                         playerShip.Attack(enemyShip);
                         if (enemyShip.Health <= 0)
                         {
-                            Console.WriteLine("---------------------------------");
+                            Console.WriteLine("----------------------------------------------");
                             Console.WriteLine(" Enemy ship has been defeated! ");
                             playerShip.Stolen();
                             Console.WriteLine($"Health {playerShip.Health}/{playerShip.MaxHealth}");
-                            Console.WriteLine("---------------------------------");
+                            Console.WriteLine("----------------------------------------------");
                             return;
                         }
                         else
@@ -365,7 +365,7 @@ class PirateGame
         Console.Clear();
         while (true)
         {
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\n                  Welcome to the Shop               \n       Options                                       \n       1. Buy cannons (1000 coins)                     \n       2. Buy crew members (100 coins)                   \n       3. Upgrade ship (5000 coins)                        \n       4. Sell captured ship (1000 coins)                    \n       5. Leave shop                                \n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\nI Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons/playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       Options                                      I \nI       1. Buy cannons (1000 coins)                  I   \nI       2. Buy crew members (100 coins)              I     \nI       3. Upgrade ship (5000 coins)                 I       \nI       4. Sell captured ship (1000 coins)           I         \nI       5. Leave shop                                I\n------------------------------------------------------");
             string choice = Console.ReadLine();
                 HandleShopChoice(choice);
                 if (choice == "5") break;
@@ -432,13 +432,13 @@ class PirateGame
                 Console.Clear();
                 if (playerShip.Items < 1)
                 {                                                                          
-                    Console.WriteLine("Notfication\n-------------------------------------I You don't have any captured ships I\n-------------------------------------");
+                    Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------");
                 }
                 else
                 {
                     playerShip.Items -= 1;
                     playerShip.Bank += 1000;        
-                    Console.WriteLine("Notifaction\n---------------------------------\nI You have sold a captured ship I\n---------------------------------");
+                    Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------");
                 }
                 break;
             case "5":
@@ -446,7 +446,7 @@ class PirateGame
                 break;
             default:
                 Console.Clear();                
-                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                 break;
         }
     }
@@ -472,7 +472,7 @@ class PirateGame
             else
             {
                 Console.Clear();
-                Console.WriteLine("Notfication\n------------------------------\nI Invalid choice. Try again. I\n------------------------------");            }
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");            }
         }
     }
     }
