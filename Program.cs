@@ -132,22 +132,22 @@ class PirateGame
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
     }
-public async void StartGameAnimation()
+public async void StartGameAnimation() // animation at the start of the game
 {
-    while (!menuanimationcancel) // animation at the start of the game
+    while (!menuanimationcancel) // token system to toggle start game animation
     {
         // menu animation frames here
         Console.Clear();
         Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
         await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel
+        if (menuanimationcancel) // check if animation cancel token
         {
             break;
         }
         Console.Clear();
         Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
         await Task.Delay(1500);
-        if (menuanimationcancel) // check if animtion cancel
+        if (menuanimationcancel) // check if animtion cancel token
         {
             break;
         }
@@ -161,21 +161,21 @@ public async void StartGameAnimation()
         Console.Clear();
         Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
         await Task.Delay(1500);
-        if (menuanimationcancel) // check if animation cancel
+        if (menuanimationcancel) // check if animation cancel toekn
         {
             break;
         }
         Console.Clear();
         Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
         await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel
+        if (menuanimationcancel) // check if animation cancel token
         {
             break;
         }     
         Console.Clear();
         Console.WriteLine("                 |> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
         await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel
+        if (menuanimationcancel) // check if animation cancel token
         {
             break;
         }       
