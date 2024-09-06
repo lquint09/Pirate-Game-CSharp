@@ -136,40 +136,25 @@ public async void StartGameAnimation()
 {
     while (!menuanimationcancel) // animation at the start of the game
     {
-        if (Console.KeyAvailable)  // Check if a key was pressed
-        {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);  // Read key press without displaying it
-            if (keyInfo.Key == ConsoleKey.Escape)  // Check if the Escape key was pressed
-            {
-                menuanimationcancel = true;  // Set flag to stop animation
-                Environment.Exit(0);  // Exit the program
-            }
-        }
-
         // Your animation frames
         Console.Clear();
         Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____\n--------\\                  /---------\n^^^^^ ^^^^^^^^^^^^^^^^^^^^\n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n Press any key to continue\n   Press 'esc' to exit ");
         await Task.Delay(1500);  // Delay for animation effect
-
-        if (menuanimationcancel)
+        if (menuanimationcancel) // check if animation cancel
         {
             break;
         }
-
         Console.Clear();
         Console.WriteLine("                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n Press any key to continue\n   Press 'esc' to exit");
         await Task.Delay(1500);
-
-        if (menuanimationcancel)
+        if (menuanimationcancel) // check if animtion cancel
         {
             break;
         }
-
         Console.Clear();
         Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n Press any key to continue\n   Press 'esc' to exit");
         await Task.Delay(1500);
-
-        if (menuanimationcancel)
+        if (menuanimationcancel) // check if animation cancel
         {
             break;
         }
