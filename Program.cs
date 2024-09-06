@@ -279,6 +279,7 @@ public async void StartGameAnimation() // animation at the start of the game
                 SearchTreasure();
                 break;
             case "4":
+                enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health so the you don't sink it twice
                 Console.Clear();
                 break;
             default:
@@ -326,7 +327,7 @@ void AttackSequence()
                         if (enemyShip.Health <= 0)
                         {
                             playerShip.Stolen();
-                            return;
+                            break;
                         }
                         else
                         {
