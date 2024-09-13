@@ -268,8 +268,8 @@ class PirateGame
                 SearchTreasure();
                 break;
             case '4':
-                StartMenu();
                 Console.Clear();
+                StartMenu();
                 break;
             default:
                 Console.Clear();
