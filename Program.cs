@@ -311,7 +311,15 @@ class PirateGame
     }
     void FightMenu()
     {
+        if (enemyShip.Health > 30)
+        {
         Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+        }
+        if (enemyShip.Health <= 30)
+        {
+        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
+    
+        }
         if (playerShip.Health == 0)
         {   
             Console.Clear();
@@ -354,6 +362,22 @@ class PirateGame
             case '3':  // Use single quotes for char literals
                 Console.Clear();
                 OutofPortMenu();
+                break;
+            case '4':
+                if (enemyShip.Health > 30)
+                {
+                                   Console.Clear();
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                FightMenu();
+                break; 
+                }
+                if (enemyShip.Health <= 30)
+                {
+                   Console.Clear();
+                   playerShip.BoardChance(enemyShip);
+                   OutofPortMenu();
+                   break;
+                }
                 break;
             default:
                 Console.Clear();
@@ -500,6 +524,8 @@ class PirateGame
         }
     }
 }
+
+
     static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
