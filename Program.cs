@@ -131,56 +131,56 @@ class PirateGame
     {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
-         }
-public async void StartGameAnimation() // animation at the start of the game
-{
-    while (!menuanimationcancel) // token system to toggle start game animation
-    {
-        // menu animation frames here
-        Console.Clear();
-        Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-        await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel token
-        {
-            break;
-        }
-        Console.Clear();
-        Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-        await Task.Delay(1500); // Delay for animation effect
-        if (menuanimationcancel) // check if animtion cancel token
-        {
-            break;
-        }
-        Console.Clear();
-        Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^   ^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-        await Task.Delay(1500); // Delay for animation effect
-        if (menuanimationcancel) // check if animtion cancel token
-        {
-            break;
-        }
-        Console.Clear();
-        Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-        await Task.Delay(1500); // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel toekn
-        {
-            break;
-        }
-        Console.Clear();
-        Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
-        await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel token
-        {
-            break;
-        }     
-        Console.Clear();
-        Console.WriteLine("                 |> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
-        await Task.Delay(1500);  // Delay for animation effect
-        if (menuanimationcancel) // check if animation cancel token
-        {
-            break;
-        }       
     }
-}
+    public async void StartGameAnimation() // animation at the start of the game
+    {
+        while (!menuanimationcancel) // token system to toggle start game animation
+        {
+            // menu animation frames here
+            Console.Clear();
+            Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
+            await Task.Delay(1500);  // Delay for animation effect
+            if (menuanimationcancel) // check if animation cancel token
+            {
+                break;
+            }
+            Console.Clear();
+            Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
+            await Task.Delay(1500); // Delay for animation effect
+            if (menuanimationcancel) // check if animtion cancel token
+            {
+                break;
+            }
+            Console.Clear();
+            Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^   ^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
+            await Task.Delay(1500); // Delay for animation effect
+            if (menuanimationcancel) // check if animtion cancel token
+            {
+                break;
+            }
+            Console.Clear();
+            Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
+            await Task.Delay(1500); // Delay for animation effect
+            if (menuanimationcancel) // check if animation cancel toekn
+            {
+                break;
+            }
+            Console.Clear();
+            Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
+            await Task.Delay(1500);  // Delay for animation effect
+            if (menuanimationcancel) // check if animation cancel token
+            {
+                break;
+            }     
+            Console.Clear();
+            Console.WriteLine("                 |> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
+            await Task.Delay(1500);  // Delay for animation effect
+            if (menuanimationcancel) // check if animation cancel token
+            {
+                break;
+            }       
+        }
+    }
     public void Start() // initiallization options for the game
     {   
         StartGameAnimation();
@@ -210,29 +210,29 @@ public async void StartGameAnimation() // animation at the start of the game
             HandleChoice(keyInfo.KeyChar);
         }
     }
-void HandleChoice(char choice)
-{
-    switch (choice)
+    void HandleChoice(char choice)
     {
-        case '1':  // Use single quotes for char literals
-            Console.Clear();
-            OutofPortMenu();
-            break;
-        case '2':  // Use single quotes for char literals
-            Console.Clear();
-            ShopMenu();
-            break;
-        case '3':  // Use single quotes for char literals
-            Console.Clear();
-            QuitMenu();
-            break;
-        default:
-            Console.Clear();
-            Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-            StartMenu();
-            break;
+        switch (choice)
+        {
+            case '1':  // Use single quotes for char literals
+                Console.Clear();
+                OutofPortMenu();
+                break;
+            case '2':  // Use single quotes for char literals
+                Console.Clear();
+                ShopMenu();
+                break;
+            case '3':  // Use single quotes for char literals
+                Console.Clear();
+                QuitMenu();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                StartMenu();
+                break;
+        }
     }
-}
     void OutofPortMenu()
     {
         while (true)
@@ -249,7 +249,7 @@ void HandleChoice(char choice)
 
         }
     }
-   void OutofPortChoice(char choice)
+    void OutofPortChoice(char choice)
     {
         switch (choice)
         {
@@ -278,91 +278,90 @@ void HandleChoice(char choice)
                 break;
         }
     }
-void AttackMenu()
-{
-    Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------"); 
-    while (true)
+    void AttackMenu()
+    {
+        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------"); 
+        while (true)
+            {
+                // Read key without displaying it
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+                // Pass the key character to the HandleChoice method
+                AttackChoiceHandler(keyInfo.KeyChar);
+            }
+        }
+    void AttackChoiceHandler(char choice)
+    {
+        switch (choice)
+        {
+            case '1':
+                Console.Clear();
+                FightMenu();
+                break;
+            case '2':
+                Console.Clear();
+                OutofPortMenu();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                AttackMenu();
+                break;
+        }
+    }
+    void FightMenu()
+    {
+        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+        if (playerShip.Health == 0)
+        {   
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
+            Environment.Exit(1);
+        }   
+        if (enemyShip.Health <= 0)
+        {
+            Console.Clear();
+            playerShip.Stolen();
+            OutofPortMenu();
+            return;
+        }
+        while (true)
         {
             // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            AttackChoiceHandler(keyInfo.KeyChar);
+            FightChoice(keyInfo.KeyChar);
         }
-}
-void AttackChoiceHandler(char choice)
-{
-    switch (choice)
-    {
-        case '1':
-            Console.Clear();
-            FightMenu();
-            break;
-        case '2':
-            Console.Clear();
-            OutofPortMenu();
-            break;
-        default:
-            Console.Clear();
-            Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-            AttackMenu();
-            break;
     }
-}
-void FightMenu()
-{
-    Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
-    if (playerShip.Health == 0)
-    {   
-        Console.Clear();
-        Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
-        Environment.Exit(1);
-    }
-    if (enemyShip.Health <= 0)
-    {
-        Console.Clear();
-        playerShip.Stolen();
-        OutofPortMenu();
-        return;
-    }
-    while (true)
-    {
-        // Read key without displaying it
-        ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
-        // Pass the key character to the HandleChoice method
-        FightChoice(keyInfo.KeyChar);
-
-    }
-}
-
-void FightChoice(char choice)
-{
-    switch (choice)
+    void FightChoice(char choice)
     {
-        case '1':
-            Console.Clear();
-            playerShip.Attack(enemyShip);
-            enemyShip.Assault(playerShip);
-            FightMenu();
-            break;
-        case '2':  // Use single quotes for char literals
-            Console.Clear();
-            playerShip.Repair();
-            enemyShip.EnemyRepair();
-            FightMenu();
-            break;
-        case '3':  // Use single quotes for char literals
-            Console.Clear();
-            OutofPortMenu();
-            break;
-        default:
-            Console.Clear();
-            Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-            FightMenu();
-            break;
+        switch (choice)
+        {
+            case '1':
+                Console.Clear();
+                playerShip.Attack(enemyShip);
+                enemyShip.Assault(playerShip);
+                FightMenu();
+                break;
+            case '2':  // Use single quotes for char literals
+                Console.Clear();
+                playerShip.Repair();
+                enemyShip.EnemyRepair();
+                FightMenu();
+                break;
+            case '3':  // Use single quotes for char literals
+                Console.Clear();
+                OutofPortMenu();
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                FightMenu();
+                break;
+        }
     }
-}
 
     void SearchTreasure()
     {
