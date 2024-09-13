@@ -194,12 +194,12 @@ class PirateGame
             else
             {
             menuanimationcancel = true;
+            Console.Clear();
             StartMenu(); // Perform action based on the key press
             }
         }
     void StartMenu()
     {
-        Console.Clear();
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Quit\n-------------------------------------------------------");
         while (true)
         {
