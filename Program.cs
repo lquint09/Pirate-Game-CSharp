@@ -1,3 +1,5 @@
+namespace PirateGame
+{
 class Ship
 {
     public string Name { get; set; }
@@ -207,8 +209,6 @@ public async void StartGameAnimation() // animation at the start of the game
             Task.Delay(3000);
             StartMenu();
             string choice = Console.ReadLine();
-            #pragma warning disable CS8604 // Possible null reference argument.
-            HandleChoice(choice);
             if (playerShip.Health <= 0)
             {
                 Console.Clear();
@@ -226,65 +226,81 @@ public async void StartGameAnimation() // animation at the start of the game
 
     void StartMenu()
     {
+        Console.Clear();
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Quit\n-------------------------------------------------------");
+        while (true)
+        {
+            // Read key without displaying it
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            // Pass the key character to the HandleChoice method
+            HandleChoice(keyInfo.KeyChar);
+        }
     }
+void HandleChoice(char choice)
+{
+    switch (choice)
+    {
+        case '1':  // Use single quotes for char literals
+            Console.Clear();
+            OutofPortMenu();
+            break;
+        case '2':  // Use single quotes for char literals
+            Console.Clear();
+            ShopMenu();
+            break;
+        case '3':  // Use single quotes for char literals
+            Console.Clear();
+            QuitMenu();
+            break;
+        default:
+            Console.Clear();
+            Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+            StartMenu();
+            break;
+    }
+}
     void OutofPortMenu()
     {
-        Console.Clear();
         while (true)
         {
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^^  ^^^^^^^^^^\n^^^^      ^^^^  ^^^^^^^^^^^^^^^^^^^^^^   ^^^    ^^\n      ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^ \n \n \n \n-------------------------------------------------------\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n-------------------------------------------------------");
-        string choice = Console.ReadLine();
-                #pragma warning disable CS8604 // Possible null reference argument.
-                OutofPortChoice(choice);
-                if (choice == "4") break;
+        while (true)
+        {
+            // Read key without displaying it
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            // Pass the key character to the HandleChoice method
+            OutofPortChoice(keyInfo.KeyChar);
+        }
+
         }
     }
-    void HandleChoice(string choice)
+   void OutofPortChoice(char choice)
     {
         switch (choice)
         {
-            case "1":
-                Console.Clear();
-                OutofPortMenu();
-                break;
-            case "2":
-                Console.Clear();
-                Shop();
-                break;
-            case "3":
-                Console.Clear();
-                Quit();
-                break;      
-            default:
-                Console.Clear();
-                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-                break;  
-        }
-    }
-   void OutofPortChoice(string choice)
-    {
-        switch (choice)
-        {
-            case "1":
+            case '1':
                 Console.Clear();
                 AttackSequence();
                 break;
-            case "2":
+            case '2':
                 Console.Clear();
                 RepairShip();
                 break;
-            case "3":
+            case '3':
                 Console.Clear();
                 SearchTreasure();
                 break;
-            case "4":
+            case '4':
                 enemyShip.Health = new Random().Next(75, 151);  // Reset enemy ship health so the you don't sink it twice
+                StartMenu();
                 Console.Clear();
                 break;
             default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                OutofPortMenu();
                 break;
         }
     }
@@ -381,28 +397,34 @@ void AttackSequence()
     {
         Console.Clear();
         playerShip.Repair();
+        OutofPortMenu();
     }
     void SearchTreasure()
     {
         Console.Clear();
         playerShip.Treasure();
+        OutofPortMenu();
     }
-    void Shop()
+    void ShopMenu()
     {
-        Console.Clear();
         while (true)
         {
             Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
-            string choice = Console.ReadLine();
-                HandleShopChoice(choice);
-                if (choice == "5") break;
+        while (true)
+        {
+            // Read key without displaying it
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            // Pass the key character to the HandleChoice method
+            HandleShopChoice(keyInfo.KeyChar);
+        }
         }
     }
-    void HandleShopChoice(string choice)
+    void HandleShopChoice(char choice)
     {
         switch (choice)
         {
-            case "1":
+            case '1':
                 Console.Clear();
                 if (playerShip.Bank < 1000)
                 {
@@ -418,8 +440,9 @@ void AttackSequence()
                 {
                     Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------");
                 }
+                ShopMenu();
                 break;
-            case "2":
+            case '2':
                 Console.Clear();
                 if (playerShip.Bank < 100)
                 {                                   
@@ -439,8 +462,9 @@ void AttackSequence()
                 {                                   
                     Console.WriteLine("--------------------------------------------------------------------\n  You have reached your max crew amount (upgrade ship to increase) \n--------------------------------------------------------------------");
                 }
+                ShopMenu();
                 break;
-            case "3":
+            case '3':
                 Console.Clear();
                 if (playerShip.Bank < 5000)
                 {                                   
@@ -454,8 +478,9 @@ void AttackSequence()
                     playerShip.MaxCannons += 5;      
                     Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons} \n---------------------------------------------------------------------------------------------------------------------");
                 }
+                ShopMenu();
                 break;
-            case "4":
+            case '4':
                 Console.Clear();
                 if (playerShip.Items < 1)
                 {                                                                          
@@ -467,46 +492,55 @@ void AttackSequence()
                     playerShip.Bank += 1000;        
                     Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------");
                 }
+                ShopMenu();
                 break;
-            case "5":
+            case '5':
                 Console.Clear();
+                StartMenu();
                 break;
             default:
                 Console.Clear();                
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
+                ShopMenu();
                 break;
         }
     }
-    void Quit()
+    void QuitMenu()
     {
-        Console.Clear();
+        Console.WriteLine("-------------------------------------------------------\nAre you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
         while (true)
         {
-            Console.WriteLine("-------------------------------------------------------\nAre you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
+            // Read key without displaying it
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
-            string choice = Console.ReadLine();
-            if (choice == "1")
-            {
-                Console.Clear();
-                Console.WriteLine("Thanks for playing!");
-                Environment.Exit(0);
-            }
-            else if (choice == "2")
-            {
-                Console.Clear();
-                break;
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");  
-            }
+            // Pass the key character to the HandleChoice method
+            QuitChoiceHandler(keyInfo.KeyChar);
         }
     }
+    void QuitChoiceHandler(char choice)
+    {
+        switch (choice)
+        {
+            case '1':
+                Environment.Exit(1);
+                break;
+            case '2':
+                Console.Clear();
+                StartMenu();
+                break;
+            default:
+                Console.Clear();                
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
+                QuitMenu();
+                break;    
+        }
     }
+
     static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
         game.Start();
     }
+}
+}
 }
