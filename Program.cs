@@ -342,7 +342,6 @@ class PirateGame
             FightChoice(keyInfo.KeyChar);
         }
     }
-
     void FightChoice(char choice)
     {
         switch (choice)
@@ -386,7 +385,6 @@ class PirateGame
                 break;
         }
     }
-
     void SearchTreasure()
     {
         Console.Clear();
@@ -524,8 +522,6 @@ class PirateGame
         }
     }
 }
-
-
     static void Main(string[] args)
     {
         PirateGame game = new PirateGame();
