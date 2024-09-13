@@ -179,7 +179,6 @@ public async void StartGameAnimation() // animation at the start of the game
         {
             break;
         }       
-    
     }
 }
     public void Start() // initiallization options for the game
@@ -195,18 +194,9 @@ public async void StartGameAnimation() // animation at the start of the game
             else
             {
             menuanimationcancel = true;
-            StartGame(); // Perform action based on the key press
+            StartMenu(); // Perform action based on the key press
             }
         }
-    }
-    public void StartGame() // Game Application itself
-    {
-        Console.Clear();
-        while (menuanimationcancel == true)
-        {
-            StartMenu(); 
-        }
-
     void StartMenu()
     {
         Console.Clear();
