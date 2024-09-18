@@ -56,7 +56,7 @@ class Ship
     }
     public void BoardChance(Ship target)
     {
-        Chance = random.Next(1,2);
+        Chance = random.Next(1,5);
         if (target.Health < 31)
         {
             if (Crew > EnemyCrew)
@@ -267,6 +267,11 @@ class PirateGame
                 Console.Clear();
                 StartMenu();
                 break;
+            case (char)ConsoleKey.Escape:
+                Console.Clear();
+                StartMenu();
+                break;
+
             default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
@@ -295,6 +300,10 @@ class PirateGame
                 FightMenu();
                 break;
             case '2':
+                Console.Clear();
+                OutofPortMenu();
+                break;
+            case (char)ConsoleKey.Escape:
                 Console.Clear();
                 OutofPortMenu();
                 break;
@@ -373,6 +382,10 @@ class PirateGame
                    OutofPortMenu();
                    break;
                 }
+                break;
+            case (char)ConsoleKey.Escape:
+                Console.Clear();
+                OutofPortMenu();
                 break;
             default:
                 Console.Clear();
@@ -480,6 +493,10 @@ class PirateGame
                 Console.Clear();
                 StartMenu();
                 break;
+            case (char)ConsoleKey.Escape:
+                Console.Clear();
+                StartMenu();
+                break;
             default:
                 Console.Clear();                
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
@@ -507,6 +524,10 @@ class PirateGame
                 Environment.Exit(1);
                 break;
             case '2':
+                Console.Clear();
+                StartMenu();
+                break;
+            case (char)ConsoleKey.Escape:
                 Console.Clear();
                 StartMenu();
                 break;
