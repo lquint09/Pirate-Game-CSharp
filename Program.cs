@@ -103,10 +103,6 @@ class Ship
         Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and stole {stolenAmount} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
         Bank += stolenAmount;
     }
-    public void Inventory()
-    {
-        Items = 0;
-    }
     public void EnemyRepair()
     {
         int chance = random.Next(1, 11);
