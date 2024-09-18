@@ -1,9 +1,3 @@
-using System.Threading.Channels;
-
-namespace game
-{
-    
-
 public class Ship
 {
     public string Name { get; set; }
@@ -604,5 +598,4 @@ public class PirateGame
         PirateGame game = new PirateGame();
         game.Start();
     }
-}
 }
