@@ -1,3 +1,9 @@
+using System.Threading.Channels;
+
+namespace game
+{
+    
+
 public class Ship
 {
     public string Name { get; set; }
@@ -93,12 +99,6 @@ public class Ship
     public void Treasure()
     {
         Console.Clear();
-        Chance = new Random().Next(1, 20);
-        if (Chance <= 2)
-        {
-            Health -= 10;
-            Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
-        }
         int treasureAmount = random.Next(5, 21);
         Bank += treasureAmount;
         Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Bank}\n----------------------------------------------");
@@ -129,6 +129,7 @@ public class PirateGame
     bool menuanimationcancel = false;
     private Ship playerShip;
     private Ship enemyShip;
+
     public PirateGame()
     {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
@@ -276,10 +277,21 @@ public class PirateGame
                 OutofPortMenu();
                 break;
             case '3':
+                int chance = new Random().Next(1,20);
                 Console.Clear();
-                SearchTreasure();
+                if (chance <= 2)
+                {
+                    enemyShip.Assault(playerShip);
+                    FightMenu();
+                    break;
+                }
+                else
+                {
+                playerShip.Treasure();
                 OutofPortMenu();
                 break;
+                }
+
             case '4':
                 Console.Clear();
                 StartMenu();
@@ -382,7 +394,7 @@ public class PirateGame
                 break;
             case '3':  // Use single quotes for char literals
                 Console.Clear();
-                OutofPortMenu();
+                LeaveFightMenu();
                 break;
             case '4':
                 if (enemyShip.Health > 30)
@@ -411,11 +423,41 @@ public class PirateGame
                 break;
         }
     }
-    void SearchTreasure()
+    void LeaveFightMenu()
     {
-        Console.Clear();
-        playerShip.Treasure();
-        OutofPortMenu();
+        Console.WriteLine("-------------------------------------------------------\nAre you sure you want to leave fight?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
+        while (true)
+        {
+            // Read key without displaying it
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            // Pass the key character to the HandleChoice method
+            LeaveFightChoiceHandler(keyInfo.KeyChar);
+        }
+    }
+    void LeaveFightChoiceHandler(char choice)
+    {
+        switch (choice)
+        {
+            case '1':
+                Console.Clear();
+                OutofPortMenu();
+                break;
+
+            case '2':
+                Console.Clear();
+                FightMenu();
+                break;
+            case (char)ConsoleKey.Escape:
+                Console.Clear();
+                FightMenu();
+                break;
+             default:
+                Console.Clear();
+                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                LeaveFightMenu();
+                break;
+        }
     }
     void ShopMenu()
     {
@@ -561,4 +603,5 @@ public class PirateGame
         PirateGame game = new PirateGame();
         game.Start();
     }
+}
 }
