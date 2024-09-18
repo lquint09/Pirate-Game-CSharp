@@ -179,6 +179,7 @@ class PirateGame
     }
     public void Start() // initiallization options for the game
     {   
+        menuanimationcancel = false; 
         StartGameAnimation();
         while (true)
         {   
@@ -194,6 +195,7 @@ class PirateGame
             StartMenu(); // Perform action based on the key press
             }
         }
+
     void StartMenu()
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Quit\n-------------------------------------------------------");
@@ -221,6 +223,10 @@ class PirateGame
             case '3':  // Use single quotes for char literals
                 Console.Clear();
                 QuitMenu();
+                break;
+            case (char)ConsoleKey.Escape:
+                Console.Clear();
+                Start();
                 break;
             default:
                 Console.Clear();
