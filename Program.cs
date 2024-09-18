@@ -1,4 +1,4 @@
-class Ship
+public class Ship
 {
     public string Name { get; set; }
     public int Cannons { get; set; }
@@ -92,9 +92,15 @@ class Ship
     }
     public void Treasure()
     {
+        Console.Clear();
+        Chance = new Random().Next(1, 20);
+        if (Chance <= 2)
+        {
+            Health -= 10;
+            Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
+        }
         int treasureAmount = random.Next(5, 21);
         Bank += treasureAmount;
-        Console.Clear();
         Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Bank}\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
@@ -118,7 +124,7 @@ class Ship
         }
     }
 }
-class PirateGame
+public class PirateGame
 {
     bool menuanimationcancel = false;
     private Ship playerShip;
@@ -237,8 +243,12 @@ class PirateGame
     }
     void OutofPortMenu()
     {
-        while (true)
-        {
+        if (playerShip.Health <= 0)
+        {   
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
+            Environment.Exit(1);
+        }
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^^  ^^^^^^^^^^\n^^^^      ^^^^  ^^^^^^^^^^^^^^^^^^^^^^   ^^^    ^^\n      ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^ \n \n \n \n-------------------------------------------------------\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n-------------------------------------------------------");
         while (true)
         {
@@ -249,7 +259,7 @@ class PirateGame
             OutofPortChoice(keyInfo.KeyChar);
         }
 
-        }
+        
     }
     void OutofPortChoice(char choice)
     {
@@ -268,6 +278,7 @@ class PirateGame
             case '3':
                 Console.Clear();
                 SearchTreasure();
+                OutofPortMenu();
                 break;
             case '4':
                 Console.Clear();
@@ -331,7 +342,7 @@ class PirateGame
         Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
     
         }
-        if (playerShip.Health == 0)
+        if (playerShip.Health <= 0)
         {   
             Console.Clear();
             Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
@@ -376,7 +387,7 @@ class PirateGame
             case '4':
                 if (enemyShip.Health > 30)
                 {
-                                   Console.Clear();
+                Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 FightMenu();
                 break; 
