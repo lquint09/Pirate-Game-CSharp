@@ -281,6 +281,7 @@ public class PirateGame
                 Console.Clear();
                 if (chance <= 2)
                 {
+                    Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
                     enemyShip.Assault(playerShip);
                     FightMenu();
                     break;
