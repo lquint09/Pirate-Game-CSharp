@@ -54,7 +54,7 @@ public class Ship
             Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
     }
-    public void BoardChance(Ship target)
+    public void BoardChance(Ship target) // boarding procudure  
     {
         Chance = random.Next(1,5);
         if (target.Health < 31)
@@ -80,7 +80,7 @@ public class Ship
             }
         }
     }
-    public void Repair()
+    public void Repair() // repair function for player ship
     {
         int repairAmount = random.Next(10, 21);
         Health += repairAmount;
@@ -103,7 +103,7 @@ public class Ship
         Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and stole {stolenAmount} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
         Bank += stolenAmount;
     }
-    public void EnemyRepair()
+    public void EnemyRepair() // enemy ship repair function
     {
         int chance = random.Next(1, 11);
         if (chance > 7)
@@ -217,11 +217,11 @@ public class PirateGame
                 Console.Clear();
                 OutofPortMenu();
                 break;
-            case '2':  // Use single quotes for char literals
+            case '2':  
                 Console.Clear();
                 ShopMenu();
                 break;
-            case '3':  // Use single quotes for char literals
+            case '3':  
                 Console.Clear();
                 QuitMenu();
                 break;
@@ -271,7 +271,7 @@ public class PirateGame
                 OutofPortMenu();
                 break;
             case '3':
-                int chance = new Random().Next(1,20);
+                int chance = new Random().Next(1,20); // possible chance to find a ship while looking for treasure
                 Console.Clear();
                 if (chance <= 2)
                 {
@@ -291,7 +291,7 @@ public class PirateGame
                 Console.Clear();
                 StartMenu();
                 break;
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // c# is dumb and doesn't let me use 'esc'
                 Console.Clear();
                 StartMenu();
                 break;
