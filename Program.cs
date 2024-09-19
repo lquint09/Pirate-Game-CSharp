@@ -12,8 +12,9 @@ public class Ship
     public int Chance {get; set;}
     public int EnemyCrew {get; set;}
     public int Cargo {get; set;}
+    public int MaxCargo {get; set;}
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo)
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo)
     {
         Name = name;
         Cannons = cannons;
@@ -27,6 +28,8 @@ public class Ship
         Chance = random.Next(1, 6);
         EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
+        MaxCargo = maxcargo;
+
     }
     public void Attack(Ship target) // player ship attack function
     {
@@ -97,13 +100,22 @@ public class Ship
         Console.Clear();
         int treasureAmount = random.Next(5, 21);
         Cargo += treasureAmount;
-        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}\n----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 250);
-        Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and stole {stolenAmount} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
-        Cargo += stolenAmount;
+        if (MaxCargo - Cargo >= stolenAmount)
+        {
+            Cargo += stolenAmount;
+            Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
+        }
+        if (MaxCargo - Cargo < stolenAmount)
+        {
+            Cargo = MaxCargo;
+            Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and found {stolenAmount}\n----------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold\n----------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
+        }
+
     }
     public void Depot()
     {
@@ -134,8 +146,8 @@ public class PirateGame
 
     public PirateGame()
     {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0);
     }
     public async void StartGameAnimation() // animation at the start of the game
     {
@@ -538,8 +550,9 @@ public class PirateGame
                     playerShip.Bank -= 5000;
                     playerShip.MaxHealth += 50;
                     playerShip.MaxCrew += 50;
-                    playerShip.MaxCannons += 5;      
-                    Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons} \n---------------------------------------------------------------------------------------------------------------------");
+                    playerShip.MaxCannons += 5;   
+                    playerShip.MaxCargo += 500;   
+                    Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons}, Max cargo to {playerShip.MaxCargo} \n---------------------------------------------------------------------------------------------------------------------");
                 }
                 ShopMenu();
                 break;
