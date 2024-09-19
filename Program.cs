@@ -261,7 +261,8 @@ public class PirateGame
         switch (choice)
         {
             case '1':
-                enemyShip.Health = new Random().Next(75, 151);  
+                enemyShip.MaxHealth = new Random().Next(75, 151); 
+                enemyShip.Health = enemyShip.MaxHealth;
                 Console.Clear();
                 AttackMenu();
                 break;
