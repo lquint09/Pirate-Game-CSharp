@@ -1,3 +1,5 @@
+using System.Globalization;
+
 public class Ship
 {
     public string Name { get; set; }
@@ -11,8 +13,9 @@ public class Ship
     public int Items { get; set; }
     public int Chance { get; set; }
     public int EnemyCrew { get; set; }
+    public int Cargo {get; set; }
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew)
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo)
     {
         Name = name;
         Cannons = cannons;
@@ -25,6 +28,7 @@ public class Ship
         Items = inventoryItems;
         Chance = random.Next(1, 6);
         EnemyCrew = random.Next(10, 51);
+        Cargo = cargo;
     }
     public void Attack(Ship target) // player ship attack function
     {
@@ -94,14 +98,20 @@ public class Ship
     {
         Console.Clear();
         int treasureAmount = random.Next(5, 21);
-        Bank += treasureAmount;
+        Cargo += treasureAmount;
         Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Bank}\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 250);
         Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and stole {stolenAmount} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
-        Bank += stolenAmount;
+        Cargo += stolenAmount;
+    }
+    public void Depot()
+    {
+        Bank += Cargo;
+        Console.WriteLine($"----------------------------------------------\n{Cargo} Deposited in bank\n----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\nYou now have {Bank} gold in the bank\n----------------------------------------------");
     }
     public void EnemyRepair() // enemy ship repair function
     {
@@ -126,8 +136,8 @@ public class PirateGame
 
     public PirateGame()
     {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51));
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0);
     }
     public async void StartGameAnimation() // animation at the start of the game
     {
@@ -199,7 +209,7 @@ public class PirateGame
 
     void StartMenu()
     {
-        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Quit\n-------------------------------------------------------");
+        Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true)
         {
             // Read key without displaying it
@@ -221,7 +231,12 @@ public class PirateGame
                 Console.Clear();
                 ShopMenu();
                 break;
-            case '3':  
+            case '3':
+                Console.Clear();
+                playerShip.Depot();
+                StartMenu();
+                break;
+            case '4':  
                 Console.Clear();
                 QuitMenu();
                 break;
