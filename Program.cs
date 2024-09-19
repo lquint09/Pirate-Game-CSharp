@@ -99,7 +99,7 @@ public class Ship
         Console.Clear();
         int treasureAmount = random.Next(5, 21);
         Cargo += treasureAmount;
-        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Bank}\n----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
@@ -196,10 +196,6 @@ public class PirateGame
         {   
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
             if (keyInfo.Key == ConsoleKey.Escape) // Check the key that was pressed
-            {
-                Environment.Exit(0);
-            }
-            else
             {
             menuanimationcancel = true;
             Console.Clear();
