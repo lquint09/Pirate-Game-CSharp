@@ -2,18 +2,18 @@ using System.Globalization;
 
 public class Ship
 {
-    public string Name { get; set; }
-    public int Cannons { get; set; }
-    public int Crew { get; set; }
-    public int MaxCrew { get; set; }
-    public int MaxCannons { get; set; }
-    public int Bank { get; set; }
-    public int Health { get; set; }
-    public int MaxHealth { get; set; }
-    public int Items { get; set; }
-    public int Chance { get; set; }
-    public int EnemyCrew { get; set; }
-    public int Cargo {get; set; }
+    public string Name {get; set;}
+    public int Cannons {get; set;}
+    public int Crew {get; set;}
+    public int MaxCrew {get; set;}
+    public int MaxCannons {get; set;}
+    public int Bank {get; set;}
+    public int Health {get; set;}
+    public int MaxHealth {get; set;}
+    public int Items {get; set;}
+    public int Chance {get; set;}
+    public int EnemyCrew {get; set;}
+    public int Cargo {get; set;}
     private static readonly Random random = new Random();
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo)
     {
