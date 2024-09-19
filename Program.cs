@@ -197,6 +197,10 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
             if (keyInfo.Key == ConsoleKey.Escape) // Check the key that was pressed
             {
+                Environment.Exit(0);
+            }
+            else
+            {
             menuanimationcancel = true;
             Console.Clear();
             StartMenu(); // Perform action based on the key press
