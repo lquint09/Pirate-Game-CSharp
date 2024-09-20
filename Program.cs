@@ -278,8 +278,6 @@ public class PirateGame
             // Pass the key character to the HandleChoice method
             OutofPortChoice(keyInfo.KeyChar);
         }
-
-        
     }
     void OutofPortChoice(char choice)
     {
@@ -301,6 +299,8 @@ public class PirateGame
                 Console.Clear();
                 if (chance <= 2)
                 {
+                    enemyShip.MaxHealth = new Random().Next(75, 151); 
+                    enemyShip.Health = enemyShip.MaxHealth;
                     Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
                     enemyShip.Assault(playerShip);
                     FightMenu();
