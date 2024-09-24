@@ -105,17 +105,16 @@ public class Ship
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
         int stolenAmount = random.Next(0, 250);
+        if (MaxCargo - Cargo < stolenAmount)
+        {                                                                                                                                                        
+            Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
+            Cargo = MaxCargo;
+        }
         if (MaxCargo - Cargo >= stolenAmount)
         {
             Cargo += stolenAmount;
             Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
         }
-        if (MaxCargo - Cargo < stolenAmount)
-        {
-            Cargo = MaxCargo;
-            Console.WriteLine($"----------------------------------------------\n Enemy ship has been defeated! \n----------------------------------------------\n You sank the enemy ship and found {stolenAmount}\n----------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold\n----------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n----------------------------------------------\n Health {Health}/{MaxHealth}\n----------------------------------------------");
-        }
-
     }
     public void Depot()
     {
