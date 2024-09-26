@@ -223,11 +223,11 @@ public class PirateGame
             // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
-            // Pass the key character to the HandleChoice method
-            HandleChoice(keyInfo.KeyChar);
+            // Pass the key character to the StartMenuHandler method
+            StaratMenuHandler(keyInfo.KeyChar);
         }
     }
-    void HandleChoice(char choice)
+    void StaratMenuHandler(char choice)
     {
         switch (choice)
         {
@@ -274,10 +274,10 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            OutofPortChoice(keyInfo.KeyChar);
+            OutofPortChoiceHandler(keyInfo.KeyChar);
         }
     }
-    void OutofPortChoice(char choice)
+    void OutofPortChoiceHandler(char choice)
     {
         switch (choice)
         {
@@ -392,10 +392,10 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            FightChoice(keyInfo.KeyChar);
+            FightChoiceHandler(keyInfo.KeyChar);
         }
     }
-    void FightChoice(char choice)
+    void FightChoiceHandler(char choice)
     {
         switch (choice)
         {
@@ -489,11 +489,11 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            HandleShopChoice(keyInfo.KeyChar);
+            ShopChoiceHandler(keyInfo.KeyChar);
         }
         }
     }
-    void HandleShopChoice(char choice)
+    void ShopChoiceHandler(char choice)
     {
         switch (choice)
         {
