@@ -5,14 +5,14 @@ public class Ship
     public int Crew {get; set;}
     public int MaxCrew {get; set;}
     public int MaxCannons {get; set;}
-    public int Bank {get; set;}
-    public int Health {get; set;}
-    public int MaxHealth {get; set;}
+    public float Bank {get; set;}
+    public float Health {get; set;}
+    public float MaxHealth {get; set;}
     public int Items {get; set;}
     public int Chance {get; set;}
     public int EnemyCrew {get; set;}
-    public int Cargo {get; set;}
-    public int MaxCargo {get; set;}
+    public float Cargo {get; set;}
+    public float MaxCargo {get; set;}
     private static readonly Random random = new Random();
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo)
     {
@@ -87,7 +87,7 @@ public class Ship
     }
     public void Repair() // repair function for player ship
     {
-        int repairAmount = random.Next(10, 21);
+        float repairAmount = random.Next(10, 21);
         Health += repairAmount;
         if (Health > MaxHealth)
         {
@@ -98,13 +98,13 @@ public class Ship
     public void Treasure()
     {
         Console.Clear();
-        int treasureAmount = random.Next(5, 21);
+        float treasureAmount = random.Next(5, 21);
         Cargo += treasureAmount;
         Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
-        int stolenAmount = random.Next(0, 250);
+        float stolenAmount = random.Next(0, 250);
         if (MaxCargo - Cargo < stolenAmount)
         {                                                                                                                                                        
             Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
@@ -127,7 +127,7 @@ public class Ship
         int chance = random.Next(1, 11);
         if (chance > 7)
         {
-            int repairAmount = random.Next(10, 21);
+            float repairAmount = random.Next(10, 21);
             Health += repairAmount;
             if (Health > MaxHealth)
             {
@@ -223,11 +223,11 @@ public class PirateGame
             // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
-            // Pass the key character to the HandleChoice method
-            HandleChoice(keyInfo.KeyChar);
+            // Pass the key character to the StartMenuHandler method
+            StaratMenuHandler(keyInfo.KeyChar);
         }
     }
-    void HandleChoice(char choice)
+    void StaratMenuHandler(char choice)
     {
         switch (choice)
         {
@@ -274,10 +274,10 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            OutofPortChoice(keyInfo.KeyChar);
+            OutofPortChoiceHandler(keyInfo.KeyChar);
         }
     }
-    void OutofPortChoice(char choice)
+    void OutofPortChoiceHandler(char choice)
     {
         switch (choice)
         {
@@ -392,10 +392,10 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            FightChoice(keyInfo.KeyChar);
+            FightChoiceHandler(keyInfo.KeyChar);
         }
     }
-    void FightChoice(char choice)
+    void FightChoiceHandler(char choice)
     {
         switch (choice)
         {
@@ -489,11 +489,11 @@ public class PirateGame
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the HandleChoice method
-            HandleShopChoice(keyInfo.KeyChar);
+            ShopChoiceHandler(keyInfo.KeyChar);
         }
         }
     }
-    void HandleShopChoice(char choice)
+    void ShopChoiceHandler(char choice)
     {
         switch (choice)
         {
