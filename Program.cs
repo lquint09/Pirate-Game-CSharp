@@ -33,7 +33,7 @@ public class Ship
     }
     public void Attack(Ship target) // player ship attack function
     {
-        int chance = random.Next(1, 11);
+        float chance = random.Next(1, 11);
         if (chance >= 2)
         {
             int damage = random.Next(10, 21) + Cannons;
@@ -50,7 +50,7 @@ public class Ship
         int chance = random.Next(1, 11);
         if (chance >= 2)
         {
-            int damage = random.Next(10, 21) + Cannons;
+            float damage = random.Next(10, 21) + Cannons;
             target.Health -= damage;
             target.Health = Math.Max(target.Health, 0);
         }
