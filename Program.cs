@@ -199,7 +199,7 @@ public class PirateGame
     }
     public void Start() // initiallization options for the game
     {   
-        menuanimationcancel = false; 
+        menuanimationcancel = false;
         StartGameAnimation();
         while (true)
         {   
@@ -212,9 +212,16 @@ public class PirateGame
             {
             menuanimationcancel = true;
             Console.Clear();
-            StartMenu(); // Perform action based on the key press
+            EnterNameMenu(); // Perform action based on the key press
             }
         }
+    void EnterNameMenu(playerShip.Name)
+    {
+        Console.WriteLine("Enter your name");
+        string name = Console.ReadLine();
+        name = playerShip.Name;
+        StartMenu();
+    }
     void StartMenu()
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
@@ -478,10 +485,13 @@ public class PirateGame
                 break;
         }
     }
-    void ShopMenu()
+    async void ShopMenu()
     {
         while (true)
         {
+            Console.WriteLine($"Welcome to the Shop, {playership.Name}");
+            await Task.Delay(2000);
+            Console.Clear();
             Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
         while (true)
         {
