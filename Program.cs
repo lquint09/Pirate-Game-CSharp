@@ -199,7 +199,7 @@ public class PirateGame
     }
     public void Start() // initiallization options for the game
     {   
-        menuanimationcancel = false; 
+        menuanimationcancel = false;
         StartGameAnimation();
         while (true)
         {   
@@ -212,9 +212,14 @@ public class PirateGame
             {
             menuanimationcancel = true;
             Console.Clear();
-            StartMenu(); // Perform action based on the key press
+            EnterNameMenu(); // Perform action based on the key press
             }
         }
+    void EnterNameMenu(playerShip.name)
+    {
+        Console.WriteLine("Enter your name");
+        
+    }
     void StartMenu()
     {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
