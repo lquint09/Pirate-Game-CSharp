@@ -215,12 +215,13 @@ public class PirateGame
             EnterNameMenu(); // Perform action based on the key press
             }
         }
-    void EnterNameMenu(playerShip.Name)
+    void EnterNameMenu()
     {
         Console.WriteLine("Enter your name");
         string name = Console.ReadLine();
-        name = playerShip.Name;
-        StartMenu();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            playerShip.Name = name;
+            StartMenu();
     }
     void StartMenu()
     {
@@ -489,7 +490,7 @@ public class PirateGame
     {
         while (true)
         {
-            Console.WriteLine($"Welcome to the Shop, {playership.Name}");
+            Console.WriteLine($"Welcome to the Shop, {playerShip.Name}");
             await Task.Delay(2000);
             Console.Clear();
             Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI                  Welcome to the Shop               I\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
