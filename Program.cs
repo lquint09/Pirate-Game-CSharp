@@ -219,7 +219,7 @@ public class PirateGame
     {
         Console.WriteLine("Enter your name");
         string name = Console.ReadLine();
-#pragma warning disable CS8601 // Possible null reference assignment.
+            #pragma warning disable CS8601 // Possible null reference assignment.
             playerShip.Name = name;
             StartMenu();
     }
