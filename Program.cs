@@ -218,10 +218,21 @@ public class PirateGame
     void EnterNameMenu()
     {
         Console.WriteLine("Enter your name");
-        string name = Console.ReadLine();
-            #pragma warning disable CS8601 // Possible null reference assignment.
-            playerShip.Name = name;
-            StartMenu();
+        while (true)
+        {
+            string name = Console.ReadLine();
+                 if (string.IsNullOrEmpty(name))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please enter a name");
+                    }
+                else
+                    {
+                       Console.Clear();  
+                       playerShip.Name = name;
+                       StartMenu(); 
+                    }
+        }
     }
     void StartMenu()
     {
