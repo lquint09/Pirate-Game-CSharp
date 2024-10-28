@@ -33,10 +33,11 @@ public class Ship
     }
     public void Attack(Ship target) // player ship attack function
     {
-        float chance = random.Next(1, 11);
+        int chance = random.Next(1, 11);
         if (chance >= 2)
         {
-            int damage = random.Next(10, 21) + Cannons;
+            float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
+            damage = (float)Math.Round(damage, 1);
             target.Health -= damage;
             target.Health = Math.Max(target.Health, 0);
         }
@@ -50,7 +51,8 @@ public class Ship
         int chance = random.Next(1, 11);
         if (chance >= 2)
         {
-            float damage = random.Next(10, 21) + Cannons;
+            float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
+            damage = (float)Math.Round(damage, 1);            
             target.Health -= damage;
             target.Health = Math.Max(target.Health, 0);
         }
@@ -98,9 +100,16 @@ public class Ship
     public void Treasure()
     {
         Console.Clear();
-        float treasureAmount = random.Next(5, 21);
-        Cargo += treasureAmount;
-        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");
+        float treasureAmount = random.Next(100, 250);
+        if (MaxCargo - Cargo < treasureAmount)
+        {Cargo = MaxCargo;
+        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+        }
+        if (MaxCargo - Cargo >= treasureAmount)
+        {
+            Cargo += treasureAmount;
+            Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
+        }
     }
     public void Stolen() // defines how much gold is given after a ship has been sunk
     {
@@ -502,7 +511,7 @@ public class PirateGame
         while (true)
         {
             Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} Crew: {playerShip.Crew}/{playerShip.MaxCrew} Gold: {playerShip.Bank} Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
         while (true)
         {
             // Read key without displaying it
