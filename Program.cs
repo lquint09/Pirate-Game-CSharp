@@ -154,7 +154,7 @@ public class PirateGame
 
     public PirateGame()
     {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500); // 5 = cannons, 50 = crew, 100 = maxhealth, 0 = inventory.
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0);
     }
     public async void StartGameAnimation() // animation at the start of the game
