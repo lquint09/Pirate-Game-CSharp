@@ -208,10 +208,10 @@ public class PirateGame {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
 
             // Pass the key character to the StartMenuHandler method
-            StaratMenuHandler(keyInfo.KeyChar);
+            StartMenuHandler(keyInfo.KeyChar);
         }
     }
-    void StaratMenuHandler(char choice) {
+    void StartMenuHandler(char choice) {
         switch (choice) {
             case '1':  // Use single quotes for char literals
                 Console.Clear();
