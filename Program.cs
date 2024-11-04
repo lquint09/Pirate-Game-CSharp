@@ -87,7 +87,7 @@ public class Ship {
         float treasureAmount = random.Next(10, 21);
         if (MaxCargo - Cargo < treasureAmount) {
         Cargo = MaxCargo;
-        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
         }
         if (MaxCargo - Cargo >= treasureAmount) {
             Cargo += treasureAmount;
@@ -97,7 +97,7 @@ public class Ship {
     public void Stolen() { // defines how much gold is given after a ship has been sunk
         float stolenAmount = random.Next(0, 250);
         if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
-            Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
+            Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
             Cargo = MaxCargo;
         }
         if (MaxCargo - Cargo >= stolenAmount) {
