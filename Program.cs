@@ -452,22 +452,22 @@ public class PirateGame {
             case '1':
                 Console.Clear();
                 if (playerShip.Bank < 1000) {
-                    Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------");
+                    Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons) {
                     playerShip.Bank -= 1000;
                     playerShip.Cannons += 1;         
-                    Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------");
+                    Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------\n \n \n");
                 }
                 else {
-                    Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------");
+                    Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '2':
                 Console.Clear();
                 if (playerShip.Bank < 100) {                              
-                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------");
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else if (playerShip.Crew < playerShip.MaxCrew) {
                     playerShip.Bank -= 100;
@@ -475,17 +475,17 @@ public class PirateGame {
                     if (playerShip.Crew > playerShip.MaxCrew) {
                         playerShip.Crew = playerShip.MaxCrew;
                     }                                
-                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Crew} crew members \n-----------------------------------------------");
+                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Crew} crew members \n-----------------------------------------------\n \n \n");
                 }
                 else {
-                    Console.WriteLine("--------------------------------------------------------------------\n  You have reached your max crew amount (upgrade ship to increase) \n--------------------------------------------------------------------");
+                    Console.WriteLine("--------------------------------------------------------------------\n  You have reached your max crew amount (upgrade ship to increase) \n--------------------------------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '3':
                 Console.Clear();
                 if (playerShip.Bank < 5000) {                              
-                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------");
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Bank -= 5000;
@@ -493,19 +493,19 @@ public class PirateGame {
                     playerShip.MaxCrew += 50;
                     playerShip.MaxCannons += 5;   
                     playerShip.MaxCargo += 500;   
-                    Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons}, Max cargo to {playerShip.MaxCargo} \n---------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine($"---------------------------------------------------------------------------------------------------------------------\n  Upgraded ship: Health to {playerShip.MaxHealth}, Crew to {playerShip.MaxCrew}, Cannons to {playerShip.MaxCannons}, Max cargo to {playerShip.MaxCargo} \n---------------------------------------------------------------------------------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '4':
                 Console.Clear();
                 if (playerShip.Items < 1) {                                                                     
-                    Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------");
+                    Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Items -= 1;
                     playerShip.Bank += 1000;        
-                    Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------");
+                    Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
@@ -519,7 +519,7 @@ public class PirateGame {
                 break;
             default:
                 Console.Clear();                
-                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
+                Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------\n \n \n");
                 ShopMenu();
                 break;
         }
