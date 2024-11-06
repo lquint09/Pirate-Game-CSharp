@@ -125,64 +125,62 @@ public class PirateGame {
     bool menuanimationcancel = false;
     private Ship playerShip;
     private Ship enemyShip;
-
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 5000, 100, 0, 0, 50, 10, 0, 0, 500);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0);
     }
-    public async void StartGameAnimation() { // animation at the start of the game
-        while (!menuanimationcancel) { // token system to toggle start game animation 
-            // menu animation frames here
+    public async void StartGameAnimation() {
+        while (!menuanimationcancel) { 
             Console.Clear();
             Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-            await Task.Delay(1500);  // Delay for animation effect
-            if (menuanimationcancel) { // check if animation cancel token
+            await Task.Delay(1500);
+            if (menuanimationcancel) { 
                 break;
             }
             Console.Clear();
             Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-            await Task.Delay(1500); // Delay for animation effect
-            if (menuanimationcancel) { // check if animtion cancel token
+            await Task.Delay(1500);
+            if (menuanimationcancel) {
                 break;
             }
             Console.Clear();
             Console.WriteLine("                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n----------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^   ^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-            await Task.Delay(1500); // Delay for animation effect
-            if (menuanimationcancel) { // check if animtion cancel token
+            await Task.Delay(1500);
+            if (menuanimationcancel) {
                 break;
             }
             Console.Clear();
             Console.WriteLine("                   |>\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit");
-            await Task.Delay(1500); // Delay for animation effect
-            if (menuanimationcancel) { // check if animation cancel toekn
+            await Task.Delay(1500); 
+            if (menuanimationcancel) {
                 break;
             }
             Console.Clear();
             Console.WriteLine("                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
-            await Task.Delay(1500);  // Delay for animation effect
-            if (menuanimationcancel) { // check if animation cancel token
+            await Task.Delay(1500);
+            if (menuanimationcancel) {
                 break;
             }     
             Console.Clear();
             Console.WriteLine("                 |> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ");
-            await Task.Delay(1500);  // Delay for animation effect
-            if (menuanimationcancel) { // check if animation cancel token
+            await Task.Delay(1500);
+            if (menuanimationcancel) {
                 break;
             }       
         }
     }
-    public void Start() { // initiallization options for the game   
+    public void Start() {   
         menuanimationcancel = false;
         StartGameAnimation();
         while (true) {   
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // intercept: true prevents the key from being displayed
-            if (keyInfo.Key == ConsoleKey.Escape) { // Check the key that was pressed
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+            if (keyInfo.Key == ConsoleKey.Escape) {
                 Environment.Exit(0);
             }
             else {
             menuanimationcancel = true;
             Console.Clear();
-            EnterNameMenu(); // Perform action based on the key press
+            EnterNameMenu();
             }
         }
     void EnterNameMenu() {
@@ -203,16 +201,13 @@ public class PirateGame {
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the StartMenuHandler method
             StartMenuHandler(keyInfo.KeyChar);
         }
     }
     void StartMenuHandler(char choice) {
         switch (choice) {
-            case '1':  // Use single quotes for char literals
+            case '1':
                 Console.Clear();
                 OutofPortMenu();
                 break;
@@ -248,10 +243,7 @@ public class PirateGame {
         }
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^^  ^^^^^^^^^^\n^^^^      ^^^^  ^^^^^^^^^^^^^^^^^^^^^^   ^^^    ^^\n      ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^ \n \n \n \n-------------------------------------------------------\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n-------------------------------------------------------");
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the HandleChoice method
             OutofPortChoiceHandler(keyInfo.KeyChar);
         }
     }
@@ -269,7 +261,7 @@ public class PirateGame {
                 OutofPortMenu();
                 break;
             case '3':
-                int chance = new Random().Next(1,20); // possible chance to find a ship while looking for treasure
+                int chance = new Random().Next(1,20);
                 Console.Clear();
                 if (chance <= 2) {
                     enemyShip.MaxHealth = new Random().Next(75, 151); 
@@ -289,7 +281,7 @@ public class PirateGame {
                 Console.Clear();
                 StartMenu();
                 break;
-            case (char)ConsoleKey.Escape: // c# is dumb and doesn't let me use 'esc'
+            case (char)ConsoleKey.Escape:
                 Console.Clear();
                 StartMenu();
                 break;
@@ -304,10 +296,7 @@ public class PirateGame {
     void AttackMenu() {
         Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------"); 
         while (true) {
-                // Read key without displaying it
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-                // Pass the key character to the HandleChoice method
                 AttackChoiceHandler(keyInfo.KeyChar);
             }
         }
@@ -351,10 +340,7 @@ public class PirateGame {
             return;
         }
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the HandleChoice method
             FightChoiceHandler(keyInfo.KeyChar);
         }
     }
@@ -366,13 +352,13 @@ public class PirateGame {
                 enemyShip.Assault(playerShip);
                 FightMenu();
                 break;
-            case '2':  // Use single quotes for char literals
+            case '2':
                 Console.Clear();
                 playerShip.Repair();
                 enemyShip.EnemyRepair();
                 FightMenu();
                 break;
-            case '3':  // Use single quotes for char literals
+            case '3':
                 Console.Clear();
                 LeaveFightMenu();
                 break;
@@ -404,10 +390,7 @@ public class PirateGame {
     void LeaveFightMenu() {
         Console.WriteLine("-------------------------------------------------------\nAre you sure you want to leave fight?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the HandleChoice method
             LeaveFightChoiceHandler(keyInfo.KeyChar);
         }
     }
@@ -438,10 +421,7 @@ public class PirateGame {
             Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
             Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the HandleChoice method
             ShopChoiceHandler(keyInfo.KeyChar);
         }
         }
@@ -526,10 +506,7 @@ public class PirateGame {
     void QuitMenu() {
         Console.WriteLine("-------------------------------------------------------\nAre you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
         while (true) {
-            // Read key without displaying it
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            // Pass the key character to the HandleChoice method
             QuitChoiceHandler(keyInfo.KeyChar);
         }
     }
