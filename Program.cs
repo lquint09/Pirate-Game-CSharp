@@ -28,7 +28,7 @@ public class Ship {
         Cargo = cargo;
         MaxCargo = maxcargo;
     }
-    public void Attack(Ship target) { // player ship attack function
+    public void Attack(Ship target) {
         int chance = random.Next(1, 11);
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
@@ -40,7 +40,7 @@ public class Ship {
             Console.WriteLine("-------------\n You missed\n-------------");
         }
     }
-    public void Assault(Ship target) { // enemy ship attack fucntion
+    public void Assault(Ship target) {
         int chance = random.Next(1, 11);
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
@@ -52,7 +52,7 @@ public class Ship {
             Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
     }
-    public void BoardChance(Ship target) { // boarding procudure  
+    public void BoardChance(Ship target) {
         Chance = random.Next(1,5);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
@@ -73,7 +73,7 @@ public class Ship {
             }
         }
     }
-    public void Repair() { // repair function for player ship
+    public void Repair() {
         float repairAmount = random.Next(10, 21);
         Health += repairAmount;
         if (Health > MaxHealth) {
@@ -93,7 +93,7 @@ public class Ship {
             Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
         }
     }
-    public void Stolen() { // defines how much gold is given after a ship has been sunk
+    public void Stolen() {
         float stolenAmount = random.Next(0, 250);
         if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
             Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
@@ -109,7 +109,7 @@ public class Ship {
         Console.WriteLine($"----------------------------------------------\n{Cargo} Deposited in bank\n----------------------------------------------");
         Console.WriteLine($"----------------------------------------------\nYou now have {Bank} gold in the bank\n----------------------------------------------");
     }
-    public void EnemyRepair() { // enemy ship repair function
+    public void EnemyRepair() {
         int chance = random.Next(1, 11);
         if (chance > 7) {
             float repairAmount = random.Next(10, 21);
