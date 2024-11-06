@@ -27,7 +27,6 @@ public class Ship {
         EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
         MaxCargo = maxcargo;
-
     }
     public void Attack(Ship target) { // player ship attack function
         int chance = random.Next(1, 11);
