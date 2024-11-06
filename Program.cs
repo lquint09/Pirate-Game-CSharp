@@ -12,8 +12,10 @@ public class Ship {
     public int EnemyCrew {get; set;}
     public float Cargo {get; set;}
     public float MaxCargo {get; set;}
+    public int Connonballs {get; set;}
+    public int CursedCannonBalls {get; set;}
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -27,6 +29,8 @@ public class Ship {
         EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
         MaxCargo = maxcargo;
+        Connonballs = cannonballs;
+        CursedCannonBalls = cursedcannonballs;
     }
     public void Attack(Ship target) {
         int chance = random.Next(1, 11);
@@ -419,7 +423,7 @@ public class PirateGame {
     void ShopMenu() {
         while (true) {
             Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy cannons (1000 coins)                  I\nI       2. Hire crew members (100 coins)             I\nI       3. Upgrade ship (5000 coins)                 I\nI       4. Sell captured ship (1000 coins)           I\nI       5. Leave shop                                I\n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)             I\n       2. Buy cannons (1000 coins)                  I\nI       3. Hire crew members (100 coins)             I\nI       4. Upgrade ship (5000 coins)                 I\nI       5. Sell captured ship (1000 coins)           I\nI       6. Leave shop                                I\n------------------------------------------------------");
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
             ShopChoiceHandler(keyInfo.KeyChar);
