@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 public class Ship {
     public string Name {get; set;}
     public int Cannons {get; set;}
