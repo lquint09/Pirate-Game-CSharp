@@ -12,7 +12,7 @@ public class Ship {
     public int EnemyCrew {get; set;}
     public float Cargo {get; set;}
     public float MaxCargo {get; set;}
-    public int Connonballs {get; set;}
+    public int Cannonballs {get; set;}
     public int CursedCannonBalls {get; set;}
     private static readonly Random random = new Random();
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs) {
@@ -29,11 +29,12 @@ public class Ship {
         EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
         MaxCargo = maxcargo;
-        Connonballs = cannonballs;
+        Cannonballs = cannonballs;
         CursedCannonBalls = cursedcannonballs;
     }
     public void Attack(Ship target) {
         int chance = random.Next(1, 11);
+        Cannonballs -= 1;
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
             damage = (float)Math.Round(damage, 1);
@@ -42,6 +43,7 @@ public class Ship {
         }
         else {
             Console.WriteLine("-------------\n You missed\n-------------");
+
         }
     }
     public void Assault(Ship target) {
@@ -55,6 +57,13 @@ public class Ship {
         else {
             Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
+    }
+    public void CursedBallAttack(Ship target) {
+        CursedCannonBalls -= 1;
+        float damage = (float)(random.NextDouble()* (40 - 15)+ 10) + Cannons;
+        damage = (float)Math.Round(damage, 1);
+        target.Health -= damage;
+        target.Health = Math.Max(target.Health, 0);
     }
     public void BoardChance(Ship target) {
         Chance = random.Next(1,5);
@@ -130,8 +139,8 @@ public class PirateGame {
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500);
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500, 100, 0);
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0, 0, 0);
     }
     public async void StartGameAnimation() {
         while (!menuanimationcancel) { 
@@ -327,10 +336,20 @@ public class PirateGame {
     }
     void FightMenu() {
         if (enemyShip.Health > 30) {
-        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+            if (playerShip.CursedCannonBalls > 0){
+                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nCurse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
+            }     
+            else{
+                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+            }
         }
         if (enemyShip.Health <= 30) {
-        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n4. Board Ship\n-------------------------------------------------------");
+            if (playerShip.CursedCannonBalls > 0) {
+                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nCurse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
+            }
+            else {
+                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
+            }
         }
         if (playerShip.Health <= 0) {   
             Console.Clear();
@@ -357,29 +376,87 @@ public class PirateGame {
                 FightMenu();
                 break;
             case '2':
+                if (playerShip.CursedCannonBalls > 0){
+                    playerShip.CursedBallAttack(enemyShip);
+                    enemyShip.Assault(playerShip);
+                }
+                else {
                 Console.Clear();
                 playerShip.Repair();
                 enemyShip.EnemyRepair();
+                }
                 FightMenu();
                 break;
             case '3':
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30)
+                {
+                    playerShip.Repair();
+                    enemyShip.EnemyRepair();
+                    Console.Clear();
+                    FightMenu();
+                }
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30)
+                {
+                    Console.Clear();
+                    playerShip.Repair();
+                    enemyShip.EnemyRepair();
+                    FightMenu();
+                    break;
+                }
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30)
+                {
+                    Console.Clear();
+                    LeaveFightMenu();
+                    break;
+                }
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30)
+                {
+                    Console.Clear();
+                    playerShip.BoardChance(enemyShip);
+                    OutofPortMenu();
+                    break;
+                } 
+                break;
+            case '4':
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30)
+                {
+                    Console.Clear();
+                    LeaveFightMenu();
+                    break;
+                }
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30)
+                {
+                    Console.Clear();
+                    playerShip.BoardChance(enemyShip);
+                    OutofPortMenu();
+                    break;
+                }
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30)
+                {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                    FightMenu();
+                    break;
+                }
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30)
+                {
+                    Console.Clear();
+                    LeaveFightMenu();
+                    break;
+                }
+                break;
+            case '5':
+             if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30){
                 Console.Clear();
                 LeaveFightMenu();
                 break;
-            case '4':
-                if (enemyShip.Health > 30) {
+             }
+            else {
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 FightMenu();
                 break; 
-                }
-                if (enemyShip.Health <= 30) {
-                   Console.Clear();
-                   playerShip.BoardChance(enemyShip);
-                   OutofPortMenu();
-                   break;
-                }
-                break;
+            }
             case (char)ConsoleKey.Escape:
                 Console.Clear();
                 OutofPortMenu();
@@ -423,7 +500,7 @@ public class PirateGame {
     void ShopMenu() {
         while (true) {
             Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)             I\n       2. Buy cannons (1000 coins)                  I\nI       3. Hire crew members (100 coins)             I\nI       4. Upgrade ship (5000 coins)                 I\nI       5. Sell captured ship (1000 coins)           I\nI       6. Leave shop                                I\n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs:{playerShip.Cannonballs} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cannons (1000 coins)                  I\nI       3. Hire crew members (100 coins)             I\nI       4. Upgrade ship (5000 coins)                 I\nI       5. Sell captured ship (1000 coins)           I\nI       6. Leave shop                                I\n------------------------------------------------------");
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
             ShopChoiceHandler(keyInfo.KeyChar);
@@ -432,7 +509,19 @@ public class PirateGame {
     }
     void ShopChoiceHandler(char choice) {
         switch (choice) {
-            case '1':
+             case '1':
+                Console.Clear();
+                if (playerShip.Bank < 100) {                              
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
+                }
+                else {
+                    playerShip.Bank -= 100;
+                    playerShip.Cannonballs += 10;                             
+                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Cannonballs} cannonballs \n-----------------------------------------------\n \n \n");
+                }
+                ShopMenu();
+                break;
+            case '2':
                 Console.Clear();
                 if (playerShip.Bank < 1000) {
                     Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
@@ -447,7 +536,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '2':
+            case '3':
                 Console.Clear();
                 if (playerShip.Bank < 100) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -465,7 +554,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '3':
+            case '4':
                 Console.Clear();
                 if (playerShip.Bank < 5000) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -480,7 +569,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '4':
+            case '5':
                 Console.Clear();
                 if (playerShip.Items < 1) {                                                                     
                     Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------\n \n \n");
@@ -492,7 +581,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '5':
+            case '6':
                 Console.Clear();
                 StartMenu();
                 break;
