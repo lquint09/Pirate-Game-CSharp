@@ -393,29 +393,25 @@ public class PirateGame {
                 FightMenu();
                 break;
             case '3':
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30)
-                {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) {
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     FightMenu();
                 }
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30)
-                {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) {
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     FightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30)
-                {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) {
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30)
-                {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) {
                     Console.Clear();
                     playerShip.BoardChance(enemyShip);
                     OutofPortMenu();
@@ -423,28 +419,24 @@ public class PirateGame {
                 } 
                 break;
             case '4':
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30)
-                {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) {
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30)
-                {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) {
                     Console.Clear();
                     playerShip.BoardChance(enemyShip);
                     OutofPortMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30)
-                {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) {
                     Console.Clear();
                     Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                     FightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30)
-                {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) {
                     Console.Clear();
                     LeaveFightMenu();
                     break;
