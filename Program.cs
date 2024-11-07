@@ -14,8 +14,9 @@ public class Ship {
     public float MaxCargo {get; set;}
     public int Cannonballs {get; set;}
     public int CursedCannonBalls {get; set;}
+    public int Wood {get; set;} 
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -31,6 +32,7 @@ public class Ship {
         MaxCargo = maxcargo;
         Cannonballs = cannonballs;
         CursedCannonBalls = cursedcannonballs;
+        Wood = wood;
     }
     public void Attack(Ship target) {
         int chance = random.Next(1, 11);
@@ -90,10 +92,12 @@ public class Ship {
     public void Repair() {
         float repairAmount = random.Next(10, 21);
         Health += repairAmount;
+        Wood -= 1;
         if (Health > MaxHealth) {
             Health = MaxHealth;
         }
         Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
+        Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
     }
     public void Treasure() {
         Console.Clear();
@@ -142,8 +146,8 @@ public class PirateGame {
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500, 100, 0);
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0, 0, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500, 100, 0, 50);
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0, 0, 0, 0);
     }
     public async void StartGameAnimation() {
         while (!menuanimationcancel) { 
@@ -497,7 +501,7 @@ public class PirateGame {
     void ShopMenu() {
         while (true) {
             Console.WriteLine($"Welcome to the shop, {playerShip.Name}");  
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs:{playerShip.Cannonballs} | Cursed cannonballs {playerShip.CursedCannonBalls} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cursed cannonballs (300 coins)        I\nI       3. Buy cannons (1000 coins)                  I\nI       4. Hire crew members (100 coins)             I\nI       5. Upgrade ship (5000 coins)                 I\nI       6. Sell captured ship (1000 coins)           I\nI       7. Leave shop                                I\n------------------------------------------------------");
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs: {playerShip.Cannonballs} | Cursed cannonballs: {playerShip.CursedCannonBalls} | Wood: {playerShip.Wood} | Cannons: {playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cursed cannonballs (300 coins)        I\nI       3. Buy wood (100) coins                      I\nI       4. Buy cannons (1000 coins)                  I\nI       5. Hire crew members (100 coins)             I\nI       6. Upgrade ship (5000 coins)                 I\nI       7. Sell captured ship (1000 coins)           I\nI       8. Leave shop                                I\n------------------------------------------------------");
             while (true) {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                 ShopChoiceHandler(keyInfo.KeyChar);
@@ -532,6 +536,18 @@ public class PirateGame {
                 break;
             case '3':
                 Console.Clear();
+                if (playerShip.Bank < 100) {
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
+                }
+                else {
+                    playerShip.Bank -= 100;
+                    playerShip.Wood += 10;
+                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Wood} wood \n-----------------------------------------------\n \n \n");
+                }
+                ShopMenu();
+                break;
+            case '4':
+                Console.Clear();
                 if (playerShip.Bank < 1000) {
                     Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
                 }
@@ -545,7 +561,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '4':
+            case '5':
                 Console.Clear();
                 if (playerShip.Bank < 100) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -563,7 +579,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '5':
+            case '6':
                 Console.Clear();
                 if (playerShip.Bank < 5000) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -578,10 +594,10 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '6':
+            case '7':
                 Console.Clear();
                 if (playerShip.Items < 1) {                                                                     
-                    Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------\n \n \n");
+                    Console.WriteLine("-------------------------------------\n You don't have any captured ships \n-------------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Items -= 1;
@@ -590,7 +606,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '7':
+            case '8':
                 Console.Clear();
                 StartMenu();
                 break;
