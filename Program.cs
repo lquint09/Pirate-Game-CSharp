@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 public class Ship {
     public string Name {get; set;}
     public int Cannons {get; set;}
@@ -75,6 +77,7 @@ public class Ship {
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\nYou won the board\n----------------------------------------------\nYou now have {Items} captured ships\n----------------------------------------------\nCrew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0;
+                    
                 }
                 else {
                     Crew = 25;
@@ -108,13 +111,15 @@ public class Ship {
     }
     public void Stolen() {
         float stolenAmount = random.Next(0, 250);
+        int stolenCurseBalls = random.Next(1,3);
+        CursedCannonBalls += stolenCurseBalls;
         if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
-            Console.WriteLine($"-------------------------------------------------------\n Enemy ship has been defeated! \n-------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n-------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n-------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n-------------------------------------------------------\n Health {Health}/{MaxHealth}\n-------------------------------------------------------");
+            Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n---------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n---------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
             Cargo = MaxCargo;
         }
         if (MaxCargo - Cargo >= stolenAmount) {
             Cargo += stolenAmount;
-            Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
+            Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
         }
     }
     public void Depot() {
@@ -377,22 +382,24 @@ public class PirateGame {
                 break;
             case '2':
                 if (playerShip.CursedCannonBalls > 0){
+                    Console.Clear();
                     playerShip.CursedBallAttack(enemyShip);
                     enemyShip.Assault(playerShip);
+                    FightMenu();
                 }
                 else {
-                Console.Clear();
-                playerShip.Repair();
-                enemyShip.EnemyRepair();
+                    Console.Clear();
+                    playerShip.Repair();
+                    enemyShip.EnemyRepair();
                 }
                 FightMenu();
                 break;
             case '3':
                 if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30)
                 {
+                    Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
-                    Console.Clear();
                     FightMenu();
                 }
                 if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30)
@@ -499,12 +506,12 @@ public class PirateGame {
     }
     void ShopMenu() {
         while (true) {
-            Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
-            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs:{playerShip.Cannonballs} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cannons (1000 coins)                  I\nI       3. Hire crew members (100 coins)             I\nI       4. Upgrade ship (5000 coins)                 I\nI       5. Sell captured ship (1000 coins)           I\nI       6. Leave shop                                I\n------------------------------------------------------");
-        while (true) {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-            ShopChoiceHandler(keyInfo.KeyChar);
-        }
+            Console.WriteLine($"Welcome to the shop, {playerShip.Name}");  
+            Console.WriteLine($"--------------------------------------------------------------------------------------------------------------------------------------------------\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs:{playerShip.Cannonballs} | Cursed cannonballs {playerShip.CursedCannonBalls} | Cannons:{playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n--------------------------------------------------------------------------------------------------------------------------------------------------\n------------------------------------------------------\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cursed cannonballs (300 coins)        I\nI       3. Buy cannons (1000 coins)                  I\nI       4. Hire crew members (100 coins)             I\nI       5. Upgrade ship (5000 coins)                 I\nI       6. Sell captured ship (1000 coins)           I\nI       7. Leave shop                                I\n------------------------------------------------------");
+            while (true) {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                ShopChoiceHandler(keyInfo.KeyChar);
+            }
         }
     }
     void ShopChoiceHandler(char choice) {
@@ -523,6 +530,18 @@ public class PirateGame {
                 break;
             case '2':
                 Console.Clear();
+                if (playerShip.Bank < 300) {
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
+                }
+                else {
+                    playerShip.Bank -= 300;
+                    playerShip.CursedCannonBalls += 2;
+                    Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.CursedCannonBalls} cursed cannonballs \n-----------------------------------------------\n \n \n");
+                }
+                ShopMenu();
+                break;
+            case '3':
+                Console.Clear();
                 if (playerShip.Bank < 1000) {
                     Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
                 }
@@ -536,7 +555,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '3':
+            case '4':
                 Console.Clear();
                 if (playerShip.Bank < 100) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -554,7 +573,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '4':
+            case '5':
                 Console.Clear();
                 if (playerShip.Bank < 5000) {                              
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
@@ -569,7 +588,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '5':
+            case '6':
                 Console.Clear();
                 if (playerShip.Items < 1) {                                                                     
                     Console.WriteLine("------------------------------------- You don't have any captured ships \n-------------------------------------\n \n \n");
@@ -581,7 +600,7 @@ public class PirateGame {
                 }
                 ShopMenu();
                 break;
-            case '6':
+            case '7':
                 Console.Clear();
                 StartMenu();
                 break;
