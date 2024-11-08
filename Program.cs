@@ -94,7 +94,7 @@ public class Ship {
         if (Wood > 0 && Health < MaxHealth) {
             Wood -= 1;
         }
-        else {
+        if (Wood <= 0 && Health < MaxHealth) {
             Console.WriteLine ("-------------------------------------------------------\nYou do not have enough wood to repair\n-------------------------------------------------------");
         }
         if (Health > MaxHealth) {
