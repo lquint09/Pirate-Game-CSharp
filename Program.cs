@@ -36,7 +36,7 @@ public class Ship {
     }
     public void PlayerAttack(Ship target) {
         int chance = random.Next(1, 11);
-        Cannonballs -= 1;
+        Cannonballs -= Cannons;
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
             damage = (float)Math.Round(damage, 1);
