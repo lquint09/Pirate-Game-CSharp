@@ -92,10 +92,10 @@ public class Ship {
         Health += repairAmount;
         if (Wood > 0 && Health < MaxHealth) {
             if (repairAmount > 15) {
-                wood -= random.Next(1,2);
+                Wood -= random.Next(1,2);
             }
             if (repairAmount <= 15) {
-                wood -= random.Next(3, 5);
+                Wood -= random.Next(3, 5);
             }
         }
         if (Wood <= 0 && Health < MaxHealth) {
