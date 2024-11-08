@@ -293,7 +293,7 @@ public class PirateGame {
             case '3':
                 int chance = new Random().Next(1,20);
                 Console.Clear();
-                if (chance <= 2) {
+                if (chance > 19) {
                     enemyShip.MaxHealth = new Random().Next(75, 151); 
                     enemyShip.Health = enemyShip.MaxHealth;
                     Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
