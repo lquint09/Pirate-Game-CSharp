@@ -107,7 +107,7 @@ public class Ship {
         Console.Clear();
         int treasureChance = random.Next(1, 5);
         if (treasureChance > 4) {
-f           loat treasureAmount = random.Next(10, 21);
+            float treasureAmount = random.Next(10, 21);
             if (MaxCargo - Cargo < treasureAmount) {
             Cargo = MaxCargo;
             Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
