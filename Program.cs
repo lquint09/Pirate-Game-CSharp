@@ -91,18 +91,18 @@ public class Ship {
     public void Repair() {
         float repairAmount = random.Next(10, 21);
         Health += repairAmount;
-        if (Wood > 0 )
-        {
+        if (Wood > 0 && Health < MaxHealth) {
             Wood -= 1;
-            if (Health > MaxHealth) {
-                Health = MaxHealth;
-            }
-            Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
-            Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
         }
         else {
             Console.WriteLine ("-------------------------------------------------------\nYou do not have enough wood to repair\n-------------------------------------------------------");
         }
+        if (Health > MaxHealth) {
+            Console.WriteLine("-------------------------------------------------------\nNothing to repair\n-------------------------------------------------------");
+            Health = MaxHealth;
+            }
+        Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
+        Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
     }
 
     public void Treasure() {
