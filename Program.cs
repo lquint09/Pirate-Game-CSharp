@@ -16,7 +16,7 @@ public class Ship {
     public int CursedCannonBalls {get; set;}
     public int Wood {get; set;} 
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -27,7 +27,6 @@ public class Ship {
         MaxHealth = maxhealth;
         Items = inventoryItems;
         Chance = random.Next(1, 6);
-        EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
         MaxCargo = maxcargo;
         Cannonballs = cannonballs;
@@ -161,8 +160,8 @@ public class PirateGame {
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500, 100, 0, 50);
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0, 0, 0, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
     }
     public async void StartGameAnimation() {
         while (!menuanimationcancel) { 
