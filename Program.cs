@@ -118,7 +118,7 @@ public class Ship {
             }
         }
         else {
-            Console.WriteLine("----------------------------------------------\nYou did not find any treasure\n----------------------------------------------")
+            Console.WriteLine("----------------------------------------------\nYou did not find any treasure\n----------------------------------------------");
         }
         
     }
