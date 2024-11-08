@@ -91,7 +91,7 @@ public class Ship {
         float repairAmount = random.Next(10, 21);
         Health += repairAmount;
         if (Wood > 0 && Health < MaxHealth) {
-            Wood -= 1;
+            Wood -= random.Next(1, 3);
         }
         if (Wood <= 0 && Health < MaxHealth) {
             Console.WriteLine ("-------------------------------------------------------\nYou do not have enough wood to repair\n-------------------------------------------------------");
