@@ -45,7 +45,6 @@ public class Ship {
         }
         else {
             Console.WriteLine("-------------\n You missed\n-------------");
-
         }
     }
     public void EnemyAttack(Ship target) {
@@ -100,11 +99,10 @@ public class Ship {
         if (Health > MaxHealth) {
             Console.WriteLine("-------------------------------------------------------\nNothing to repair\n-------------------------------------------------------");
             Health = MaxHealth;
-            }
+        }
         Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
         Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
     }
-
     public void Treasure() {
         Console.Clear();
         float treasureAmount = random.Next(10, 21);
@@ -213,7 +211,7 @@ public class PirateGame {
         Console.WriteLine("Enter your name");
         while (true) {
             string name = Console.ReadLine();
-                 if (string.IsNullOrEmpty(name)) {
+                if (string.IsNullOrEmpty(name)) {
                         Console.Clear();
                         Console.WriteLine("Please enter a name");
                     }
@@ -302,7 +300,6 @@ public class PirateGame {
                     OutofPortMenu();
                     break;
                 }
-
             case '4':
                 Console.Clear();
                 StartMenu();
@@ -311,7 +308,6 @@ public class PirateGame {
                 Console.Clear();
                 StartMenu();
                 break;
-
             default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
@@ -453,17 +449,17 @@ public class PirateGame {
                 }
                 break;
             case '5':
-             if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) {
-                Console.Clear();
-                LeaveFightMenu();
-                break;
-             }
-            else {
-                Console.Clear();
-                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-                FightMenu();
-                break; 
-            }
+                if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) {
+                    Console.Clear();
+                    LeaveFightMenu();
+                    break;
+                }
+                else {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                    FightMenu();
+                    break; 
+                }
             case (char)ConsoleKey.Escape:
                 Console.Clear();
                 OutofPortMenu();
