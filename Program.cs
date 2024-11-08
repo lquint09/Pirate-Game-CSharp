@@ -120,7 +120,6 @@ public class Ship {
         else {
             Console.WriteLine("----------------------------------------------\nYou did not find any treasure\n----------------------------------------------");
         }
-        
     }
     public void Stolen() {
         float stolenAmount = random.Next(0, 250);
