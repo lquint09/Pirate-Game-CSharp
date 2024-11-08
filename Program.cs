@@ -34,7 +34,7 @@ public class Ship {
         CursedCannonBalls = cursedcannonballs;
         Wood = wood;
     }
-    public void Attack(Ship target) {
+    public void PlayerAttack(Ship target) {
         int chance = random.Next(1, 11);
         Cannonballs -= 1;
         if (chance >= 2) {
@@ -48,7 +48,7 @@ public class Ship {
 
         }
     }
-    public void Assault(Ship target) {
+    public void EnemyAttack(Ship target) {
         int chance = random.Next(1, 11);
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
@@ -77,7 +77,6 @@ public class Ship {
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\nYou won the board\n----------------------------------------------\nYou now have {Items} captured ships\n----------------------------------------------\nCrew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0;
-                    
                 }
                 else {
                     Crew = 25;
@@ -294,14 +293,14 @@ public class PirateGame {
                     enemyShip.MaxHealth = new Random().Next(75, 151); 
                     enemyShip.Health = enemyShip.MaxHealth;
                     Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
-                    enemyShip.Assault(playerShip);
+                    enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                     break;
                 }
                 else {
-                playerShip.Treasure();
-                OutofPortMenu();
-                break;
+                    playerShip.Treasure();
+                    OutofPortMenu();
+                    break;
                 }
 
             case '4':
@@ -385,15 +384,15 @@ public class PirateGame {
         switch (choice) {
             case '1':
                 Console.Clear();
-                playerShip.Attack(enemyShip);
-                enemyShip.Assault(playerShip);
+                playerShip.PlayerAttack(enemyShip);
+                enemyShip.EnemyAttack(playerShip);
                 FightMenu();
                 break;
             case '2':
-                if (playerShip.CursedCannonBalls > 0){
+                if (playerShip.CursedCannonBalls > 0) {
                     Console.Clear();
                     playerShip.CursedBallAttack(enemyShip);
-                    enemyShip.Assault(playerShip);
+                    enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                 }
                 else {
@@ -454,7 +453,7 @@ public class PirateGame {
                 }
                 break;
             case '5':
-             if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30){
+             if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) {
                 Console.Clear();
                 LeaveFightMenu();
                 break;
@@ -489,7 +488,6 @@ public class PirateGame {
                 Console.Clear();
                 OutofPortMenu();
                 break;
-
             case '2':
                 Console.Clear();
                 FightMenu();
@@ -498,7 +496,7 @@ public class PirateGame {
                 Console.Clear();
                 FightMenu();
                 break;
-             default:
+            default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 LeaveFightMenu();
