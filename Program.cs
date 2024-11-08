@@ -67,6 +67,7 @@ public class Ship {
     }
     public void BoardChance(Ship target) {
         Chance = random.Next(1,5);
+        EnemyCrew = random.Next(25,50);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
                 if (Chance >= 2) {
