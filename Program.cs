@@ -105,8 +105,8 @@ public class Ship {
     }
     public void Treasure() {
         Console.Clear();
-        int treasureChance = random.Next(1, 5);
-        if (treasureChance > 3) {
+        int treasureChance = random.Next(1, 10);
+        if (treasureChance > 8) {
             float treasureAmount = random.Next(10, 21);
             if (MaxCargo - Cargo < treasureAmount) {
             Cargo = MaxCargo;
