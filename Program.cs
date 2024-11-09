@@ -232,161 +232,81 @@ public class PirateGame {
                     DevToolsStartMenu();
                 }
                 else {
-                       Console.Clear();
+                    Console.Clear();
                     #pragma warning disable CS8601 // Possible null reference assignment.
                     playerShip.Name = name;
                     StartMenu(); 
                     }
         }
     }
-    void DevToolsStartMenu() {
+void DevToolsStartMenu()
+{
+    Console.Clear();
+    Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit?");
+    string requestedField = Console.ReadLine()?.ToLower();
+    if (string.IsNullOrEmpty(requestedField)) {
         Console.Clear();
-        Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit?");
-        string RequestedInt = Console.ReadLine();
-            if (RequestedInt == "cannons") {
+        Console.WriteLine("Please enter a value");
+        }
+    if (requestedField == "no") {
+        Console.Clear();
+        StartMenu();
+        }
+    // Dictionary mapping field names to actions
+    var fieldActions = new Dictionary<string, Action<int>>
+    {
+        { "cannons", value => playerShip.Cannons = value },
+        { "crew", value => playerShip.Crew = value },
+        { "bank", value => playerShip.Bank = value },
+        { "health", value => playerShip.Health = value },
+        { "items", value => playerShip.Items = value },
+        { "cannonballs", value => playerShip.Cannonballs = value },
+        { "cursedballs", value => playerShip.CursedCannonBalls = value },
+        { "wood", value => playerShip.Wood = value }
+    };
+
+            // Check if requested field exists
+            #pragma warning disable CS8604 // Possible null reference argument.
+            if (fieldActions.ContainsKey(requestedField))
+    {
+        Console.Clear();
+        Console.WriteLine($"What would you like to change {requestedField} to?");
+        
+        // Parse input to integer
+        if (int.TryParse(Console.ReadLine(), out int newValue))
+        {
+            fieldActions[requestedField](newValue); // Apply the change
+            Console.Clear();
+            Console.WriteLine($"-------------------------------------------------------\n{requestedField} has been changed to {newValue}\n-------------------------------------------------------");
+
+            // Ask to continue editing
+            Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
+            string continueInput = Console.ReadLine();
+            
+            if (continueInput == "1")
+            {
                 Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Cannons = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }
+                DevToolsStartMenu();
             }
-            if (RequestedInt == "crew") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Crew = InputInt;
+            else if (continueInput == "2")
+            {
                 Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
+                StartMenu();
             }
-            if (RequestedInt == "bank") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Bank = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
-            if (RequestedInt == "health") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Health = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
-            if (RequestedInt == "items") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Items = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
-        if (RequestedInt == "cannonballs") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Cannonballs = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
-        if (RequestedInt == "cursedballs") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.CursedCannonBalls = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
-        if (RequestedInt == "wood") {
-             Console.Clear();
-                Console.WriteLine($"What would you like to change {RequestedInt} to?");
-                string InputString = Console.ReadLine();
-                int InputInt = Convert.ToInt32(InputString);
-                playerShip.Wood = InputInt;
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{RequestedInt} has been changed to {InputInt}\n-------------------------------------------------------\nWould you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string ContinueInput = Console.ReadLine();
-                if (ContinueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                if (ContinueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }   
-            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a valid integer.");
+            DevToolsStartMenu();
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid field. Please choose a valid option.");
+        DevToolsStartMenu();
+    }
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CA1854 // Prefer the 'IDictionary.TryGetValue(TKey, out TValue)' method
         }
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
