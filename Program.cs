@@ -237,60 +237,100 @@ public class PirateGame {
                     playerShip.Name = name;
                     StartMenu(); 
                     }
-        }
-    }
-    void DevToolsStartMenu() {
-        Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit?");
-        string requestedField = Console.ReadLine()?.ToLower();
-        if (string.IsNullOrEmpty(requestedField)) {
-            Console.Clear();
-            Console.WriteLine("Please enter a value or type 'none' to leave");
             }
-        if (requestedField == "none") {
+        }
+//--------------------------------------------
+// Start of Devtools code
+//--------------------------------------------       
+    void DevToolsStartMenu() {
+    Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
+    string requestedField = Console.ReadLine()?.ToLower();
+
+    if (string.IsNullOrEmpty(requestedField)) {
+        Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
+    }
+    // Using a switch expression to handle "list", "help", "clear", "none"
+    switch (requestedField) {
+        case "list":
+            ShowEditableFields();
+            break;
+        case "help":
+            ShowHelp();
+            break;
+        case "clear":
+            Console.Clear();
+            break;
+        case "none":
             Console.Clear();
             StartMenu();
-            }
-        var fieldActions = new Dictionary<string, Action<int>> {
-            { "cannons", value => playerShip.Cannons = value },
-            { "crew", value => playerShip.Crew = value },
-            { "bank", value => playerShip.Bank = value },
-            { "health", value => playerShip.Health = value },
-            { "items", value => playerShip.Items = value },
-            { "cannonballs", value => playerShip.Cannonballs = value },
-            { "cursedballs", value => playerShip.CursedCannonBalls = value },
-            { "wood", value => playerShip.Wood = value }
-            };
+            return;
+        default:
             #pragma warning disable CS8604 // Possible null reference argument.
-            if (fieldActions.ContainsKey(requestedField)) {
-            Console.Clear();
-            Console.WriteLine($"What would you like to change {requestedField} to?");
-            if (int.TryParse(Console.ReadLine(), out int newValue)) {
-                fieldActions[requestedField](newValue); // Apply the change
-                Console.Clear();
-                Console.WriteLine($"-------------------------------------------------------\n{requestedField} has been changed to {newValue}\n-------------------------------------------------------");
-                Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-                string continueInput = Console.ReadLine();
-                if (continueInput == "1") {
-                    Console.Clear();
-                    DevToolsStartMenu();
-                }
-                else if (continueInput == "2") {
-                    Console.Clear();
-                    StartMenu();
-                }
-            }
-            else {
-                Console.Clear();
-                Console.WriteLine("Invalid input. Please enter a valid integer.\n-------------------------------------------------------");
-                DevToolsStartMenu();
-            }
-        }
-        else {
-            Console.Clear();
-            Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
-            DevToolsStartMenu();
-        }
+            HandleFieldEdit(requestedField);
+            return;                                              
     }
+    DevToolsStartMenu(); // Call the menu again to keep the flow
+}
+void ShowEditableFields() {
+    Console.Clear();
+    Console.WriteLine("Editable values\n------------------------------------------------------------------\n cannons\n crew\n bank\n health\n items\n cannonballs\n cursedballs\n wood\n------------------------------------------------------------------");
+}
+void ShowHelp() {
+    Console.Clear();
+    Console.WriteLine("Press 'none' to exit, or type 'list' to see all editable values\n------------------------------------------------------------------");
+}
+void HandleFieldEdit(string field) {
+    var fieldActions = new Dictionary<string, Action<int>> {
+        { "cannons", value => playerShip.Cannons = value },
+        { "crew", value => playerShip.Crew = value },
+        { "bank", value => playerShip.Bank = value },
+        { "health", value => playerShip.Health = value },
+        { "items", value => playerShip.Items = value },
+        { "cannonballs", value => playerShip.Cannonballs = value },
+        { "cursedballs", value => playerShip.CursedCannonBalls = value },
+        { "wood", value => playerShip.Wood = value }
+    };
+
+    if (fieldActions.ContainsKey(field)) {
+        Console.Clear();
+        Console.WriteLine($"What would you like to change {field} to?\n------------------------------------------------------------------");
+        
+        if (int.TryParse(Console.ReadLine(), out int newValue)) {
+            fieldActions[field](newValue);
+            Console.Clear();
+            Console.WriteLine($"-------------------------------------------------------\n{field} has been changed to {newValue}\n-------------------------------------------------------");
+            AskIfContinue();
+        } else {
+            Console.Clear();
+            Console.WriteLine("Invalid input. Please enter a valid integer.\n-------------------------------------------------------");
+        }
+    } else {
+        Console.Clear();
+        Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
+    }
+}
+
+void AskIfContinue() {
+    Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
+    string continueInput = Console.ReadLine();
+    if (continueInput == "1") {
+        Console.Clear();
+        DevToolsStartMenu();
+    } 
+    else if (continueInput == "2") {
+        Console.Clear();
+        StartMenu();
+    } 
+    else {
+        Console.Clear();
+        Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
+        AskIfContinue();
+    }
+}
+//--------------------------------------------
+// End of Devtools code
+//--------------------------------------------
+
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true) {
