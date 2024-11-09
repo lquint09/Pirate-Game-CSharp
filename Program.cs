@@ -227,6 +227,8 @@ public class PirateGame {
                         Console.WriteLine("Please enter a name");
                     }
                 if (name == "devtools") {
+                    playerShip.Name = name;
+                    Console.Clear();
                     DevToolsStartMenu();
                 }
                 else {
@@ -238,14 +240,13 @@ public class PirateGame {
         }
     }
     void DevToolsStartMenu() {
-        Console.Clear();
         Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit?");
         string requestedField = Console.ReadLine()?.ToLower();
         if (string.IsNullOrEmpty(requestedField)) {
             Console.Clear();
-            Console.WriteLine("Please enter a value");
+            Console.WriteLine("Please enter a value or type 'none' to leave");
             }
-        if (requestedField == "no") {
+        if (requestedField == "none") {
             Console.Clear();
             StartMenu();
             }
@@ -279,12 +280,14 @@ public class PirateGame {
                 }
             }
             else {
-                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                Console.Clear();
+                Console.WriteLine("Invalid input. Please enter a valid integer.\n-------------------------------------------------------");
                 DevToolsStartMenu();
             }
         }
         else {
-            Console.WriteLine("Invalid field. Please choose a valid option.");
+            Console.Clear();
+            Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
             DevToolsStartMenu();
         }
     }
