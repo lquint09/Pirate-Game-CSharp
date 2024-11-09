@@ -1,5 +1,3 @@
-using System.Net.Security;
-
 public class Ship {
     public string Name {get; set;}
     public int Cannons {get; set;}
