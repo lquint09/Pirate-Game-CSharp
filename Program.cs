@@ -16,7 +16,7 @@ public class Ship {
     public int CursedCannonBalls {get; set;}
     public int Wood {get; set;} 
     private static readonly Random random = new Random();
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int enemycrew, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -27,16 +27,15 @@ public class Ship {
         MaxHealth = maxhealth;
         Items = inventoryItems;
         Chance = random.Next(1, 6);
-        EnemyCrew = random.Next(10, 51);
         Cargo = cargo;
         MaxCargo = maxcargo;
         Cannonballs = cannonballs;
         CursedCannonBalls = cursedcannonballs;
         Wood = wood;
     }
-    public void Attack(Ship target) {
+    public void PlayerAttack(Ship target) {
         int chance = random.Next(1, 11);
-        Cannonballs -= 1;
+        Cannonballs -= Cannons;
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
             damage = (float)Math.Round(damage, 1);
@@ -45,10 +44,9 @@ public class Ship {
         }
         else {
             Console.WriteLine("-------------\n You missed\n-------------");
-
         }
     }
-    public void Assault(Ship target) {
+    public void EnemyAttack(Ship target) {
         int chance = random.Next(1, 11);
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
@@ -69,6 +67,7 @@ public class Ship {
     }
     public void BoardChance(Ship target) {
         Chance = random.Next(1,5);
+        EnemyCrew = random.Next(25,50);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
                 if (Chance >= 2) {
@@ -77,7 +76,6 @@ public class Ship {
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\nYou won the board\n----------------------------------------------\nYou now have {Items} captured ships\n----------------------------------------------\nCrew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0;
-                    
                 }
                 else {
                     Crew = 25;
@@ -92,30 +90,40 @@ public class Ship {
     public void Repair() {
         float repairAmount = random.Next(10, 21);
         Health += repairAmount;
-        if (Wood > 0 )
-        {
-            Wood -= 1;
-            if (Health > MaxHealth) {
-                Health = MaxHealth;
+        if (Wood > 0 && Health < MaxHealth) {
+            if (repairAmount > 15) {
+                Wood -= random.Next(1,2);
             }
-            Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
-            Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
+            if (repairAmount <= 15) {
+                Wood -= random.Next(3, 5);
+            }
         }
-        else {
+        if (Wood <= 0 && Health < MaxHealth) {
             Console.WriteLine ("-------------------------------------------------------\nYou do not have enough wood to repair\n-------------------------------------------------------");
         }
+        if (Health > MaxHealth) {
+            Console.WriteLine("-------------------------------------------------------\nNothing to repair\n-------------------------------------------------------");
+            Health = MaxHealth;
+        }
+        Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
+        Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
     }
-
     public void Treasure() {
         Console.Clear();
-        float treasureAmount = random.Next(10, 21);
-        if (MaxCargo - Cargo < treasureAmount) {
-        Cargo = MaxCargo;
-        Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+        int treasureChance = random.Next(1, 10);
+        if (treasureChance > 8) {
+            float treasureAmount = random.Next(10, 21);
+            if (MaxCargo - Cargo < treasureAmount) {
+            Cargo = MaxCargo;
+            Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+            }
+            if (MaxCargo - Cargo >= treasureAmount) {
+                Cargo += treasureAmount;
+                Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
+            }
         }
-        if (MaxCargo - Cargo >= treasureAmount) {
-            Cargo += treasureAmount;
-            Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
+        else {
+            Console.WriteLine("----------------------------------------------\nYou did not find any treasure\n----------------------------------------------");
         }
     }
     public void Stolen() {
@@ -153,8 +161,8 @@ public class PirateGame {
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 0, 500, 100, 0, 50);
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, new Random().Next(10, 51), 0, 0, 0, 0, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
     }
     public async void StartGameAnimation() {
         while (!menuanimationcancel) { 
@@ -214,7 +222,7 @@ public class PirateGame {
         Console.WriteLine("Enter your name");
         while (true) {
             string name = Console.ReadLine();
-                 if (string.IsNullOrEmpty(name)) {
+                if (string.IsNullOrEmpty(name)) {
                         Console.Clear();
                         Console.WriteLine("Please enter a name");
                     }
@@ -290,20 +298,19 @@ public class PirateGame {
             case '3':
                 int chance = new Random().Next(1,20);
                 Console.Clear();
-                if (chance <= 2) {
+                if (chance > 19) {
                     enemyShip.MaxHealth = new Random().Next(75, 151); 
                     enemyShip.Health = enemyShip.MaxHealth;
                     Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
-                    enemyShip.Assault(playerShip);
+                    enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                     break;
                 }
                 else {
-                playerShip.Treasure();
-                OutofPortMenu();
-                break;
+                    playerShip.Treasure();
+                    OutofPortMenu();
+                    break;
                 }
-
             case '4':
                 Console.Clear();
                 StartMenu();
@@ -312,7 +319,6 @@ public class PirateGame {
                 Console.Clear();
                 StartMenu();
                 break;
-
             default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
@@ -385,15 +391,15 @@ public class PirateGame {
         switch (choice) {
             case '1':
                 Console.Clear();
-                playerShip.Attack(enemyShip);
-                enemyShip.Assault(playerShip);
+                playerShip.PlayerAttack(enemyShip);
+                enemyShip.EnemyAttack(playerShip);
                 FightMenu();
                 break;
             case '2':
-                if (playerShip.CursedCannonBalls > 0){
+                if (playerShip.CursedCannonBalls > 0) {
                     Console.Clear();
                     playerShip.CursedBallAttack(enemyShip);
-                    enemyShip.Assault(playerShip);
+                    enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                 }
                 else {
@@ -454,17 +460,17 @@ public class PirateGame {
                 }
                 break;
             case '5':
-             if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30){
-                Console.Clear();
-                LeaveFightMenu();
-                break;
-             }
-            else {
-                Console.Clear();
-                Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
-                FightMenu();
-                break; 
-            }
+                if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) {
+                    Console.Clear();
+                    LeaveFightMenu();
+                    break;
+                }
+                else {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
+                    FightMenu();
+                    break; 
+                }
             case (char)ConsoleKey.Escape:
                 Console.Clear();
                 OutofPortMenu();
@@ -489,7 +495,6 @@ public class PirateGame {
                 Console.Clear();
                 OutofPortMenu();
                 break;
-
             case '2':
                 Console.Clear();
                 FightMenu();
@@ -498,7 +503,7 @@ public class PirateGame {
                 Console.Clear();
                 FightMenu();
                 break;
-             default:
+            default:
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 LeaveFightMenu();
