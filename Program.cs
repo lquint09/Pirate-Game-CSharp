@@ -258,7 +258,7 @@ public class PirateGame {
             { "cannonballs", value => playerShip.Cannonballs = value },
             { "cursedballs", value => playerShip.CursedCannonBalls = value },
             { "wood", value => playerShip.Wood = value }
-        };
+            };
             #pragma warning disable CS8604 // Possible null reference argument.
             if (fieldActions.ContainsKey(requestedField)) {
             Console.Clear();
