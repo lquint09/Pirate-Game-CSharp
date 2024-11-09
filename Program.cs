@@ -239,6 +239,9 @@ public class PirateGame {
                     }
             }
         }
+//--------------------------------------------
+// Start of Devtools code
+//--------------------------------------------       
     void DevToolsStartMenu() {
     Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
     string requestedField = Console.ReadLine()?.ToLower();
@@ -324,6 +327,9 @@ void AskIfContinue() {
         AskIfContinue();
     }
 }
+//--------------------------------------------
+// End of Devtools code
+//--------------------------------------------
 
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
