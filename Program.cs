@@ -74,14 +74,14 @@ public class Ship {
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
-                    Console.WriteLine($"----------------------------------------------\nYou won the board\n----------------------------------------------\nYou now have {Items} captured ships\n----------------------------------------------\nCrew {Crew}/{MaxCrew}\n----------------------------------------------");
+                    Console.WriteLine($"----------------------------------------------\n You won the board\n----------------------------------------------\n You now have {Items} captured ships\n----------------------------------------------\n Crew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0;
                 }
                 else {
                     Crew = 25;
                     Health = 1;
                     Console.Clear();
-                    Console.WriteLine($"----------------------------------------------\nYou lost the board\n----------------------------------------------\nCrew: {Crew}/{MaxCrew}\n----------------------------------------------\nHealth: {Health}/{MaxHealth}\n----------------------------------------------");
+                    Console.WriteLine($"----------------------------------------------\n You lost the board\n----------------------------------------------\n Crew: {Crew}/{MaxCrew}\n----------------------------------------------\n Health: {Health}/{MaxHealth}\n----------------------------------------------");
                     return;
                 }
             }
@@ -99,14 +99,14 @@ public class Ship {
             }
         }
         if (Wood <= 0 && Health < MaxHealth) {
-            Console.WriteLine ("-------------------------------------------------------\nYou do not have enough wood to repair\n-------------------------------------------------------");
+            Console.WriteLine ("-------------------------------------------------------\n You do not have enough wood to repair\n-------------------------------------------------------");
         }
         if (Health > MaxHealth) {
-            Console.WriteLine("-------------------------------------------------------\nNothing to repair\n-------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------\n Nothing to repair\n-------------------------------------------------------");
             Health = MaxHealth;
         }
-        Console.WriteLine($"-------------------------------------------------------\nHealth: {Health}/{MaxHealth}\n-------------------------------------------------------");
-        Console.WriteLine($"-------------------------------------------------------\nWood: {Wood}\n-------------------------------------------------------");
+        Console.WriteLine($"-------------------------------------------------------\n Health: {Health}/{MaxHealth}\n-------------------------------------------------------");
+        Console.WriteLine($"-------------------------------------------------------\n Wood: {Wood}\n-------------------------------------------------------");
     }
     public void Treasure() {
         Console.Clear();
@@ -115,15 +115,15 @@ public class Ship {
             float treasureAmount = random.Next(10, 21);
             if (MaxCargo - Cargo < treasureAmount) {
             Cargo = MaxCargo;
-            Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nYou could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+            Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n You could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
             }
             if (MaxCargo - Cargo >= treasureAmount) {
                 Cargo += treasureAmount;
-                Console.WriteLine($"----------------------------------------------\n{treasureAmount} gold found\n----------------------------------------------\nGold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
+                Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
             }
         }
         else {
-            Console.WriteLine("----------------------------------------------\nYou did not find any treasure\n----------------------------------------------");
+            Console.WriteLine("----------------------------------------------\n You did not find any treasure\n----------------------------------------------");
         }
     }
     public void Stolen() {
@@ -141,8 +141,8 @@ public class Ship {
     }
     public void Depot() {
         Bank += Cargo;
-        Console.WriteLine($"----------------------------------------------\n{Cargo} Deposited in bank\n----------------------------------------------");
-        Console.WriteLine($"----------------------------------------------\nYou now have {Bank} gold in the bank\n----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
+        Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
     }
     public void EnemyRepair() {
         int chance = random.Next(1, 11);
@@ -152,7 +152,7 @@ public class Ship {
             if (Health > MaxHealth) {
                 Health = MaxHealth;
             }
-            Console.WriteLine($"------------------------------------------------\nThe enemy ship repaired itself to {Health}/{MaxHealth}\n------------------------------------------------");
+            Console.WriteLine($"------------------------------------------------\n The enemy ship repaired itself to {Health}/{MaxHealth}\n------------------------------------------------");
         }
     }
 }
@@ -301,7 +301,7 @@ public class PirateGame {
                 if (chance > 19) {
                     enemyShip.MaxHealth = new Random().Next(75, 151); 
                     enemyShip.Health = enemyShip.MaxHealth;
-                    Console.WriteLine("-------------------------------------------------------\nAn enemy ship found you\n-------------------------------------------------------");
+                    Console.WriteLine("-------------------------------------------------------\n An enemy ship found you\n-------------------------------------------------------");
                     enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                     break;
@@ -327,7 +327,7 @@ public class PirateGame {
         }
     }
     void AttackMenu() {
-        Console.WriteLine($"-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}\nYour current health: {playerShip.Health}\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------"); 
+        Console.WriteLine($"-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}\n Your current health: {playerShip.Health}\n Do you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------"); 
         while (true) {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                 AttackChoiceHandler(keyInfo.KeyChar);
@@ -357,18 +357,18 @@ public class PirateGame {
     void FightMenu() {
         if (enemyShip.Health > 30) {
             if (playerShip.CursedCannonBalls > 0){
-                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nCurse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
+                Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
             }     
             else{
-                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+                Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
             }
         }
         if (enemyShip.Health <= 30) {
             if (playerShip.CursedCannonBalls > 0) {
-                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nCurse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
+                Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
             }
             else {
-                Console.WriteLine($"-------------------------------------------------------\nCannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\nEnemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\nYour current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
+                Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
             }
         }
         if (playerShip.Health <= 0) {   
@@ -483,7 +483,7 @@ public class PirateGame {
         }
     }
     void LeaveFightMenu() {
-        Console.WriteLine("-------------------------------------------------------\nAre you sure you want to leave fight?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------\n Are you sure you want to leave fight?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
             LeaveFightChoiceHandler(keyInfo.KeyChar);
@@ -634,7 +634,7 @@ public class PirateGame {
         }
     }
     void QuitMenu() {
-        Console.WriteLine("-------------------------------------------------------\nAre you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------\n Are you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
             QuitChoiceHandler(keyInfo.KeyChar);
