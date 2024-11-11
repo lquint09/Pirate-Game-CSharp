@@ -17,22 +17,18 @@ public class Ship {
     public int Wood {get; set;} = 50;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
     public float PlayerAttackMaxDamage { get; set; } = 20.0f;
-    public int PlayerAttackAccuracyChanceMax { get; set; } = 10;
-    public int PlayerAttackAccuracyChanceMin {get; set;} = 1; 
+    public int PlayerAttackAccuracyChance { get; set; } = 10;
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public int EnemyAttackAccuracyChanceMax { get; set; } = 10; // Chance out of 10
-    public int EnemyAttackAccuracyChanceMin {get; set; } = 1;
+    public int EnemyAttackAccuracyChance { get; set; } = 3; 
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
-    public int boardChanceMin { get; set; } = 3;
-    public int boardChanceMax {get; set; } =5 ;
+    public int boardChance { get; set; } = 3;
     public float PlayerRepairMinAmount { get; set; } = 10.0f;
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int TreasureMinAmount { get; set; } = 10;
     public int TreasureMaxAmount { get; set; } = 20;
-    public int treasureChanceMin { get; set; } = 1;
-    public int treasureChanceMax { get; set; } = 5;
+    public int treasureChance; 
     public int StolenMinAmount { get; set; } = 75;
     public int StolenMaxAmount { get; set; } = 150;
     public int EnemyCrewMin {get; set;} = 25;
@@ -41,9 +37,8 @@ public class Ship {
     public int stolenCurseBallsMax {get; set;} = 3;
     public int enemyRepairMin {get; set;} = 10;
     public int enemyRepairMax {get; set;} = 21;
-    public int enemyRepairChanceMin {get; set;} = 1;
-    public int enemyRepairChanceMax {get; set;} = 10;
-    public int treasureChance;
+    public int enemyRepairChance {get; set;} = 4;
+    public int TreasureChance {get; set;} = 6; 
     private static readonly Random random = new Random();
 
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
@@ -64,9 +59,9 @@ public class Ship {
         Wood = wood;
     }
     public void PlayerAttack(Ship target) {
-        int chance = random.Next(PlayerAttackAccuracyChanceMin, PlayerAttackAccuracyChanceMax);
+        int chance = random.Next(1, 5);
         Cannonballs -= Cannons;
-        if (chance >= 2) {
+        if (chance >= PlayerAttackAccuracyChance) {
             float damage = (float)(random.NextDouble() * (PlayerAttackMaxDamage - PlayerAttackMinDamage) + PlayerAttackMinDamage) + Cannons;
             damage = (float)Math.Round(damage, 1);
             target.Health -= damage;
@@ -77,8 +72,8 @@ public class Ship {
         }
     }
     public void EnemyAttack(Ship target) {
-        int chance = random.Next(EnemyAttackAccuracyChanceMin, EnemyAttackAccuracyChanceMax);
-        if (chance >= 2) {
+        int chance = random.Next(1, 5);
+        if (chance >= EnemyAttackAccuracyChance) {
             float damage = (float)(random.NextDouble() * (EnemyAttackMaxDamage - EnemyAttackMinDamage) + EnemyAttackMinDamage) + Cannons;
             damage = (float)Math.Round(damage, 1);            
             target.Health -= damage;
@@ -96,11 +91,11 @@ public class Ship {
         target.Health = Math.Max(target.Health, 0);
     }
     public void BoardChance(Ship target) {
-        Chance = random.Next(boardChanceMin,boardChanceMax);
+        Chance = random.Next(1,5);
         EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
-                if (Chance >= 2) {
+                if (Chance >= boardChance) {
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
@@ -140,8 +135,8 @@ public class Ship {
     }
     public void Treasure() {
         Console.Clear();
-        treasureChance = random.Next(treasureChanceMin, treasureChanceMax);
-        if (treasureChance >= 4) {
+        treasureChance = random.Next(1, 10);
+        if (treasureChance >= TreasureChance) {
             float treasureAmount = random.Next(TreasureMinAmount, TreasureMaxAmount);
             if (MaxCargo - Cargo < treasureAmount) {
             Cargo = MaxCargo;
@@ -176,8 +171,8 @@ public class Ship {
         Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
     }
     public void EnemyRepair() {
-        int chance = random.Next(enemyRepairChanceMin, enemyRepairChanceMax);
-        if (chance > 7) {
+        int chance = random.Next(1, 10);
+        if (chance > enemyRepairChance) {
             float repairAmount = random.Next(enemyRepairMin, enemyRepairMax);
             Health += repairAmount;
             if (Health > MaxHealth) {
@@ -308,24 +303,19 @@ public async void StartGameAnimation()
             { "cannonballs", value => playerShip.Cannonballs = value },
             { "cursedballs", value => playerShip.CursedCannonBalls = value },
             { "wood", value => playerShip.Wood = value },
-            { "player-attack-accuracy-chance-max", value => playerShip.PlayerAttackAccuracyChanceMax = value },
-            { "player-attack-accuracy-chance-min", value => playerShip.PlayerAttackAccuracyChanceMin = value},
-            { "enemy-attack-accuracy-chance-max", value => enemyShip.EnemyAttackAccuracyChanceMax = value },
-            { "enemy-attack-accuracy-chance-min", value => enemyShip.EnemyAttackAccuracyChanceMin = value},
-            { "board-chance-min", value => playerShip.boardChanceMin = value },
-            { "board-chance-max", value => playerShip.boardChanceMax = value },
+            { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
+            { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
+            { "board-chance", value => playerShip.boardChance = value },
             { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
             { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
             { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
             { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
-            { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
-            { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
+            { "treasure-chance", value => playerShip.treasureChance = value },
             { "enemy-crew-min", value => playerShip.EnemyCrewMin = value },
             { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
             { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
             { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
-            { "enemy-repair-chance-min", value => playerShip.enemyRepairChanceMin = value},
-            { "enemy-repair-chance-max", value => playerShip.enemyRepairChanceMax = value}
+            { "enemy-repair-chance", value => playerShip.enemyRepairChance = value},
         };
         var floatFieldActions = new Dictionary<string, Action<float>> {
             { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
