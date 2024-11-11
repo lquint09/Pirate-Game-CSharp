@@ -39,7 +39,6 @@ public class Ship {
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
     private static readonly Random random = new Random();
-    private int treasureChance;
 
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
