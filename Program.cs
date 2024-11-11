@@ -320,7 +320,7 @@ public async void StartGameAnimation()
             { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
             { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
             { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
-            { "treasure-chance-max", value => playerShip.EnemyCrewMin = value },
+            { "enemy-crew-min", value => playerShip.EnemyCrewMin = value },
             { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
             { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
             { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
