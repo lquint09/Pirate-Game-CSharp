@@ -17,10 +17,12 @@ public class Ship {
     public int Wood {get; set;} = 50;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
     public float PlayerAttackMaxDamage { get; set; } = 20.0f;
-    public int PlayerAttackAccuracyChance { get; set; } = 8; // Chance out of 10
+    public int PlayerAttackAccuracyChanceMax { get; set; } = 10;
+    public int PlayerAttackAccuracyChanceMin {get; set;} = 1; 
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public int EnemyAttackAccuracyChance { get; set; } = 6; // Chance out of 10
+    public int EnemyAttackAccuracyChanceMax { get; set; } = 10; // Chance out of 10
+    public int EnemyAttackAccuracyChanceMin {get; set; } = 1;
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
     public int boardChanceMin { get; set; } = 3;
@@ -56,7 +58,7 @@ public class Ship {
         Wood = wood;
     }
     public void PlayerAttack(Ship target) {
-        int chance = random.Next(1, 11);
+        int chance = random.Next(PlayerAttackAccuracyChanceMin, PlayerAttackAccuracyChanceMax);
         Cannonballs -= Cannons;
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (PlayerAttackMaxDamage - PlayerAttackMinDamage) + PlayerAttackMinDamage) + Cannons;
@@ -69,7 +71,7 @@ public class Ship {
         }
     }
     public void EnemyAttack(Ship target) {
-        int chance = random.Next(1, 11);
+        int chance = random.Next(EnemyAttackAccuracyChanceMin, EnemyAttackAccuracyChanceMax);
         if (chance >= 2) {
             float damage = (float)(random.NextDouble() * (EnemyAttackMaxDamage - EnemyAttackMinDamage) + EnemyAttackMinDamage) + Cannons;
             damage = (float)Math.Round(damage, 1);            
@@ -293,8 +295,8 @@ public async void StartGameAnimation()
         Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
             "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
             "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
-            "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\n" +
-            "cursedball-attack-damage-min\ncursedball-attack-damage-max\n" +
+            "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance-min\n" +
+            "cursedball-attack-damage-min\ncursedball-attack-damage-max\nenemy-attack-accuracy-chance-max" +
             "board-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\n" +
             "player-repair-max-amount\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
             "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
@@ -311,8 +313,10 @@ public async void StartGameAnimation()
             { "cannonballs", value => playerShip.Cannonballs = value },
             { "cursedballs", value => playerShip.CursedCannonBalls = value },
             { "wood", value => playerShip.Wood = value },
-            { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
-            { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
+            { "player-attack-accuracy-chance-max", value => playerShip.PlayerAttackAccuracyChanceMax = value },
+            { "player-attack-accuracy-chance-min", value => playerShip.PlayerAttackAccuracyChanceMin = value},
+            { "enemy-attack-accuracy-chance-max", value => enemyShip.EnemyAttackAccuracyChanceMax = value },
+            { "enemy-attack-accuracy-chance-min", value => enemyShip.EnemyAttackAccuracyChanceMin = value},
             { "board-chance-min", value => playerShip.boardChanceMin = value },
             { "board-chance-max", value => playerShip.boardChanceMax = value },
             { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
@@ -386,7 +390,7 @@ public async void StartGameAnimation()
     }
 //--------------------------------------------
 // End of Devtools code
-//--
+//--------------------------------------------
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true) {
