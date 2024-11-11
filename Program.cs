@@ -26,7 +26,8 @@ public class Ship {
     public int EnemyAttackAccuracyChance { get; set; } = 6; // Chance out of 10
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
-    public int boardChance { get; set; } = 3; // Chance for boarding success out of 5
+    public int boardChanceMin { get; set; } = 3;
+    public int boardChanceMax {get; set; } =5 ;
     public float PlayerRepairMinAmount { get; set; } = 10.0f;
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int TreasureMinAmount { get; set; } = 10;
@@ -35,6 +36,8 @@ public class Ship {
     public int treasureChanceMax { get; set; } = 5;
     public int StolenMinAmount { get; set; } = 75;
     public int StolenMaxAmount { get; set; } = 150;
+    public int EnemyCrewMin {get; set;} = 25;
+    public int EnemyCrewMax {get; set;} = 50;
     private static readonly Random random = new Random();
     private int treasureChance;
 
@@ -88,8 +91,8 @@ public class Ship {
         target.Health = Math.Max(target.Health, 0);
     }
     public void BoardChance(Ship target) {
-        Chance = random.Next(1,5);
-        EnemyCrew = random.Next(25,50);
+        Chance = random.Next(boardChanceMin,boardChanceMax);
+        EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
                 if (Chance >= 2) {
@@ -295,8 +298,8 @@ public async void StartGameAnimation()
             "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
             "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\n" +
             "cursedball-attack-damage-min\ncursedball-attack-damage-max\n" +
-            "board-chance\nplayer-repair-min-amount\nplayer-repair-max-amount\n" +
-            "treasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
+            "board-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\n" +
+            "player-repair-max-amount\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
             "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
             "------------------------------------------------------------------");
     }
@@ -313,13 +316,16 @@ public async void StartGameAnimation()
             { "wood", value => playerShip.Wood = value },
             { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
             { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
-            { "board-chance", value => playerShip.boardChance = value },
+            { "board-chance-min", value => playerShip.boardChanceMin = value },
+            { "board-chance-max", value => playerShip.boardChanceMax = value },
             { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
             { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
             { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
             { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
             { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
-            { "treasure-chance-max", value => playerShip.treasureChanceMax = value }
+            { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
+            { "enemy-crew-min", value => playerShip.EnemyCrewMin},
+            { "enemy-crew-max", value => playerShip.EnemyCrewMax}
         };
 
         var floatFieldActions = new Dictionary<string, Action<float>> {
