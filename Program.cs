@@ -23,7 +23,8 @@ public class Ship {
     public int EnemyAttackAccuracyChance { get; set; } = 6; // Chance out of 10
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
-    public int boardChance { get; set; } = 3; // Chance for boarding success out of 5
+    public int boardChanceMin { get; set; } = 3;
+    public int boardChanceMax {get; set; } =5 ;
     public float PlayerRepairMinAmount { get; set; } = 10.0f;
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int TreasureMinAmount { get; set; } = 10;
@@ -32,8 +33,10 @@ public class Ship {
     public int treasureChanceMax { get; set; } = 5;
     public int StolenMinAmount { get; set; } = 75;
     public int StolenMaxAmount { get; set; } = 150;
+    public int EnemyCrewMin {get; set;} = 25;
+    public int EnemyCrewMax {get; set;} = 50;
+    public int treasureChance;
     private static readonly Random random = new Random();
-    private int treasureChance;
 
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
@@ -85,8 +88,8 @@ public class Ship {
         target.Health = Math.Max(target.Health, 0);
     }
     public void BoardChance(Ship target) {
-        Chance = random.Next(1,5);
-        EnemyCrew = random.Next(25,50);
+        Chance = random.Next(boardChanceMin,boardChanceMax);
+        EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax);
         if (target.Health < 31) {
             if (Crew > EnemyCrew) {
                 if (Chance >= 2) {
@@ -249,135 +252,138 @@ public async void StartGameAnimation()
 //--------------------------------------------
 // Start of Devtools code
 //--------------------------------------------       
-void DevToolsStartMenu() {
-    Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
-    string requestedField = Console.ReadLine()?.ToLower();
+    void DevToolsStartMenu() {
+        Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
+        string requestedField = Console.ReadLine()?.ToLower();
 
-    if (string.IsNullOrEmpty(requestedField)) {
-        Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
-        DevToolsStartMenu();
+        if (string.IsNullOrEmpty(requestedField)) {
+            Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
+            DevToolsStartMenu();
+        }
+
+        switch (requestedField) {
+            case "list":
+                ShowEditableFields();
+                break;
+            case "help":
+                ShowHelp();
+                break;
+            case "clear":
+                Console.Clear();
+                break;
+            case "none":
+                Console.Clear();
+                    StartMenu();
+                return;
+            default:
+                #pragma warning disable CS8604 // Possible null reference argument.
+                HandleValueEdit(requestedField);
+                return;                                              
+        }
+        DevToolsStartMenu(); // Call the menu again to keep the flow
     }
 
-    switch (requestedField) {
-        case "list":
-            ShowEditableFields();
-            break;
-        case "help":
-            ShowHelp();
-            break;
-        case "clear":
+    void ShowHelp() {
+        Console.Clear();
+        Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
+    }
+
+    void ShowEditableFields() {
+        Console.Clear();
+        Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
+            "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
+            "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
+            "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\n" +
+            "cursedball-attack-damage-min\ncursedball-attack-damage-max\n" +
+            "board-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\n" +
+            "player-repair-max-amount\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
+            "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
+            "------------------------------------------------------------------");
+    }
+
+    void HandleValueEdit(string field) {
+        var fieldActions = new Dictionary<string, Action<int>> {
+            { "cannons", value => playerShip.Cannons = value },
+            { "crew", value => playerShip.Crew = value },
+            { "bank", value => playerShip.Bank = value },
+            { "health", value => playerShip.Health = value },
+            { "items", value => playerShip.Items = value },
+            { "cannonballs", value => playerShip.Cannonballs = value },
+            { "cursedballs", value => playerShip.CursedCannonBalls = value },
+            { "wood", value => playerShip.Wood = value },
+            { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
+            { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
+            { "board-chance-min", value => playerShip.boardChanceMin = value },
+            { "board-chance-max", value => playerShip.boardChanceMax = value },
+            { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
+            { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
+            { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
+            { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
+            { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
+            { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
+            { "treasure-chance-max", value => playerShip.EnemyCrewMin = value },
+            { "enemy-crew-max", value => playerShip.EnemyCrewMax = value}
+        };
+
+        var floatFieldActions = new Dictionary<string, Action<float>> {
+            { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
+            { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
+            { "enemy-attack-damage-min", value => enemyShip.EnemyAttackMinDamage = value },
+            { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
+            { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
+            { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
+        };
+
+        // Check if the field exists in integer or float dictionaries
+        if (fieldActions.ContainsKey(field)) {
             Console.Clear();
-            break;
-        case "none":
+            Console.WriteLine($"What would you like to change {field} to?");
+        
+            if (int.TryParse(Console.ReadLine(), out int newValue)) {
+                fieldActions[field](newValue);
+                Console.Clear();
+                Console.WriteLine($"{field} has been changed to {newValue}");
+                AskIfContinue();
+            } else {
+                Console.Clear();
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+        } else if (floatFieldActions.ContainsKey(field)) {
+            Console.Clear();
+            Console.WriteLine($"What would you like to change {field} to?");
+        
+            if (float.TryParse(Console.ReadLine(), out float newValue)) {
+                floatFieldActions[field](newValue);
+                Console.Clear();
+                Console.WriteLine($"{field} has been changed to {newValue}");
+                AskIfContinue();
+            } else {
+                Console.Clear();
+                Console.WriteLine("Invalid input. Please enter a valid float.");
+            }
+        } else {
+            Console.Clear();
+            Console.WriteLine("Invalid field. Please choose a valid option.");
+        }
+    }
+
+    void AskIfContinue() {
+        Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
+        string continueInput = Console.ReadLine();
+        if (continueInput == "1") {
+            Console.Clear();
+            DevToolsStartMenu();
+        } 
+        else if (continueInput == "2") {
             Console.Clear();
             StartMenu();
-            return;
-        default:
-            #pragma warning disable CS8604 // Possible null reference argument.
-            HandleValueEdit(requestedField);
-            return;                                              
-    }
-    DevToolsStartMenu(); // Call the menu again to keep the flow
-}
-
-void ShowHelp() {
-    Console.Clear();
-    Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
-}
-
-void ShowEditableFields() {
-    Console.Clear();
-    Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
-        "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
-        "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
-        "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\n" +
-        "cursedball-attack-damage-min\ncursedball-attack-damage-max\n" +
-        "board-chance\nplayer-repair-min-amount\nplayer-repair-max-amount\n" +
-        "treasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
-        "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
-        "------------------------------------------------------------------");
-}
-
-void HandleValueEdit(string field) {
-    var fieldActions = new Dictionary<string, Action<int>> {
-        { "cannons", value => playerShip.Cannons = value },
-        { "crew", value => playerShip.Crew = value },
-        { "bank", value => playerShip.Bank = value },
-        { "health", value => playerShip.Health = value },
-        { "items", value => playerShip.Items = value },
-        { "cannonballs", value => playerShip.Cannonballs = value },
-        { "cursedballs", value => playerShip.CursedCannonBalls = value },
-        { "wood", value => playerShip.Wood = value },
-        { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
-        { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
-        { "board-chance", value => playerShip.boardChance = value },
-        { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
-        { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
-        { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
-        { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
-        { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
-        { "treasure-chance-max", value => playerShip.treasureChanceMax = value }
-    };
-
-    var floatFieldActions = new Dictionary<string, Action<float>> {
-        { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
-        { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
-        { "enemy-attack-damage-min", value => enemyShip.EnemyAttackMinDamage = value },
-        { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
-        { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
-        { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
-    };
-
-    // Check if the field exists in integer or float dictionaries
-    if (fieldActions.ContainsKey(field)) {
-        Console.Clear();
-        Console.WriteLine($"What would you like to change {field} to?");
-        
-        if (int.TryParse(Console.ReadLine(), out int newValue)) {
-            fieldActions[field](newValue);
+        } 
+        else {
             Console.Clear();
-            Console.WriteLine($"{field} has been changed to {newValue}");
+            Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
             AskIfContinue();
-        } else {
-            Console.Clear();
-            Console.WriteLine("Invalid input. Please enter a valid integer.");
         }
-    } else if (floatFieldActions.ContainsKey(field)) {
-        Console.Clear();
-        Console.WriteLine($"What would you like to change {field} to?");
-        
-        if (float.TryParse(Console.ReadLine(), out float newValue)) {
-            floatFieldActions[field](newValue);
-            Console.Clear();
-            Console.WriteLine($"{field} has been changed to {newValue}");
-            AskIfContinue();
-        } else {
-            Console.Clear();
-            Console.WriteLine("Invalid input. Please enter a valid float.");
-        }
-    } else {
-        Console.Clear();
-        Console.WriteLine("Invalid field. Please choose a valid option.");
     }
-}
-
-void AskIfContinue() {
-    Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-    string continueInput = Console.ReadLine();
-    if (continueInput == "1") {
-        Console.Clear();
-        DevToolsStartMenu();
-    } 
-    else if (continueInput == "2") {
-        Console.Clear();
-        StartMenu();
-    } 
-    else {
-        Console.Clear();
-        Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
-        AskIfContinue();
-    }
-}
 //--------------------------------------------
 // End of Devtools code
 //--
