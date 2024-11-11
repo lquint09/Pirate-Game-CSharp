@@ -1,21 +1,43 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
+
 public class Ship {
-    public string Name {get; set;}
-    public int Cannons {get; set;}
-    public int Crew {get; set;}
-    public int MaxCrew {get; set;}
-    public int MaxCannons {get; set;}
-    public float Bank {get; set;}
-    public float Health {get; set;}
-    public float MaxHealth {get; set;}
-    public int Items {get; set;}
-    public int Chance {get; set;}
-    public int EnemyCrew {get; set;}
-    public float Cargo {get; set;}
-    public float MaxCargo {get; set;}
-    public int Cannonballs {get; set;}
+    public string Name {get; set;} 
+    public int Cannons {get; set;} = 5;
+    public int Crew {get; set;} = 50;
+    public int MaxCrew {get; set;} = 50;
+    public int MaxCannons {get; set;} = 10;
+    public float Bank {get; set;} = 0;
+    public float Health {get; set;} = 100;
+    public float MaxHealth {get; set;} = 100;
+    public int Items {get; set;} = 0;
+    public int Chance {get; set;} 
+    public int EnemyCrew {get; set;} 
+    public float Cargo {get; set;} = 0;
+    public float MaxCargo {get; set;} = 500;
+    public int Cannonballs {get; set;} = 100;
     public int CursedCannonBalls {get; set;}
-    public int Wood {get; set;} 
+    public int Wood {get; set;} = 50;
+    public float PlayerAttackMinDamage { get; set; } = 10.0f;
+    public float PlayerAttackMaxDamage { get; set; } = 20.0f;
+    public int PlayerAttackAccuracyChance { get; set; } = 8; // Chance out of 10
+    public float EnemyAttackMinDamage { get; set; } = 5.0f;
+    public float EnemyAttackMaxDamage { get; set; } = 15.0f;
+    public int EnemyAttackAccuracyChance { get; set; } = 6; // Chance out of 10
+    public float CursedBallMinDamage { get; set; } = 15;
+    public float CursedBallMaxDamage { get; set; } = 40;
+    public int boardChance { get; set; } = 3; // Chance for boarding success out of 5
+    public float PlayerRepairMinAmount { get; set; } = 10.0f;
+    public float PlayerRepairMaxAmount { get; set; } = 20.0f;
+    public int TreasureMinAmount { get; set; } = 10;
+    public int TreasureMaxAmount { get; set; } = 20;
+    public int treasureChanceMin { get; set; } = 1;
+    public int treasureChanceMax { get; set; } = 5;
+    public int StolenMinAmount { get; set; } = 75;
+    public int StolenMaxAmount { get; set; } = 150;
     private static readonly Random random = new Random();
+    private int treasureChance;
+
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
@@ -37,7 +59,7 @@ public class Ship {
         int chance = random.Next(1, 11);
         Cannonballs -= Cannons;
         if (chance >= 2) {
-            float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
+            float damage = (float)(random.NextDouble() * (PlayerAttackMaxDamage - PlayerAttackMinDamage) + PlayerAttackMinDamage) + Cannons;
             damage = (float)Math.Round(damage, 1);
             target.Health -= damage;
             target.Health = Math.Max(target.Health, 0);
@@ -49,7 +71,7 @@ public class Ship {
     public void EnemyAttack(Ship target) {
         int chance = random.Next(1, 11);
         if (chance >= 2) {
-            float damage = (float)(random.NextDouble() * (21.0 - 10.0) + 10.0) + Cannons;
+            float damage = (float)(random.NextDouble() * (EnemyAttackMaxDamage - EnemyAttackMinDamage) + EnemyAttackMinDamage) + Cannons;
             damage = (float)Math.Round(damage, 1);            
             target.Health -= damage;
             target.Health = Math.Max(target.Health, 0);
@@ -60,7 +82,7 @@ public class Ship {
     }
     public void CursedBallAttack(Ship target) {
         CursedCannonBalls -= 1;
-        float damage = (float)(random.NextDouble()* (40 - 15)+ 10) + Cannons;
+        float damage = (float)(random.NextDouble()* (CursedBallMaxDamage - CursedBallMinDamage)+ CursedBallMinDamage) + Cannons;
         damage = (float)Math.Round(damage, 1);
         target.Health -= damage;
         target.Health = Math.Max(target.Health, 0);
@@ -88,7 +110,7 @@ public class Ship {
         }
     }
     public void Repair() {
-        float repairAmount = random.Next(10, 21);
+        float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount);
         Health += repairAmount;
         if (Wood > 0 && Health < MaxHealth) {
             if (repairAmount > 15) {
@@ -110,9 +132,9 @@ public class Ship {
     }
     public void Treasure() {
         Console.Clear();
-        int treasureChance = random.Next(1, 10);
-        if (treasureChance > 8) {
-            float treasureAmount = random.Next(10, 21);
+        treasureChance = random.Next(treasureChanceMin, treasureChanceMax);
+        if (treasureChance >= 4) {
+            float treasureAmount = random.Next(TreasureMinAmount, TreasureMaxAmount);
             if (MaxCargo - Cargo < treasureAmount) {
             Cargo = MaxCargo;
             Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n You could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
@@ -127,7 +149,7 @@ public class Ship {
         }
     }
     public void Stolen() {
-        float stolenAmount = random.Next(0, 250);
+        int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount);
         int stolenCurseBalls = random.Next(1,3);
         CursedCannonBalls += stolenCurseBalls;
         if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
@@ -141,6 +163,7 @@ public class Ship {
     }
     public void Depot() {
         Bank += Cargo;
+        Cargo = 0;
         Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
         Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
     }
@@ -229,14 +252,15 @@ public async void StartGameAnimation()
 //--------------------------------------------
 // Start of Devtools code
 //--------------------------------------------       
-    void DevToolsStartMenu() {
+void DevToolsStartMenu() {
     Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
     string requestedField = Console.ReadLine()?.ToLower();
 
     if (string.IsNullOrEmpty(requestedField)) {
         Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
+        DevToolsStartMenu();
     }
-    // Using a switch expression to handle "list", "help", "clear", "none"
+
     switch (requestedField) {
         case "list":
             ShowEditableFields();
@@ -253,20 +277,31 @@ public async void StartGameAnimation()
             return;
         default:
             #pragma warning disable CS8604 // Possible null reference argument.
-            HandleFieldEdit(requestedField);
+            HandleValueEdit(requestedField);
             return;                                              
     }
     DevToolsStartMenu(); // Call the menu again to keep the flow
 }
-void ShowEditableFields() {
-    Console.Clear();
-    Console.WriteLine("Editable values\n------------------------------------------------------------------\n cannons\n crew\n bank\n health\n items\n cannonballs\n cursedballs\n wood\n------------------------------------------------------------------");
-}
+
 void ShowHelp() {
     Console.Clear();
-    Console.WriteLine("Press 'none' to exit, or type 'list' to see all editable values\n------------------------------------------------------------------");
+    Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
 }
-void HandleFieldEdit(string field) {
+
+void ShowEditableFields() {
+    Console.Clear();
+    Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
+        "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
+        "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
+        "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\n" +
+        "cursedball-attack-damage-min\ncursedball-attack-damage-max\n" +
+        "board-chance\nplayer-repair-min-amount\nplayer-repair-max-amount\n" +
+        "treasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
+        "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
+        "------------------------------------------------------------------");
+}
+
+void HandleValueEdit(string field) {
     var fieldActions = new Dictionary<string, Action<int>> {
         { "cannons", value => playerShip.Cannons = value },
         { "crew", value => playerShip.Crew = value },
@@ -275,25 +310,57 @@ void HandleFieldEdit(string field) {
         { "items", value => playerShip.Items = value },
         { "cannonballs", value => playerShip.Cannonballs = value },
         { "cursedballs", value => playerShip.CursedCannonBalls = value },
-        { "wood", value => playerShip.Wood = value }
+        { "wood", value => playerShip.Wood = value },
+        { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
+        { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
+        { "board-chance", value => playerShip.boardChance = value },
+        { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
+        { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
+        { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
+        { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
+        { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
+        { "treasure-chance-max", value => playerShip.treasureChanceMax = value }
     };
 
+    var floatFieldActions = new Dictionary<string, Action<float>> {
+        { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
+        { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
+        { "enemy-attack-damage-min", value => enemyShip.EnemyAttackMinDamage = value },
+        { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
+        { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
+        { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
+    };
+
+    // Check if the field exists in integer or float dictionaries
     if (fieldActions.ContainsKey(field)) {
         Console.Clear();
-        Console.WriteLine($"What would you like to change {field} to?\n------------------------------------------------------------------");
+        Console.WriteLine($"What would you like to change {field} to?");
         
         if (int.TryParse(Console.ReadLine(), out int newValue)) {
             fieldActions[field](newValue);
             Console.Clear();
-            Console.WriteLine($"-------------------------------------------------------\n{field} has been changed to {newValue}\n-------------------------------------------------------");
+            Console.WriteLine($"{field} has been changed to {newValue}");
             AskIfContinue();
         } else {
             Console.Clear();
-            Console.WriteLine("Invalid input. Please enter a valid integer.\n-------------------------------------------------------");
+            Console.WriteLine("Invalid input. Please enter a valid integer.");
+        }
+    } else if (floatFieldActions.ContainsKey(field)) {
+        Console.Clear();
+        Console.WriteLine($"What would you like to change {field} to?");
+        
+        if (float.TryParse(Console.ReadLine(), out float newValue)) {
+            floatFieldActions[field](newValue);
+            Console.Clear();
+            Console.WriteLine($"{field} has been changed to {newValue}");
+            AskIfContinue();
+        } else {
+            Console.Clear();
+            Console.WriteLine("Invalid input. Please enter a valid float.");
         }
     } else {
         Console.Clear();
-        Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
+        Console.WriteLine("Invalid field. Please choose a valid option.");
     }
 }
 
@@ -316,8 +383,7 @@ void AskIfContinue() {
 }
 //--------------------------------------------
 // End of Devtools code
-//--------------------------------------------
-
+//--
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true) {
