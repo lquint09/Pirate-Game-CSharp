@@ -337,7 +337,6 @@ public async void StartGameAnimation()
             } else {
                 Console.Clear();
                 Console.WriteLine("Invalid input. Please enter a valid integer.");
-                DevToolsStartMenu();
             }
         } else if (floatFieldActions.ContainsKey(field)) {
             Console.Clear();
@@ -350,11 +349,11 @@ public async void StartGameAnimation()
             } else {
                 Console.Clear();
                 Console.WriteLine("Invalid input. Please enter a valid float.");
-                DevToolsStartMenu();
             }
         } else {
             Console.Clear();
-            Console.WriteLine("Invalid field. Please choose a valid option.");
+            Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
+            DevToolsStartMenu();
         }
     }
     void AskIfContinue() {
