@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
-
 public class Ship {
     public string Name {get; set;} 
     public int Cannons {get; set;} = 5;
