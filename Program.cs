@@ -28,7 +28,6 @@ public class Ship {
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int TreasureMinAmount { get; set; } = 10;
     public int TreasureMaxAmount { get; set; } = 20;
-    public int treasureChance; 
     public int StolenMinAmount { get; set; } = 75;
     public int StolenMaxAmount { get; set; } = 150;
     public int EnemyCrewMin {get; set;} = 25;
@@ -39,6 +38,7 @@ public class Ship {
     public int enemyRepairMax {get; set;} = 21;
     public int enemyRepairChance {get; set;} = 4;
     public int TreasureChance {get; set;} = 6; 
+    public int treasureChance; 
     private static readonly Random random = new Random();
 
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
@@ -310,7 +310,7 @@ public async void StartGameAnimation()
             { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
             { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
             { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
-            { "treasure-chance", value => playerShip.treasureChance = value },
+            { "treasure-chance", value => playerShip.TreasureChance = value },
             { "enemy-crew-min", value => playerShip.EnemyCrewMin = value },
             { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
             { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
