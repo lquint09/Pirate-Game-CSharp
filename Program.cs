@@ -13,7 +13,7 @@ public class Ship {
     public float Cargo {get; set;} = 0;
     public float MaxCargo {get; set;} = 500;
     public int Cannonballs {get; set;} = 100;
-    public int CursedCannonBalls {get; set;}
+    public int CursedCannonBalls {get; set;} = 0;
     public int Wood {get; set;} = 50;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
     public float PlayerAttackMaxDamage { get; set; } = 20.0f;
