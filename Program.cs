@@ -37,6 +37,12 @@ public class Ship {
     public int StolenMaxAmount { get; set; } = 150;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
+    public int stolenCurseBallsMin {get; set;} = 1;
+    public int stolenCurseBallsMax {get; set;} = 3;
+    public int enemyRepairMin {get; set;} = 10;
+    public int enemyRepairMax {get; set;} = 21;
+    public int enemyRepairChanceMin {get; set;} = 1;
+    public int enemyRepairChanceMax {get; set;} = 10;
     public int treasureChance;
     private static readonly Random random = new Random();
 
@@ -152,7 +158,7 @@ public class Ship {
     }
     public void Stolen() {
         int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount);
-        int stolenCurseBalls = random.Next(1,3);
+        int stolenCurseBalls = random.Next(stolenCurseBallsMin,stolenCurseBallsMax);
         CursedCannonBalls += stolenCurseBalls;
         if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
             Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n---------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n---------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
@@ -170,9 +176,9 @@ public class Ship {
         Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
     }
     public void EnemyRepair() {
-        int chance = random.Next(1, 11);
+        int chance = random.Next(enemyRepairChanceMin, enemyRepairChanceMax);
         if (chance > 7) {
-            float repairAmount = random.Next(10, 21);
+            float repairAmount = random.Next(enemyRepairMin, enemyRepairMax);
             Health += repairAmount;
             if (Health > MaxHealth) {
                 Health = MaxHealth;
@@ -294,12 +300,12 @@ public async void StartGameAnimation()
         Console.Clear();
         Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
             "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
-            "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\n" +
-            "enemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance-min\n" +
+            "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance-max" +
+            "enemy-repair-chance-min\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance-min\n" +
             "cursedball-attack-damage-min\ncursedball-attack-damage-max\nenemy-attack-accuracy-chance-max" +
             "board-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\n" +
-            "player-repair-max-amount\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
-            "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\n" +
+            "player-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
+            "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max" +
             "------------------------------------------------------------------");
     }
 
@@ -326,7 +332,11 @@ public async void StartGameAnimation()
             { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
             { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
             { "treasure-chance-max", value => playerShip.EnemyCrewMin = value },
-            { "enemy-crew-max", value => playerShip.EnemyCrewMax = value}
+            { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
+            { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
+            { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
+            { "enemy-repair-chance-min", value => playerShip.enemyRepairChanceMin = value},
+            { "enemy-repair-chance-max", value => playerShip.enemyRepairChanceMax = value}
         };
 
         var floatFieldActions = new Dictionary<string, Action<float>> {
