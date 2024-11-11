@@ -38,6 +38,7 @@ public class Ship {
     public int StolenMaxAmount { get; set; } = 150;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
+    public int treasureChance;
     private static readonly Random random = new Random();
 
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
@@ -323,8 +324,8 @@ public async void StartGameAnimation()
             { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
             { "treasure-chance-min", value => playerShip.treasureChanceMin = value },
             { "treasure-chance-max", value => playerShip.treasureChanceMax = value },
-            { "enemy-crew-min", value => playerShip.EnemyCrewMin},
-            { "enemy-crew-max", value => playerShip.EnemyCrewMax}
+            { "treasure-chance-max", value => playerShip.EnemyCrewMin = value },
+            { "enemy-crew-max", value => playerShip.EnemyCrewMax = value}
         };
 
         var floatFieldActions = new Dictionary<string, Action<float>> {
