@@ -290,25 +290,14 @@ public async void StartGameAnimation()
         }
         DevToolsStartMenu(); // Call the menu again to keep the flow
     }
-
     void ShowHelp() {
         Console.Clear();
         Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
     }
-
     void ShowEditableFields() {
         Console.Clear();
-        Console.WriteLine("Editable values\n------------------------------------------------------------------\n" +
-            "cannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\n" +
-            "player-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance-max" +
-            "enemy-repair-chance-min\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance-min\n" +
-            "cursedball-attack-damage-min\ncursedball-attack-damage-max\nenemy-attack-accuracy-chance-max" +
-            "board-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\n" +
-            "player-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\n" +
-            "treasure-chance-max\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max" +
-            "------------------------------------------------------------------");
+        Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance-max\nenemy-repair-chance-min\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance-min\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nenemy-attack-accuracy-chance-max\nboard-chance-min\nboard-chance-max\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance-min\ntreasure-chance-max\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max\n------------------------------------------------------------------");
     }
-
     void HandleValueEdit(string field) {
         var fieldActions = new Dictionary<string, Action<int>> {
             { "cannons", value => playerShip.Cannons = value },
@@ -338,7 +327,6 @@ public async void StartGameAnimation()
             { "enemy-repair-chance-min", value => playerShip.enemyRepairChanceMin = value},
             { "enemy-repair-chance-max", value => playerShip.enemyRepairChanceMax = value}
         };
-
         var floatFieldActions = new Dictionary<string, Action<float>> {
             { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
             { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
@@ -347,12 +335,10 @@ public async void StartGameAnimation()
             { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
             { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
         };
-
         // Check if the field exists in integer or float dictionaries
         if (fieldActions.ContainsKey(field)) {
             Console.Clear();
             Console.WriteLine($"What would you like to change {field} to?");
-        
             if (int.TryParse(Console.ReadLine(), out int newValue)) {
                 fieldActions[field](newValue);
                 Console.Clear();
@@ -365,7 +351,6 @@ public async void StartGameAnimation()
         } else if (floatFieldActions.ContainsKey(field)) {
             Console.Clear();
             Console.WriteLine($"What would you like to change {field} to?");
-        
             if (float.TryParse(Console.ReadLine(), out float newValue)) {
                 floatFieldActions[field](newValue);
                 Console.Clear();
@@ -380,7 +365,6 @@ public async void StartGameAnimation()
             Console.WriteLine("Invalid field. Please choose a valid option.");
         }
     }
-
     void AskIfContinue() {
         Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
         string continueInput = Console.ReadLine();
