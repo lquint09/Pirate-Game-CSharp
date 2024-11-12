@@ -320,7 +320,7 @@ public async void StartGameAnimation() // frames for start menu animation
     }
     void ShowEditableFields() {
         Console.Clear();
-        Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max\n------------------------------------------------------------------");
+        Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\bplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max\n------------------------------------------------------------------");
     }
     void HandleValueEdit(string field) {
         var intFieldActions = new Dictionary<string, Action<int>> {
@@ -345,6 +345,8 @@ public async void StartGameAnimation() // frames for start menu animation
             { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
             { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
             { "enemy-repair-chance", value => playerShip.enemyRepairChance = value},
+            { "cargo", value => playerShip.Cargo = value},
+            { "max-cargo", value => playerShip.MaxCargo = value },
         };
         var floatFieldActions = new Dictionary<string, Action<float>> {
             { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
