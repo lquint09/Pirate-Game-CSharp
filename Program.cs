@@ -58,6 +58,9 @@ public class Ship {
         CursedCannonBalls = cursedcannonballs;
         Wood = wood;
     }
+    //-----------------------------------------
+    // Player attack function
+    //-----------------------------------------
     public void PlayerAttack(Ship target) {
         int chance = random.Next(1, 5);
         Cannonballs -= Cannons;
@@ -71,6 +74,9 @@ public class Ship {
             Console.WriteLine("-------------\n You missed\n-------------");
         }
     }
+    //-----------------------------------------
+    // Enemy Attack Function
+    //-----------------------------------------
     public void EnemyAttack(Ship target) {
         int chance = random.Next(1, 5);
         if (chance >= EnemyAttackAccuracyChance) {
@@ -83,6 +89,9 @@ public class Ship {
             Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
     }
+    //-----------------------------------------
+    // Attack Function for cursedball usage
+    //-----------------------------------------
     public void CursedBallAttack(Ship target) {
         CursedCannonBalls -= 1;
         float damage = (float)(random.NextDouble()* (CursedBallMaxDamage - CursedBallMinDamage)+ CursedBallMinDamage) + Cannons;
@@ -90,6 +99,9 @@ public class Ship {
         target.Health -= damage;
         target.Health = Math.Max(target.Health, 0);
     }
+    //-----------------------------------------
+    // function to determine what happens when board attempt is a attempted
+    //-----------------------------------------
     public void BoardChance(Ship target) {
         Chance = random.Next(1,5);
         EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax);
@@ -112,6 +124,9 @@ public class Ship {
             }
         }
     }
+    //-----------------------------------------
+    // Player repair fucntion
+    //-----------------------------------------
     public void Repair() {
         float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount);
         Health += repairAmount;
@@ -133,6 +148,9 @@ public class Ship {
         Console.WriteLine($"-------------------------------------------------------\n Health: {Health}/{MaxHealth}\n-------------------------------------------------------");
         Console.WriteLine($"-------------------------------------------------------\n Wood: {Wood}\n-------------------------------------------------------");
     }
+    //-----------------------------------------
+    // Fucntion to randomized amount of traesure gathered
+    //-----------------------------------------
     public void Treasure() {
         Console.Clear();
         treasureChance = random.Next(1, 10);
@@ -151,6 +169,9 @@ public class Ship {
             Console.WriteLine("----------------------------------------------\n You did not find any treasure\n----------------------------------------------");
         }
     }
+    //-----------------------------------------
+    // fucntion to determine what is given to players are the sink an enemy ship
+    //-----------------------------------------
     public void Stolen() {
         int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount);
         int stolenCurseBalls = random.Next(stolenCurseBallsMin,stolenCurseBallsMax);
@@ -164,12 +185,18 @@ public class Ship {
             Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
         }
     }
+    //-----------------------------------------
+    // fucntion to deposit gold into bank
+    //-----------------------------------------
     public void Depot() {
         Bank += Cargo;
         Cargo = 0;
         Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
         Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
     }
+    //-----------------------------------------
+    // repair function for enemy ship // actived only when plyer repairs their ship
+    //-----------------------------------------
     public void EnemyRepair() {
         int chance = random.Next(1, 10);
         if (chance > enemyRepairChance) {
@@ -182,6 +209,9 @@ public class Ship {
         }
     }
 }
+//-----------------------------------------
+// start of the actual code for the game displayed
+//-----------------------------------------
 public class PirateGame {
     bool menuanimationcancel = false;
     private Ship playerShip;
