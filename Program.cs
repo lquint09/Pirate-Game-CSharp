@@ -323,7 +323,7 @@ public async void StartGameAnimation() // frames for start menu animation
         Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nsotlen-cursedball-max\n------------------------------------------------------------------");
     }
     void HandleValueEdit(string field) {
-        var fieldActions = new Dictionary<string, Action<int>> {
+        var intFieldActions = new Dictionary<string, Action<int>> {
             { "cannons", value => playerShip.Cannons = value },
             { "crew", value => playerShip.Crew = value },
             { "bank", value => playerShip.Bank = value },
@@ -355,11 +355,11 @@ public async void StartGameAnimation() // frames for start menu animation
             { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
         };
         // Check if the field exists in integer or float dictionaries
-        if (fieldActions.ContainsKey(field)) {
+        if (intFieldActions.ContainsKey(field)) {
             Console.Clear();
             Console.WriteLine($"What would you like to change {field} to?");
             if (int.TryParse(Console.ReadLine(), out int newValue)) {
-                fieldActions[field](newValue);
+                intFieldActions[field](newValue);
                 Console.Clear();
                 Console.WriteLine($"{field} has been changed to {newValue}");
                 AskIfContinue();
