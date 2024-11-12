@@ -190,9 +190,14 @@ public class Ship {
     //-----------------------------------------
     public void Depot() {
         Bank += Cargo;
-        Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
-        Cargo = 0;
-        Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
+        if (Cargo < 0) {
+            Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
+            Cargo = 0;
+            Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
+            }
+        else {
+            Console.WriteLine("----------------------------------------------\nYou do not have any carago to deposit\n----------------------------------------------");
+        }
     }
     //-----------------------------------------
     // repair function for enemy ship // actived only when plyer repairs their ship
@@ -465,9 +470,9 @@ public async void StartGameAnimation() // frames for start menu animation
                 OutofPortMenu();
                 break;
             case '3':
-                int chance = new Random().Next(1,20); // determiens if the player ship gets discoverd by an enemy ship
+                int chance = new Random().Next(1 ,20); // determiens if the player ship gets discoverd by an enemy ship
                 Console.Clear();
-                if (chance > 19) {
+                if (chance >= 18) {
                     enemyShip.MaxHealth = new Random().Next(75, 151); // determiens enemyship health
                     enemyShip.Health = enemyShip.MaxHealth; // sets enemy ship health
                     Console.WriteLine("-------------------------------------------------------\n An enemy ship found you\n-------------------------------------------------------");
@@ -730,7 +735,7 @@ public async void StartGameAnimation() // frames for start menu animation
             case '4':
                 Console.Clear();
                 if (playerShip.Bank < 1000) { // throws 'not enough gold' error is player doesn't have enough gold.  
-                    Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
+                    Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons) {
                     playerShip.Bank -= 1000;
