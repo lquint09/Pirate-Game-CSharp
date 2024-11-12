@@ -17,7 +17,7 @@ public class Ship {
     public int Wood {get; set;} = 50;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
     public float PlayerAttackMaxDamage { get; set; } = 20.0f;
-    public int PlayerAttackAccuracyChance { get; set; } = 10;
+    public int PlayerAttackAccuracyChance { get; set; } = 2;
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
     public int EnemyAttackAccuracyChance { get; set; } = 3; 
@@ -62,12 +62,12 @@ public class Ship {
     // Player attack function
     //-----------------------------------------
     public void PlayerAttack(Ship target) {
-        int chance = random.Next(1, 5);
-        Cannonballs -= Cannons;
+        int chance = random.Next(1, 5); // defines if the player actually hits the cannon shot (needs a "PlayerAttackAccuracyChance" value to work.) 
+        Cannonballs -= Cannons; // removes the amount of cannon balls relative to the amount of cannons the player has.
         if (chance >= PlayerAttackAccuracyChance) {
-            float damage = (float)(random.NextDouble() * (PlayerAttackMaxDamage - PlayerAttackMinDamage) + PlayerAttackMinDamage) + Cannons;
-            damage = (float)Math.Round(damage, 1);
-            target.Health -= damage;
+            float damage = (float)(random.NextDouble() * (PlayerAttackMaxDamage - PlayerAttackMinDamage) + PlayerAttackMinDamage) + Cannons; // damage calculation 
+            damage = (float)Math.Round(damage, 1); // rounds the damage calcuations to 1 decimal 
+            target.Health -= damage; // removes health from enemy ship if the cannon ball hits
             target.Health = Math.Max(target.Health, 0);
         }
         else {
@@ -78,11 +78,11 @@ public class Ship {
     // Enemy Attack Function
     //-----------------------------------------
     public void EnemyAttack(Ship target) {
-        int chance = random.Next(1, 5);
+        int chance = random.Next(1, 5); // defines if the enemy ships cannons hit the player ship
         if (chance >= EnemyAttackAccuracyChance) {
-            float damage = (float)(random.NextDouble() * (EnemyAttackMaxDamage - EnemyAttackMinDamage) + EnemyAttackMinDamage) + Cannons;
-            damage = (float)Math.Round(damage, 1);            
-            target.Health -= damage;
+            float damage = (float)(random.NextDouble() * (EnemyAttackMaxDamage - EnemyAttackMinDamage) + EnemyAttackMinDamage) + Cannons; // damage calculation
+            damage = (float)Math.Round(damage, 1); // rounding to 1 decimal
+            target.Health -= damage; // removes health from player ship
             target.Health = Math.Max(target.Health, 0);
         }
         else {
@@ -94,8 +94,8 @@ public class Ship {
     //-----------------------------------------
     public void CursedBallAttack(Ship target) {
         CursedCannonBalls -= 1;
-        float damage = (float)(random.NextDouble()* (CursedBallMaxDamage - CursedBallMinDamage)+ CursedBallMinDamage) + Cannons;
-        damage = (float)Math.Round(damage, 1);
+        float damage = (float)(random.NextDouble()* (CursedBallMaxDamage - CursedBallMinDamage)+ CursedBallMinDamage) + Cannons; // cursed cannonball damage calculation
+        damage = (float)Math.Round(damage, 1); // rounds to 1 decimal
         target.Health -= damage;
         target.Health = Math.Max(target.Health, 0);
     }
@@ -103,20 +103,20 @@ public class Ship {
     // function to determine what happens when board attempt is a attempted
     //-----------------------------------------
     public void BoardChance(Ship target) {
-        Chance = random.Next(1,5);
-        EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax);
-        if (target.Health < 31) {
-            if (Crew > EnemyCrew) {
+        Chance = random.Next(1,5); // devines if the player can baord thie enemy ship or not
+        EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax); // generates value for eneny crew for the player crew to go against.
+        if (target.Health < 31) { // makes sure that enemy ship is less than 31 (extra security level, not sure if needed)
+            if (Crew > EnemyCrew) { 
                 if (Chance >= boardChance) {
                     Items += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\n You won the board\n----------------------------------------------\n You now have {Items} captured ships\n----------------------------------------------\n Crew {Crew}/{MaxCrew}\n----------------------------------------------");
-                    target.Health = 0;
+                    target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 }
                 else {
-                    Crew = 25;
-                    Health = 1;
+                    Crew = 25; // sets player states to very low amounts for failing to board.
+                    Health = 1; // ^
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\n You lost the board\n----------------------------------------------\n Crew: {Crew}/{MaxCrew}\n----------------------------------------------\n Health: {Health}/{MaxHealth}\n----------------------------------------------");
                     return;
@@ -128,13 +128,13 @@ public class Ship {
     // Player repair fucntion
     //-----------------------------------------
     public void Repair() {
-        float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount);
-        Health += repairAmount;
-        if (Wood > 0 && Health < MaxHealth) {
-            if (repairAmount > 15) {
-                Wood -= random.Next(1,2);
+        float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount); // generates the repair mount for player ship
+        Health += repairAmount; // applys repair amount to ship
+        if (Wood > 0 && Health < MaxHealth) { // determines if the player ship needs to be repairs and if the health goes over max health.
+            if (repairAmount > 15) {  // determines if the health amount should take 1-2 or 3-5 wood to repair
+                Wood -= random.Next(1,2); // takes away determined amount of wood
             }
-            if (repairAmount <= 15) {
+            if (repairAmount <= 15) { 
                 Wood -= random.Next(3, 5);
             }
         }
@@ -153,12 +153,12 @@ public class Ship {
     //-----------------------------------------
     public void Treasure() {
         Console.Clear();
-        treasureChance = random.Next(1, 10);
-        if (treasureChance >= TreasureChance) {
-            float treasureAmount = random.Next(TreasureMinAmount, TreasureMaxAmount);
-            if (MaxCargo - Cargo < treasureAmount) {
-            Cargo = MaxCargo;
-            Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n You could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
+        treasureChance = random.Next(1, 10); // determiens if treasure should be given to the player
+        if (treasureChance >= TreasureChance) { 
+            float treasureAmount = random.Next(TreasureMinAmount, TreasureMaxAmount); // determines the amount of treasure given the the player
+            if (MaxCargo - Cargo < treasureAmount) {  // determines if the amount of treasure given would but the player over max cargo amount
+                Cargo = MaxCargo;
+                Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n You could not carry all of the gold (upgrade ship to increase)\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");            
             }
             if (MaxCargo - Cargo >= treasureAmount) {
                 Cargo += treasureAmount;
@@ -173,15 +173,15 @@ public class Ship {
     // fucntion to determine what is given to players are the sink an enemy ship
     //-----------------------------------------
     public void Stolen() {
-        int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount);
-        int stolenCurseBalls = random.Next(stolenCurseBallsMin,stolenCurseBallsMax);
-        CursedCannonBalls += stolenCurseBalls;
-        if (MaxCargo - Cargo < stolenAmount) {                                                                                                                                                        
+        int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount); // determines how much gold is given to player after sinking a ship
+        int stolenCurseBalls = random.Next(stolenCurseBallsMin,stolenCurseBallsMax); // determiens how many cured cannon balls are given the the player after sinking a ship
+        CursedCannonBalls += stolenCurseBalls; //gives the player the amount of cursed cannon balls.
+        if (MaxCargo - Cargo < stolenAmount) { // makes sure player cargo does not go over player max cargo                                                                                                                                                        
             Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold\n---------------------------------------------------------\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n---------------------------------------------------------\n You now have {MaxCargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
             Cargo = MaxCargo;
         }
         if (MaxCargo - Cargo >= stolenAmount) {
-            Cargo += stolenAmount;
+            Cargo += stolenAmount; //gives the player the amount of cargo stolen if they do not pass their cargo limit
             Console.WriteLine($"---------------------------------------------------------\n Enemy ship has been defeated! \n---------------------------------------------------------\n You sank the enemy ship and found {stolenAmount} gold and stole it\n---------------------------------------------------------\n You now have {Cargo}/{MaxCargo} gold \n---------------------------------------------------------\n You found {stolenCurseBalls} cursed cannonballs\n---------------------------------------------------------\n You now have {CursedCannonBalls} cursed cannonballs \n---------------------------------------------------------\n Health {Health}/{MaxHealth}\n---------------------------------------------------------");
         }
     }
@@ -198,11 +198,11 @@ public class Ship {
     // repair function for enemy ship // actived only when plyer repairs their ship
     //-----------------------------------------
     public void EnemyRepair() {
-        int chance = random.Next(1, 10);
+        int chance = random.Next(1, 10); // determines if the enemy ship repairs
         if (chance > enemyRepairChance) {
-            float repairAmount = random.Next(enemyRepairMin, enemyRepairMax);
+            float repairAmount = random.Next(enemyRepairMin, enemyRepairMax); // repair amount for enemyship
             Health += repairAmount;
-            if (Health > MaxHealth) {
+            if (Health > MaxHealth) { //makes sure that enemy health does not go over max health
                 Health = MaxHealth;
             }
             Console.WriteLine($"------------------------------------------------\n The enemy ship repaired itself to {Health}/{MaxHealth}\n------------------------------------------------");
@@ -213,14 +213,14 @@ public class Ship {
 // start of the actual code for the game displayed
 //-----------------------------------------
 public class PirateGame {
-    bool menuanimationcancel = false;
+    bool menuanimationcancel = false; // token system for menu animation
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
     }
-public async void StartGameAnimation()
+public async void StartGameAnimation() // frames for start menu animation
 {
     var frames = new[]
     {
@@ -233,13 +233,13 @@ public async void StartGameAnimation()
         "                 |> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit "
     };
 
-    while (!menuanimationcancel)
+    while (!menuanimationcancel) // stops the animation when token system activated
     {
         foreach (var frame in frames)
         {
             Console.Clear();
             Console.WriteLine(frame);
-            await Task.Delay(1000);
+            await Task.Delay(1000); // wait time between frames fps is about 1
             if (menuanimationcancel)
             {
                 break;
@@ -247,29 +247,28 @@ public async void StartGameAnimation()
         }
     }
 }
-    public void Start() {   
-        menuanimationcancel = false;
+    public void Start() {    
         StartGameAnimation();
         while (true) {   
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // if 'esc' key is pressed closes the game
             if (keyInfo.Key == ConsoleKey.Escape) {
                 Environment.Exit(0);
             }
             else {
-            menuanimationcancel = true;
+            menuanimationcancel = true; // if any other key is pressed, turns off menu animation and starts game.
             Console.Clear();
             EnterNameMenu();
             }
         }
-    void EnterNameMenu() {
+    void EnterNameMenu() { // login system for game
         Console.WriteLine("Enter your name");
         while (true) {
             string name = Console.ReadLine();
-                if (string.IsNullOrEmpty(name)) {
+                if (string.IsNullOrEmpty(name)) { // makes sure that player has a name 
                         Console.Clear();
                         Console.WriteLine("Please enter a name");
                     }
-                if (name == "devtools") {
+                if (name == "devtools") { // gives user access to devtools if they login as devtools
                     playerShip.Name = name;
                     Console.Clear();
                     DevToolsStartMenu();
@@ -283,7 +282,7 @@ public async void StartGameAnimation()
             }
         }
 //--------------------------------------------
-// Start of Devtools code
+// Start of Devtools code // devtools allows people logged in as 'devtools' to edit in game values and random calculations.
 //--------------------------------------------       
     void DevToolsStartMenu() {
         Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
@@ -416,39 +415,34 @@ public async void StartGameAnimation()
     void StartMenuHandler(char choice) {
         switch (choice) {
             case '1':
-                Console.Clear();
+                Console.Clear(); // goes out to open ocean (gives player more otions)
                 OutofPortMenu();
                 break;
             case '2':  
-                Console.Clear();
+                Console.Clear(); // goes the shop
                 ShopMenu();
                 break;
             case '3':
-                Console.Clear();
+                Console.Clear(); // deposits player cargo into player bank
                 playerShip.Depot();
                 StartMenu();
                 break;
             case '4':  
-                Console.Clear();
+                Console.Clear(); // starts quit sequence 
                 QuitMenu();
                 break;
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // 'esc' as back
                 Console.Clear();
                 Start();
                 break;
             default:
-                Console.Clear();
+                Console.Clear(); //throws 'invalid option' error
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 StartMenu();
                 break;
         }
     }
     void OutofPortMenu() {
-        if (playerShip.Health <= 0) {
-            Console.Clear();
-            Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
-            Environment.Exit(1);
-        }
         Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^^  ^^^^^^^^^^\n^^^^      ^^^^  ^^^^^^^^^^^^^^^^^^^^^^   ^^^    ^^\n      ^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^     ^^^ \n \n \n \n-------------------------------------------------------\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n-------------------------------------------------------");
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
@@ -458,41 +452,41 @@ public async void StartGameAnimation()
     void OutofPortChoiceHandler(char choice) {
         switch (choice) {
             case '1':
-                enemyShip.MaxHealth = new Random().Next(75, 151); 
-                enemyShip.Health = enemyShip.MaxHealth;
+                enemyShip.MaxHealth = new Random().Next(75, 151);  // generates enemy health and starts attack sequence
+                enemyShip.Health = enemyShip.MaxHealth; // sets enemy health to max health
                 Console.Clear();
                 AttackMenu();
                 break;
             case '2':
-                Console.Clear();
+                Console.Clear(); // repair function for playership (does not try to repair enemy ship)
                 playerShip.Repair();
                 OutofPortMenu();
                 break;
             case '3':
-                int chance = new Random().Next(1,20);
+                int chance = new Random().Next(1,20); // determiens if the player ship gets discoverd by an enemy ship
                 Console.Clear();
                 if (chance > 19) {
-                    enemyShip.MaxHealth = new Random().Next(75, 151); 
-                    enemyShip.Health = enemyShip.MaxHealth;
+                    enemyShip.MaxHealth = new Random().Next(75, 151); // determiens enemyship health
+                    enemyShip.Health = enemyShip.MaxHealth; // sets enemy ship health
                     Console.WriteLine("-------------------------------------------------------\n An enemy ship found you\n-------------------------------------------------------");
-                    enemyShip.EnemyAttack(playerShip);
+                    enemyShip.EnemyAttack(playerShip); // attack player ship
                     FightMenu();
                     break;
                 }
                 else {
-                    playerShip.Treasure();
+                    playerShip.Treasure(); // if the player ship did not get found by enemy ship gives player ship treasure amount
                     OutofPortMenu();
                     break;
                 }
             case '4':
+                Console.Clear(); // goes back to startmenu
+                StartMenu();
+                break;
+            case (char)ConsoleKey.Escape: // 'esc' as back option on by default
                 Console.Clear();
                 StartMenu();
                 break;
-            case (char)ConsoleKey.Escape:
-                Console.Clear();
-                StartMenu();
-                break;
-            default:
+            default: // throws 'invalid option' error
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 OutofPortMenu();
@@ -506,21 +500,21 @@ public async void StartGameAnimation()
                 AttackChoiceHandler(keyInfo.KeyChar);
             }
         }
-    void AttackChoiceHandler(char choice) {
+    void AttackChoiceHandler(char choice) { // lets the player decided if player wants to fight the current enemy ship that has been generated (if the choose not to and try to fight another one, it will regenerate enemy ship stats)
         switch (choice) {
             case '1':
-                Console.Clear();
+                Console.Clear(); // continues fight will generaged enemy ship stats
                 FightMenu();
                 break;
-            case '2':
-                Console.Clear();
+            case '2': // cancels  the fight
+                Console.Clear(); 
                 OutofPortMenu();
                 break;
-            case (char)ConsoleKey.Escape:
-                Console.Clear();
+            case (char)ConsoleKey.Escape: // 'esc' as back
+                Console.Clear(); 
                 OutofPortMenu();
                 break;
-            default:
+            default: // throws 'invalid option' error
                 Console.Clear();
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 AttackMenu();
@@ -528,7 +522,7 @@ public async void StartGameAnimation()
         }
     }
     void FightMenu() {
-        if (enemyShip.Health > 30) {
+        if (enemyShip.Health > 30) { // don't mess with this, this is the most scuffe logic ever used in code (determiens what options the player should have depends on if they are allowed to board and if they have the ability to use cursed cannon balls)
             if (playerShip.CursedCannonBalls > 0){
                 Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
             }     
@@ -544,12 +538,12 @@ public async void StartGameAnimation()
                 Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
             }
         }
-        if (playerShip.Health <= 0) {   
+        if (playerShip.Health <= 0) {   // if player ship health goes below or is equal to 0 game closes
             Console.Clear();
             Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
             Environment.Exit(1);
         }   
-        if (enemyShip.Health <= 0) {
+        if (enemyShip.Health <= 0) { // runs stolen function if enemyship is sunk
             Console.Clear();
             playerShip.Stolen();
             OutofPortMenu();
@@ -561,7 +555,7 @@ public async void StartGameAnimation()
         }
     }
     void FightChoiceHandler(char choice) {
-        switch (choice) {
+        switch (choice) { // both enemy and palyer ship attack eachother 
             case '1':
                 Console.Clear();
                 playerShip.PlayerAttack(enemyShip);
@@ -569,13 +563,13 @@ public async void StartGameAnimation()
                 FightMenu();
                 break;
             case '2':
-                if (playerShip.CursedCannonBalls > 0) {
+                if (playerShip.CursedCannonBalls > 0) { // uses players cursed cannon balls if player has them
                     Console.Clear();
                     playerShip.CursedBallAttack(enemyShip);
                     enemyShip.EnemyAttack(playerShip);
                     FightMenu();
                 }
-                else {
+                else { // if player doesn't have cursed cannon balls it will repair the ship
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
@@ -583,73 +577,73 @@ public async void StartGameAnimation()
                 FightMenu();
                 break;
             case '3':
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship 
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     FightMenu();
                 }
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) { // if the player has cursed cannons and can board the ship, it will repair the ship
                     Console.Clear();
                     playerShip.Repair();
                     enemyShip.EnemyRepair();
                     FightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) { // if the player does not have them it will let the player leave the fight
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) { // if the player has the ability to board and does not ahve cursed cannon balls, it will attempt to board enemy ship
                     Console.Clear();
                     playerShip.BoardChance(enemyShip);
                     OutofPortMenu();
                     break;
                 } 
                 break;
-            case '4':
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) {
+            case '4': 
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if the player ship has cused cannonballs and can't board enemy ship its leaves the fight
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) {
+                if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) { // if the player ship has curse cannon balls and can board, it will board the ship 
                     Console.Clear();
                     playerShip.BoardChance(enemyShip);
                     OutofPortMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) { // if the player doesn't have cannon balls and can't board the ship it will thorw an 'invalid option' error 
                     Console.Clear();
                     Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                     FightMenu();
                     break;
                 }
-                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) {
+                if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health <= 30) { // if the player has no cursed cannon balls and can board the ship it will let the palyer leave the fight.
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
                 break;
             case '5':
-                if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) {
+                if (playerShip.CursedCannonBalls < 0 && enemyShip.Health <= 30) { // if player has cursed cannon balls and can board the enemy ship, this option will let them leave the fight.
                     Console.Clear();
                     LeaveFightMenu();
                     break;
                 }
                 else {
-                    Console.Clear();
+                    Console.Clear(); // if they can not board the ship and don't have cursed cannon balls, throw an 'invald option' error.
                     Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                     FightMenu();
                     break; 
                 }
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // 'esc' as back 
                 Console.Clear();
                 OutofPortMenu();
                 break;
             default:
-                Console.Clear();
+                Console.Clear(); // throws 'invalid option' error
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 FightMenu();
                 break;
@@ -666,18 +660,18 @@ public async void StartGameAnimation()
         switch (choice) {
             case '1':
                 Console.Clear();
-                OutofPortMenu();
+                OutofPortMenu(); // leaves fight and sends back to open ocean
                 break;
             case '2':
                 Console.Clear();
-                FightMenu();
+                FightMenu(); // continues with fight
                 break;
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // 'esc' as back option
                 Console.Clear();
                 FightMenu();
                 break;
             default:
-                Console.Clear();
+                Console.Clear(); // throws 'invalid option' error
                 Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                 LeaveFightMenu();
                 break;
@@ -697,65 +691,65 @@ public async void StartGameAnimation()
         switch (choice) {
              case '1':
                 Console.Clear();
-                if (playerShip.Bank < 100) {                              
+                if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.                   
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Bank -= 100;
-                    playerShip.Cannonballs += 10;                             
+                    playerShip.Cannonballs += 10; // removes correct amount of gold and gives player corret amount of cannons.                         
                     Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Cannonballs} cannonballs \n-----------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '2':
                 Console.Clear();
-                if (playerShip.Bank < 300) {
+                if (playerShip.Bank < 300) { // throws 'not enough gold' error is player doesn't have enough gold.  
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Bank -= 300;
-                    playerShip.CursedCannonBalls += 2;
+                    playerShip.CursedCannonBalls += 2; // removes correct amount of gold and gives player correct amount of cursed cannon balls
                     Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.CursedCannonBalls} cursed cannonballs \n-----------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '3':
                 Console.Clear();
-                if (playerShip.Bank < 100) {
+                if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.  
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Bank -= 100;
-                    playerShip.Wood += 10;
+                    playerShip.Wood += 10; //gives palyer correct amount of wood and removes correct amount of coins
                     Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Wood} wood \n-----------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '4':
                 Console.Clear();
-                if (playerShip.Bank < 1000) {
+                if (playerShip.Bank < 1000) { // throws 'not enough gold' error is player doesn't have enough gold.  
                     Console.WriteLine("-------------------------------\n you don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons) {
                     playerShip.Bank -= 1000;
-                    playerShip.Cannons += 1;         
+                    playerShip.Cannons += 1;         //gives player correcnt amount of cannons and takes gold
                     Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------\n \n \n");
                 }
-                else {
+                else { // makes sure that player cannont go past max cannon limit
                     Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '5':
                 Console.Clear();
-                if (playerShip.Bank < 100) {                              
+                if (playerShip.Bank < 100) {         // throws 'not enough gold' error is player doesn't have enough gold.                        
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
-                else if (playerShip.Crew < playerShip.MaxCrew) {
+                else if (playerShip.Crew < playerShip.MaxCrew) { 
                     playerShip.Bank -= 100;
                     playerShip.Crew += 10;
                     if (playerShip.Crew > playerShip.MaxCrew) {
-                        playerShip.Crew = playerShip.MaxCrew;
+                        playerShip.Crew = playerShip.MaxCrew; // makes sure that playerr cannont go over limit (will scam you if you have less than 10 crew members missing from max crew limit)
                     }                                
                     Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Crew} crew members \n-----------------------------------------------\n \n \n");
                 }
@@ -766,11 +760,11 @@ public async void StartGameAnimation()
                 break;
             case '6':
                 Console.Clear();
-                if (playerShip.Bank < 5000) {                              
+                if (playerShip.Bank < 5000) { // throws 'not enough gold' error is player doesn't have enough gold.                          
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else {
-                    playerShip.Bank -= 5000;
+                    playerShip.Bank -= 5000; // applies buffs to player ship and removes 5000 coins
                     playerShip.MaxHealth += 50;
                     playerShip.MaxCrew += 50;
                     playerShip.MaxCannons += 5;   
@@ -781,26 +775,26 @@ public async void StartGameAnimation()
                 break;
             case '7':
                 Console.Clear();
-                if (playerShip.Items < 1) {                                                                     
+                if (playerShip.Items < 1) {               // throws 'no inventory items' error                                                       
                     Console.WriteLine("-------------------------------------\n You don't have any captured ships \n-------------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Items -= 1;
-                    playerShip.Bank += 1000;        
+                    playerShip.Bank += 1000;       // sells captured ship for 1000 coins  
                     Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------\n \n \n");
                 }
                 ShopMenu();
                 break;
             case '8':
-                Console.Clear();
+                Console.Clear(); // leave shop
                 StartMenu();
                 break;
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // 'esc' as back option
                 Console.Clear();
                 StartMenu();
                 break;
             default:
-                Console.Clear();                
+                Console.Clear();                // throws 'invalid option' error
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------\n \n \n");
                 ShopMenu();
                 break;
@@ -816,25 +810,25 @@ public async void StartGameAnimation()
     void QuitChoiceHandler(char choice) {
         switch (choice) {
             case '1':
-                Environment.Exit(1);
+                Environment.Exit(1); // closes the game 
                 break;
             case '2':
                 Console.Clear();
-                StartMenu();
+                StartMenu(); // goes back to game if player deson't want to leave game
                 break;
-            case (char)ConsoleKey.Escape:
+            case (char)ConsoleKey.Escape: // 'esc' as back otion on by defualt
                 Console.Clear();
                 StartMenu();
                 break;
             default:
-                Console.Clear();                
+                Console.Clear();                 // thorws 'invalid option' error
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                 QuitMenu();
                 break;    
         }
     }
 }
-    static void Main(string[] args) {
+    static void Main(string[] args) { // starts the game when program started
         PirateGame game = new PirateGame();
         game.Start();
     }
