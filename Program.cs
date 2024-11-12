@@ -732,7 +732,7 @@ public async void StartGameAnimation() // frames for start menu animation
                 }
                 else if (playerShip.Cannons < playerShip.MaxCannons) {
                     playerShip.Bank -= 1000;
-                    playerShip.Cannons += 1;         //gives player correcnt amount of cannons and takes gold
+                    playerShip.Cannons += 1; //gives player correcnt amount of cannons and takes gold
                     Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------\n \n \n");
                 }
                 else { // makes sure that player cannont go past max cannon limit
@@ -742,7 +742,7 @@ public async void StartGameAnimation() // frames for start menu animation
                 break;
             case '5':
                 Console.Clear();
-                if (playerShip.Bank < 100) {         // throws 'not enough gold' error is player doesn't have enough gold.                        
+                if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.                        
                     Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
                 }
                 else if (playerShip.Crew < playerShip.MaxCrew) { 
@@ -775,12 +775,12 @@ public async void StartGameAnimation() // frames for start menu animation
                 break;
             case '7':
                 Console.Clear();
-                if (playerShip.Items < 1) {               // throws 'no inventory items' error                                                       
+                if (playerShip.Items < 1) { // throws 'no inventory items' error                                                       
                     Console.WriteLine("-------------------------------------\n You don't have any captured ships \n-------------------------------------\n \n \n");
                 }
                 else {
                     playerShip.Items -= 1;
-                    playerShip.Bank += 1000;       // sells captured ship for 1000 coins  
+                    playerShip.Bank += 1000; // sells captured ship for 1000 coins  
                     Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------\n \n \n");
                 }
                 ShopMenu();
@@ -794,7 +794,7 @@ public async void StartGameAnimation() // frames for start menu animation
                 StartMenu();
                 break;
             default:
-                Console.Clear();                // throws 'invalid option' error
+                Console.Clear(); // throws 'invalid option' error
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------\n \n \n");
                 ShopMenu();
                 break;
@@ -821,7 +821,7 @@ public async void StartGameAnimation() // frames for start menu animation
                 StartMenu();
                 break;
             default:
-                Console.Clear();                 // thorws 'invalid option' error
+                Console.Clear(); // thorws 'invalid option' error
                 Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                 QuitMenu();
                 break;    
