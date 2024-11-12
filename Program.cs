@@ -190,13 +190,13 @@ public class Ship {
     //-----------------------------------------
     public void Depot() {
         Bank += Cargo;
-        if (Cargo < 0) {
-            Console.WriteLine($"----------------------------------------------\n {Cargo} Deposited in bank\n----------------------------------------------");
+        if (Cargo > 0) {
+            Console.WriteLine($"----------------------------------------------\n {Cargo} gold deposited in bank\n----------------------------------------------");
             Cargo = 0;
             Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
             }
         else {
-            Console.WriteLine("----------------------------------------------\nYou do not have any carago to deposit\n----------------------------------------------");
+            Console.WriteLine("----------------------------------------------\nYou do not have any gold to deposit\n----------------------------------------------");
         }
     }
     //-----------------------------------------
