@@ -1,5 +1,5 @@
 public class Ship {
-    public string Name {get; set;} 
+    public string Name {get; set;}
     public int Cannons {get; set;} = 5;
     public int Crew {get; set;} = 50;
     public int MaxCrew {get; set;} = 50;
