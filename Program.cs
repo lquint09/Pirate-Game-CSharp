@@ -372,7 +372,8 @@ public async void StartGameAnimation() // frames for start menu animation
                 AskIfContinue();
             } else {
                 Console.Clear();
-                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                Console.WriteLine("Invalid interger.\n-------------------------------------------------------");
+                DevToolsStartMenu();
             }
         } else if (floatFieldActions.ContainsKey(field)) {
             Console.Clear();
