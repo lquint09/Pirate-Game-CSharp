@@ -69,8 +69,7 @@ public class Ship {
             damage = (float)Math.Round(damage, 1); // rounds the damage calcuations to 1 decimal 
             target.Health -= damage; // removes health from enemy ship if the cannon ball hits
             target.Health = Math.Max(target.Health, 0);
-        }
-        else {
+        } else {
             Console.WriteLine("-------------\n You missed\n-------------");
         }
     }
@@ -84,8 +83,7 @@ public class Ship {
             damage = (float)Math.Round(damage, 1); // rounding to 1 decimal
             target.Health -= damage; // removes health from player ship
             target.Health = Math.Max(target.Health, 0);
-        }
-        else {
+        } else {
             Console.WriteLine("-------------------------\n The enemy ship missed\n-------------------------");
         }
     }
@@ -113,8 +111,7 @@ public class Ship {
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\n You won the board\n----------------------------------------------\n You now have {Items} captured ships\n----------------------------------------------\n Crew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
-                }
-                else {
+                } else {
                     Crew = 25; // sets player states to very low amounts for failing to board.
                     Health = 1; // ^
                     Console.Clear();
@@ -164,8 +161,7 @@ public class Ship {
                 Cargo += treasureAmount;
                 Console.WriteLine($"----------------------------------------------\n {treasureAmount} gold found\n----------------------------------------------\n Gold: {Cargo}/{MaxCargo} gold\n----------------------------------------------");        
             }
-        }
-        else {
+        } else {
             Console.WriteLine("----------------------------------------------\n You did not find any treasure\n----------------------------------------------");
         }
     }
@@ -194,8 +190,7 @@ public class Ship {
             Console.WriteLine($"----------------------------------------------\n {Cargo} gold deposited in bank\n----------------------------------------------");
             Cargo = 0;
             Console.WriteLine($"----------------------------------------------\n You now have {Bank} gold in the bank\n----------------------------------------------");
-            }
-        else {
+            } else {
             Console.WriteLine("----------------------------------------------\nYou do not have any gold to deposit\n----------------------------------------------");
         }
     }
@@ -257,8 +252,7 @@ public class PirateGame {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // if 'esc' key is pressed closes the game
             if (keyInfo.Key == ConsoleKey.Escape) {
                 Environment.Exit(0);
-            }
-            else {
+            } else {
             menuanimationcancel = true; // if any other key is pressed, turns off menu animation and starts game.
             Console.Clear();
             EnterNameMenu();
@@ -276,8 +270,7 @@ public class PirateGame {
                         playerShip.Name = name;
                         Console.Clear();
                         DevToolsStartMenu();
-                    }
-                    else {
+                    } else {
                         Console.Clear();
                         #pragma warning disable CS8601 // Possible null reference assignment.
                         playerShip.Name = name;
@@ -472,8 +465,7 @@ public class PirateGame {
                         enemyShip.EnemyAttack(playerShip); // attack player ship
                         FightMenu();
                         break;
-                    }
-                    else {
+                    } else {
                         playerShip.Treasure(); // if the player ship did not get found by enemy ship gives player ship treasure amount
                         OutofPortMenu();
                         break;
@@ -525,16 +517,14 @@ public class PirateGame {
             if (enemyShip.Health > 30) { // don't mess with this, this is the most scuffe logic ever used in code (determiens what options the player should have depends on if they are allowed to board and if they have the ability to use cursed cannon balls)
                 if (playerShip.CursedCannonBalls > 0){
                     Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
-                }         
-                else{
+                } else {
                     Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
                 }
             }   
             if (enemyShip.Health <= 30) {
                 if (playerShip.CursedCannonBalls > 0) {
                     Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
-                }
-                else {
+                } else {
                     Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
                 }
             }
@@ -568,8 +558,7 @@ public class PirateGame {
                         playerShip.CursedBallAttack(enemyShip);
                         enemyShip.EnemyAttack(playerShip);
                         FightMenu();
-                    }
-                    else { // if player doesn't have cursed cannon balls it will repair the ship
+                    } else { // if player doesn't have cursed cannon balls it will repair the ship
                         Console.Clear();
                         playerShip.Repair();
                         enemyShip.EnemyRepair();
@@ -631,8 +620,7 @@ public class PirateGame {
                         Console.Clear();
                         LeaveFightMenu();
                         break;
-                    }
-                    else {
+                    } else {
                         Console.Clear(); // if they can not board the ship and don't have cursed cannon balls, throw an 'invald option' error.
                         Console.WriteLine("-----------------------------\n  Invalid choice. Try again.\n-----------------------------");
                         FightMenu();
@@ -693,8 +681,7 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.                   
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         playerShip.Bank -= 100;
                         playerShip.Cannonballs += 10; // removes correct amount of gold and gives player corret amount of cannons.                         
                         Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Cannonballs} cannonballs \n-----------------------------------------------\n \n \n");
@@ -705,8 +692,7 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 300) { // throws 'not enough gold' error is player doesn't have enough gold.  
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         playerShip.Bank -= 300;
                         playerShip.CursedCannonBalls += 2; // removes correct amount of gold and gives player correct amount of cursed cannon balls
                         Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.CursedCannonBalls} cursed cannonballs \n-----------------------------------------------\n \n \n");
@@ -717,8 +703,7 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.  
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         playerShip.Bank -= 100;
                         playerShip.Wood += 10; //gives palyer correct amount of wood and removes correct amount of coins
                         Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Wood} wood \n-----------------------------------------------\n \n \n");
@@ -729,13 +714,11 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 1000) { // throws 'not enough gold' error is player doesn't have enough gold.  
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else if (playerShip.Cannons < playerShip.MaxCannons) {
+                    } else if (playerShip.Cannons < playerShip.MaxCannons) {
                         playerShip.Bank -= 1000;
                         playerShip.Cannons += 1; //gives player correcnt amount of cannons and takes gold
                         Console.WriteLine($"---------------------------------------------\n You now have {playerShip.Cannons} cannons \n---------------------------------------------\n \n \n");
-                    }
-                    else { // makes sure that player cannont go past max cannon limit
+                    } else { // makes sure that player cannont go past max cannon limit
                         Console.WriteLine("----------------------------------------------------------------------\n You have reached your max cannons amount (upgrade ship to increase) \n----------------------------------------------------------------------\n \n \n");
                     }
                     ShopMenu();
@@ -744,16 +727,14 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.                        
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else if (playerShip.Crew < playerShip.MaxCrew) { 
+                    } else if (playerShip.Crew < playerShip.MaxCrew) { 
                         playerShip.Bank -= 100;
                         playerShip.Crew += 10;
                         if (playerShip.Crew > playerShip.MaxCrew) {
                             playerShip.Crew = playerShip.MaxCrew; // makes sure that playerr cannont go over limit (will scam you if you have less than 10 crew members missing from max crew limit)
                         }                                
                         Console.WriteLine($"-----------------------------------------------\n You now have {playerShip.Crew} crew members \n-----------------------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         Console.WriteLine("--------------------------------------------------------------------\n  You have reached your max crew amount (upgrade ship to increase) \n--------------------------------------------------------------------\n \n \n");
                     }   
                     ShopMenu();
@@ -762,8 +743,7 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Bank < 5000) { // throws 'not enough gold' error is player doesn't have enough gold.                          
                         Console.WriteLine("-------------------------------\n You don't have enough coins \n-------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         playerShip.Bank -= 5000; // applies buffs to player ship and removes 5000 coins
                         playerShip.MaxHealth += 50;
                         playerShip.MaxCrew += 50;
@@ -777,8 +757,7 @@ public class PirateGame {
                     Console.Clear();
                     if (playerShip.Items < 1) { // throws 'no inventory items' error                                                       
                         Console.WriteLine("-------------------------------------\n You don't have any captured ships \n-------------------------------------\n \n \n");
-                    }
-                    else {
+                    } else {
                         playerShip.Items -= 1;
                         playerShip.Bank += 1000; // sells captured ship for 1000 coins  
                         Console.WriteLine("---------------------------------\n You have sold a captured ship \n---------------------------------\n \n \n");
