@@ -384,7 +384,7 @@ public class PirateGame {
                 string input = Console.ReadLine();
                 var (isValid, value) = tryParseFunc(input);
                 if (isValid) return value;
-                Console.WriteLine($"Invalid input. Please enter a valid {typeof(T).Name.ToLower()}.");
+                Console.WriteLine($"Invalid input. Please enter a valid {typeof(T).Name.ToLower()}.\n-------------------------------------------------------");
             }
         }
         void AskIfContinue() {
@@ -398,7 +398,7 @@ public class PirateGame {
                 StartMenu();
             } else {
                 Console.Clear();
-                Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
+                Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.\n-------------------------------------------------------");
                 AskIfContinue();
             }
         }

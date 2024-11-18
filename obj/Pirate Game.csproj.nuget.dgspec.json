@@ -1,24 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas quint\\Documents\\Pirate Game c#\\Pirate-Game-CSharp\\Pirate Game.csproj": {}
+    "E:\\Pirate Game C#\\Pirate Game\\Pirate Game.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas quint\\Documents\\Pirate Game c#\\Pirate-Game-CSharp\\Pirate Game.csproj": {
+    "E:\\Pirate Game C#\\Pirate Game\\Pirate Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas quint\\Documents\\Pirate Game c#\\Pirate-Game-CSharp\\Pirate Game.csproj",
+        "projectUniqueName": "E:\\Pirate Game C#\\Pirate Game\\Pirate Game.csproj",
         "projectName": "Pirate Game",
-        "projectPath": "C:\\Users\\lucas quint\\Documents\\Pirate Game c#\\Pirate-Game-CSharp\\Pirate Game.csproj",
-        "packagesPath": "C:\\Users\\lucas quint\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas quint\\Documents\\Pirate Game c#\\Pirate-Game-CSharp\\obj\\",
+        "projectPath": "E:\\Pirate Game C#\\Pirate Game\\Pirate Game.csproj",
+        "packagesPath": "C:\\Users\\lucqu\\.nuget\\packages\\",
+        "outputPath": "E:\\Pirate Game C#\\Pirate Game\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\lucas quint\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
@@ -33,9 +42,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -56,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
