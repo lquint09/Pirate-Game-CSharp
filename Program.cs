@@ -289,132 +289,123 @@ public async void StartGameAnimation() // frames for start menu animation
 //--------------------------------------------
 // Start of Devtools code // devtools allows people logged in as 'devtools' to edit in game values and random calculations.
 //--------------------------------------------       
-void DevToolsStartMenu() {
-    Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
-    string requestedField = Console.ReadLine()?.ToLower();
-
-    if (string.IsNullOrEmpty(requestedField)) {
-        Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
-        DevToolsStartMenu();
+    void DevToolsStartMenu() {
+        Console.WriteLine($"Hello, {playerShip.Name}, what values would you like to edit? \n------------------------------------------------------------------");
+        string requestedField = Console.ReadLine()?.ToLower();
+        if (string.IsNullOrEmpty(requestedField)) {
+            Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
+            DevToolsStartMenu();
+        }
+        switch (requestedField) {
+            case "list":
+                ShowEditableFields();
+                break;
+            case "help":
+                ShowHelp();
+                break;
+            case "clear":
+                Console.Clear();
+                break;
+            case "none":
+                Console.Clear();
+                StartMenu();
+                return;
+            default:
+                #pragma warning disable CS8604 // Possible null reference argument.
+                HandleValueEdit(requestedField);
+                return;                                              
+        }
+        DevToolsStartMenu(); // Call the menu again to keep the flow
     }
-
-    switch (requestedField) {
-        case "list":
-            ShowEditableFields();
-            break;
-        case "help":
-            ShowHelp();
-            break;
-        case "clear":
+    void ShowHelp() {
+        Console.Clear();
+        Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
+    }
+    void ShowEditableFields() {
+        Console.Clear();
+        Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\n------------------------------------------------------------------");
+    }
+    void HandleValueEdit(string field) {
+        var intFieldActions = new Dictionary<string, Action<int>> {
+            { "cannons", value => playerShip.Cannons = value },
+            { "crew", value => playerShip.Crew = value },
+            { "bank", value => playerShip.Bank = value },
+            { "health", value => playerShip.Health = value },
+            { "items", value => playerShip.Items = value },
+            { "cannonballs", value => playerShip.Cannonballs = value },
+            { "cursedballs", value => playerShip.CursedCannonBalls = value },
+            { "wood", value => playerShip.Wood = value },
+            { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
+            { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
+            { "board-chance", value => playerShip.boardChance = value },
+            { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
+            { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
+            { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
+            { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
+            { "treasure-chance", value => playerShip.TreasureChance = value },
+            { "enemy-crew-min", value => playerShip.EnemyCrewMin = value },
+            { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
+            { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
+            { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
+            { "enemy-repair-chance", value => playerShip.enemyRepairChance = value},
+            { "cargo", value => playerShip.Cargo = value},
+            { "max-cargo", value => playerShip.MaxCargo = value },
+        };
+        var floatFieldActions = new Dictionary<string, Action<float>> {
+            { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
+            { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
+            { "enemy-attack-damage-min", value => enemyShip.EnemyAttackMinDamage = value },
+            { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
+            { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
+            { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
+        };
+        // Check if the field exists in integer or float dictionaries
+        if (intFieldActions.ContainsKey(field)) {
             Console.Clear();
-            break;
-        case "none":
+            int newValue = GetValidInput($"Enter a new value for {field}:", input => (int.TryParse(input, out var value), value));
+            intFieldActions[field](newValue);
+            Console.Clear();
+            Console.WriteLine($"{field} has been changed to {newValue}");
+            AskIfContinue();
+        } else if (floatFieldActions.ContainsKey(field)) {
+            float newValue = GetValidInput($"Enter a new value for {field}:", input => (float.TryParse(input, out var value), value));
+            floatFieldActions[field](newValue);
+            Console.Clear();
+            Console.WriteLine($"{field} has been changed to {newValue}");
+            AskIfContinue();
+        } else {
+            Console.Clear();
+            Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
+            DevToolsStartMenu();
+        }
+    }
+    T GetValidInput<T>(string prompt, Func<string, (bool, T)> tryParseFunc) {
+        while (true) {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine();
+            var (isValid, value) = tryParseFunc(input);
+            if (isValid) return value;
+            Console.WriteLine($"Invalid input. Please enter a valid {typeof(T).Name.ToLower()}.");
+        }
+    }
+    void AskIfContinue() {
+        Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
+        string continueInput = Console.ReadLine();
+        if (continueInput == "1") {
+            Console.Clear();
+            DevToolsStartMenu();
+        } else if (continueInput == "2") {
             Console.Clear();
             StartMenu();
-            return;
-        default:
-            #pragma warning disable CS8604 // Possible null reference argument.
-            HandleValueEdit(requestedField);
-            return;                                              
+        } else {
+            Console.Clear();
+            Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
+            AskIfContinue();
+        }
     }
-    DevToolsStartMenu(); // Call the menu again to keep the flow
-}
-
-void ShowHelp() {
-    Console.Clear();
-    Console.WriteLine("List of all Commands\n------------------------------------------------------------------\n list \n help \n clear \n none \n------------------------------------------------------------------");
-}
-
-void ShowEditableFields() {
-    Console.Clear();
-    Console.WriteLine("Editable values\n------------------------------------------------------------------\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\n------------------------------------------------------------------");
-}
-
-void HandleValueEdit(string field) {
-    var intFieldActions = new Dictionary<string, Action<int>> {
-        { "cannons", value => playerShip.Cannons = value },
-        { "crew", value => playerShip.Crew = value },
-        { "bank", value => playerShip.Bank = value },
-        { "health", value => playerShip.Health = value },
-        { "items", value => playerShip.Items = value },
-        { "cannonballs", value => playerShip.Cannonballs = value },
-        { "cursedballs", value => playerShip.CursedCannonBalls = value },
-        { "wood", value => playerShip.Wood = value },
-        { "player-attack-accuracy-chance", value => playerShip.PlayerAttackAccuracyChance = value },
-        { "enemy-attack-accuracy-chance", value => enemyShip.EnemyAttackAccuracyChance = value },
-        { "board-chance", value => playerShip.boardChance = value },
-        { "treasure-min-amount", value => playerShip.TreasureMinAmount = value },
-        { "treasure-max-amount", value => playerShip.TreasureMaxAmount = value },
-        { "stolen-min-amount", value => playerShip.StolenMinAmount = value },
-        { "stolen-max-amount", value => playerShip.StolenMaxAmount = value },
-        { "treasure-chance", value => playerShip.TreasureChance = value },
-        { "enemy-crew-min", value => playerShip.EnemyCrewMin = value },
-        { "enemy-crew-max", value => playerShip.EnemyCrewMax = value},
-        { "stolen-cursedball-min", value => playerShip.stolenCurseBallsMin = value},
-        { "stolen-cursedball-max", value => playerShip.stolenCurseBallsMax = value},
-        { "enemy-repair-chance", value => playerShip.enemyRepairChance = value},
-        { "cargo", value => playerShip.Cargo = value},
-        { "max-cargo", value => playerShip.MaxCargo = value },
-    };
-    var floatFieldActions = new Dictionary<string, Action<float>> {
-        { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
-        { "player-attack-damage-max", value => playerShip.PlayerAttackMaxDamage = value },
-        { "enemy-attack-damage-min", value => enemyShip.EnemyAttackMinDamage = value },
-        { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
-        { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
-        { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
-    };
-
-    // Check if the field exists in integer or float dictionaries
-    if (intFieldActions.ContainsKey(field)) {
-        Console.Clear();
-        int newValue = GetValidInput($"Enter a new value for {field}:", input => (int.TryParse(input, out var value), value));
-        intFieldActions[field](newValue);
-        Console.Clear();
-        Console.WriteLine($"{field} has been changed to {newValue}");
-        AskIfContinue();
-    } else if (floatFieldActions.ContainsKey(field)) {
-        float newValue = GetValidInput($"Enter a new value for {field}:", input => (float.TryParse(input, out var value), value));
-        floatFieldActions[field](newValue);
-        Console.Clear();
-        Console.WriteLine($"{field} has been changed to {newValue}");
-        AskIfContinue();
-    } else {
-        Console.Clear();
-        Console.WriteLine("Invalid field. Please choose a valid option.\n-------------------------------------------------------");
-        DevToolsStartMenu();
-    }
-}
-
-T GetValidInput<T>(string prompt, Func<string, (bool, T)> tryParseFunc) {
-    while (true) {
-        Console.WriteLine(prompt);
-        string input = Console.ReadLine();
-        var (isValid, value) = tryParseFunc(input);
-        if (isValid) return value;
-        Console.WriteLine($"Invalid input. Please enter a valid {typeof(T).Name.ToLower()}.");
-    }
-}
-
-void AskIfContinue() {
-    Console.WriteLine("Would you like to change any other values?\n-------------------------------------------------------\n 1. Yes\n 2. No\n-------------------------------------------------------");
-    string continueInput = Console.ReadLine();
-    if (continueInput == "1") {
-        Console.Clear();
-        DevToolsStartMenu();
-    } else if (continueInput == "2") {
-        Console.Clear();
-        StartMenu();
-    } else {
-        Console.Clear();
-        Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to exit.");
-        AskIfContinue();
-    }
-}
 //--------------------------------------------
 // End of Devtools code
 //--------------------------------------------
-
     void StartMenu() {
         Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
         while (true) {
