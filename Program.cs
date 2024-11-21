@@ -20,7 +20,7 @@ public class Ship {
     public int PlayerAttackAccuracyChance { get; set; } = 2;
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public int EnemyAttackAccuracyChance { get; set; } = 3; 
+    public int EnemyAttackAccuracyChance { get; set; } = 2; 
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
     public int boardChance { get; set; } = 3;
