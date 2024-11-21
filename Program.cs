@@ -265,7 +265,7 @@ public class PirateGame {
                     if (string.IsNullOrEmpty(name)) { // makes sure that player has a name 
                             Console.Clear();
                             Console.WriteLine("Please enter a name");
-                        }
+                    }
                     if (name == "devtools") { // gives user access to devtools if they login as devtools
                         playerShip.Name = name;
                         Console.Clear();
@@ -275,7 +275,7 @@ public class PirateGame {
                         #pragma warning disable CS8601 // Possible null reference assignment.
                         playerShip.Name = name;
                         StartMenu();
-                        }
+                    }
                 }
             }
 //--------------------------------------------
