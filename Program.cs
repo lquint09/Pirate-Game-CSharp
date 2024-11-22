@@ -496,9 +496,10 @@ public class PirateGame {
             }
         }
        void AttackMenu() {
+            int barWidth = 50; // Width of the health bars
             DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
             DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
-            Console.WriteLine($"-------------------------------------------------------\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------");
+            Console.WriteLine($"-------------------------------------------------------\n Do you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------");
             while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                     AttackChoiceHandler(keyInfo.KeyChar);
