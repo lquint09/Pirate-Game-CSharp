@@ -257,26 +257,27 @@ public class PirateGame {
             EnterNameMenu();
             }
         }
-        void EnterNameMenu() { // login system for game
+        void EnterNameMenu() {  // login system for game
             Console.WriteLine("Enter your name");
             while (true) {
                 string name = Console.ReadLine();
-                    if (string.IsNullOrEmpty(name)) { // makes sure that player has a name 
-                            Console.Clear();
-                            Console.WriteLine("Please enter a name");
-                    }
-                    if (name == "devtools") { // gives user access to devtools if they login as devtools
-                        playerShip.Name = name;
-                        Console.Clear();
-                        DevToolsStartMenu();
-                    } else {
-                        Console.Clear();
-                        #pragma warning disable CS8601 // Possible null reference assignment.
-                        playerShip.Name = name;
-                        StartMenu();
-                    }
+                if (string.IsNullOrEmpty(name)) { // makes sure that player has a name
+                    Console.Clear();
+                    Console.WriteLine("Please enter a name");
+                    continue; // Prompt again
+                }
+                // Check for "devtools" case-insensitively
+                if (string.Equals(name, "devtools", StringComparison.OrdinalIgnoreCase)) {
+                    playerShip.Name = "devtools"; // Store the name as lowercase
+                    Console.Clear();
+                    DevToolsStartMenu();
+                } else {
+                    Console.Clear();
+                    playerShip.Name = name; // Store the name as entered
+                    StartMenu();
                 }
             }
+        }
 //--------------------------------------------
 // Start of Devtools code // devtools allows people logged in as 'devtools' to edit in game values and random calculations.
 //--------------------------------------------
