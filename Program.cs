@@ -527,28 +527,24 @@ public class PirateGame {
             int barWidth = 50; // Width of the health bars
             if (enemyShip.Health > 30) { // don't mess with this, this is the most scuffe logic ever used in code (determiens what options the player should have depends on if they are allowed to board and if they have the ability to use cursed cannon balls)
                 if (playerShip.CursedCannonBalls > 0){
-                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------");      
                     DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");
+                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n-------------------------------------------------------");      
                 } else {
-                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------");
                     DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
+                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n-------------------------------------------------------");
                 }
             }
             if (enemyShip.Health <= 30) {
                 if (playerShip.CursedCannonBalls > 0) {
-                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------");
                     DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
+                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Curse cannon balls left {playerShip.CursedCannonBalls}\n-------------------------------------------------------\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n-------------------------------------------------------");
                 } else {
-                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------");
                     DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
+                    Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
                 }
             }
             if (playerShip.Health <= 0) {   // if player ship health goes below or is equal to 0 game closes
@@ -568,16 +564,15 @@ public class PirateGame {
                 FightChoiceHandler(keyInfo.KeyChar);
             }
         }
-void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
-    double healthPercentage = (double)currentHealth / maxHealth;
-    int filledWidth = (int)(healthPercentage * barWidth);
-    
-    // Create the filled and unfilled portions of the bar
-    string filledBar = new string('█', filledWidth);
-    string emptyBar = new string('-', barWidth - filledWidth);
-        // Print the label and health information in the same line
-    Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
-}
+        void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
+            double healthPercentage = (double)currentHealth / maxHealth;
+            int filledWidth = (int)(healthPercentage * barWidth);
+            // Create the filled and unfilled portions of the bar
+            string filledBar = new string('█', filledWidth);
+            string emptyBar = new string('-', barWidth - filledWidth);
+            // Print the label and health information in the same line
+            Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
+        }
 
         void FightChoiceHandler(char choice) {
             switch (choice) { // both enemy and palyer ship attack eachother 
