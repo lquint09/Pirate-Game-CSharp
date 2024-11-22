@@ -496,7 +496,9 @@ public class PirateGame {
             }
         }
        void AttackMenu() {
-            Console.WriteLine($"-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}\n Your current health: {playerShip.Health}\n Do you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------");
+            DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+            DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+            Console.WriteLine($"-------------------------------------------------------\nDo you want to fight this ship?\n-------------------------------------------------------\n1. Fight ship\n2. No\n-------------------------------------------------------");
             while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                     AttackChoiceHandler(keyInfo.KeyChar);
