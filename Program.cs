@@ -548,7 +548,7 @@ public class PirateGame {
                     Console.WriteLine($"-------------------------------------------------------\n Cannonballs left {playerShip.Cannonballs}\n-------------------------------------------------------\n Enemy ship health: {enemyShip.Health}/{enemyShip.MaxHealth}\n-------------------------------------------------------\n Your current health: {playerShip.Health}/{playerShip.MaxHealth}");
                     DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------);
+                    Console.WriteLine("-------------------------------------------------------\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n-------------------------------------------------------");
                 }
             }
             if (playerShip.Health <= 0) {   // if player ship health goes below or is equal to 0 game closes
