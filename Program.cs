@@ -1,43 +1,43 @@
 public class Ship {
-    public string Name {get; set;}
-    public int Cannons {get; set;} = 5;
-    public int Crew {get; set;} = 50;
-    public int MaxCrew {get; set;} = 50;
-    public int MaxCannons {get; set;} = 10;
-    public float Bank {get; set;} = 0;
-    public float Health {get; set;} = 100;
-    public float MaxHealth {get; set;} = 100;
-    public int Items {get; set;} = 0;
+public string Name {get; set;}
     public int Chance {get; set;} 
+    public int Crew {get; set;} = 50;
+    public int Items {get; set;} = 0;
     public int EnemyCrew {get; set;} 
-    public float Cargo {get; set;} = 0;
-    public float MaxCargo {get; set;} = 500;
-    public int Cannonballs {get; set;} = 100;
-    public int CursedCannonBalls {get; set;} = 0;
     public int Wood {get; set;} = 50;
-    public float PlayerAttackMinDamage { get; set; } = 10.0f;
-    public float PlayerAttackMaxDamage { get; set; } = 20.0f;
-    public int PlayerAttackAccuracyChance { get; set; } = 2;
-    public float EnemyAttackMinDamage { get; set; } = 5.0f;
-    public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public int EnemyAttackAccuracyChance { get; set; } = 2; 
-    public float CursedBallMinDamage { get; set; } = 15;
-    public float CursedBallMaxDamage { get; set; } = 40;
+    public float Bank {get; set;} = 0;
+    public int Cannons {get; set;} = 5;
+    public float Cargo {get; set;} = 0;
+    public int MaxCrew {get; set;} = 50;
+    public float Health {get; set;} = 100;
+    public int MaxCannons {get; set;} = 10;
+    public float MaxCargo {get; set;} = 500;
+    public float MaxHealth {get; set;} = 100;
+    public int Cannonballs {get; set;} = 100;
     public int boardChance { get; set; } = 3;
-    public float PlayerRepairMinAmount { get; set; } = 10.0f;
-    public float PlayerRepairMaxAmount { get; set; } = 20.0f;
-    public int TreasureMinAmount { get; set; } = 10;
-    public int TreasureMaxAmount { get; set; } = 20;
-    public int StolenMinAmount { get; set; } = 75;
-    public int StolenMaxAmount { get; set; } = 150;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
-    public int stolenCurseBallsMin {get; set;} = 1;
-    public int stolenCurseBallsMax {get; set;} = 3;
     public int enemyRepairMin {get; set;} = 10;
     public int enemyRepairMax {get; set;} = 21;
+    public int TreasureChance {get; set;} = 6;
+    public int CursedCannonBalls {get; set;} = 0;
     public int enemyRepairChance {get; set;} = 4;
-    public int TreasureChance {get; set;} = 6; 
+    public int StolenMinAmount { get; set; } = 75;
+    public int StolenMaxAmount { get; set; } = 150;
+    public int stolenCurseBallsMin {get; set;} = 1;
+    public int stolenCurseBallsMax {get; set;} = 3;
+    public int TreasureMinAmount { get; set; } = 10;
+    public int TreasureMaxAmount { get; set; } = 20;
+    public float CursedBallMinDamage { get; set; } = 15;
+    public float CursedBallMaxDamage { get; set; } = 40;
+    public float EnemyAttackMinDamage { get; set; } = 5.0f;
+    public int PlayerAttackAccuracyChance { get; set; } = 2;
+    public float EnemyAttackMaxDamage { get; set; } = 15.0f;
+    public int EnemyAttackAccuracyChance { get; set; } = 2;
+    public float PlayerAttackMinDamage { get; set; } = 10.0f;
+    public float PlayerAttackMaxDamage { get; set; } = 20.0f;
+    public float PlayerRepairMinAmount { get; set; } = 10.0f;
+    public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int treasureChance; 
     private static readonly Random random = new Random();
 
