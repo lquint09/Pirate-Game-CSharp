@@ -573,7 +573,7 @@ public class PirateGame {
             int filledWidth = (int)(healthPercentage * barWidth);
             string bar = new string('█', filledWidth).PadRight(barWidth);
 
-            Console.WriteLine($"{label}: [{bar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
+            Console.WriteLine($" {label}: [{bar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
         }
         void FightChoiceHandler(char choice) {
             switch (choice) { // both enemy and palyer ship attack eachother 
