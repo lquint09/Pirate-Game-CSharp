@@ -568,13 +568,17 @@ public class PirateGame {
                 FightChoiceHandler(keyInfo.KeyChar);
             }
         }
-        void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
-            double healthPercentage = (double)currentHealth / maxHealth;
-            int filledWidth = (int)(healthPercentage * barWidth);
-            string bar = new string('█', filledWidth).PadRight(barWidth);
+void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
+    double healthPercentage = (double)currentHealth / maxHealth;
+    int filledWidth = (int)(healthPercentage * barWidth);
+    
+    // Create the filled and unfilled portions of the bar
+    string filledBar = new string('█', filledWidth);
+    string emptyBar = new string('-', barWidth - filledWidth);
+        // Print the label and health information in the same line
+    Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
+}
 
-            Console.WriteLine($" {label}: [{bar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
-        }
         void FightChoiceHandler(char choice) {
             switch (choice) { // both enemy and palyer ship attack eachother 
                 case '1':
