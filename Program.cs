@@ -287,7 +287,7 @@ public class PirateGame {
                 Console.WriteLine("Please enter a value; type 'none' to leave or type 'list' to see all editable values.");
                 DevToolsStartMenu();
             }
-            switch (requestedField) {
+            switch (requestedField?.ToLower()) {
                 case "list":
                     ShowEditableFields();
                     break;
