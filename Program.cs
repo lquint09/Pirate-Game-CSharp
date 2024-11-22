@@ -1,7 +1,5 @@
-using System.Runtime.CompilerServices;
-
 public class Ship {
-public string Name {get; set;}
+    public string Name {get; set;}
     public int Chance {get; set;} 
     public int Crew {get; set;} = 50;
     public int Items {get; set;} = 0;
