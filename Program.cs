@@ -541,6 +541,7 @@ public class PirateGame {
             if (playerShip.Health <= 0) {   // if player ship health goes below or is equal to 0 game closes
                 Console.Clear();
                 Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
+                Task.Delay(2500).Wait();
                 Environment.Exit(1);
             }   
             if (enemyShip.Health <= 0) { // runs stolen function if enemyship is sunk
