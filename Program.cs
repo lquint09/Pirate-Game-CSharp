@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 public class Ship {
     public string Name {get; set;}
     public int Chance {get; set;} 
