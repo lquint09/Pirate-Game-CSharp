@@ -40,7 +40,6 @@ public string Name {get; set;}
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     public int treasureChance; 
     private static readonly Random random = new Random();
-
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
