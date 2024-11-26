@@ -213,85 +213,11 @@ public class Ship {
 //-----------------------------------------
 public class PirateGame {
     bool menuanimationcancel = false; // token system for menu animation
-    bool resetanimationcacel = true; // token system for reset player ship function
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
-    }
-    public void PlayerShipReset() {
-    resetanimationcacel = false;
-    playerShip.Crew = 50;
-    playerShip.Items = 0;
-    playerShip.EnemyCrewWood = 50;
-    playerShip.Bank = 0;
-    playerShip.Cannons = 5;
-    playerShip.Cargo = 0;
-    playerShip.MaxCrew = 50;
-    playerShip.Health = 100;
-    playerShip.MaxCannons = 10;
-    playerShip.MaxCargo = 500;
-    playerShip.MaxHealth = 100;
-    playerShip.Cannonballs = 100;
-    playerShip.boardChance = 3;
-    playerShip.EnemyCrewMin = 25;
-    playerShip.EnemyCrewMax = 50;
-    playerShip.enemyRepairMin = 10;
-    playerShip.enemyRepairMax = 21;
-    playerShip.TreasureChance = 6;
-    playerShip.CursedCannonBalls = 0;
-    playerShip.enemyRepairChance = 4;
-    playerShip.StolenMinAmount = 75;
-    playerShip.StolenMaxAmount = 150;
-    playerShip.stolenCurseBallsMin = 1;
-    playerShip.stolenCurseBallsMax = 3;
-    playerShip.TreasureMinAmount = 10;
-    playerShip.TreasureMaxAmount = 20;
-    playerShip.CursedBallMinDamage = 15;
-    playerShip.CursedBallMaxDamage = 40;
-    playerShip.EnemyAttackMinDamage = 5.0f;
-    playerShip.PlayerAttackAccuracyChance = 2;
-    playerShip.EnemyAttackMaxDamage = 15.0f;
-    playerShip.EnemyAttackAccuracyChance = 2;
-    playerShip.PlayerAttackMinDamage = 10.0f;
-    playerShip.PlayerAttackMaxDamage = 20.0f;
-    playerShip.PlayerRepairMinAmount = 10.0f;
-    playerShip.PlayerRepairMaxAmount = 20.0f;
-    }
-        public async void ResetAnimation() {
-        var frames = new[] {
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^   ^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                   |>> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ",
-            "----------------------------------------------\n    Your ship was destroyed. Game over!\n--------------------------------------------------------------------------------------------\n    press any key to restart press 'esc' to quit\n----------------------------------------------\n\n                 |>> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit "
-        };
-
-        // Determine the maximum frame length
-        int maxWidth = frames.Max(f => f.Split('\n').Max(line => line.Length));
-        int maxHeight = frames.Max(f => f.Split('\n').Length);
-
-        // Pad each frame to ensure uniform size
-        for (int i = 0; i < frames.Length; i++) {
-            var lines = frames[i].Split('\n').ToList();
-            while (lines.Count < maxHeight)
-                lines.Add(""); // Add empty lines to match height
-            frames[i] = string.Join('\n', lines.Select(line => line.PadRight(maxWidth)));
-        }
-        Console.Clear(); // Clear the screen once at the start
-        while (!resetanimationcacel) {
-            foreach (var frame in frames) {
-                Console.SetCursorPosition(0, 0); // Reset the cursor to the top-left corner
-                Console.WriteLine(frame);
-                await Task.Delay(1000); // Wait time between frames (1 second)
-                if (resetanimationcacel) {
-                    break;
-                }
-            }
-        }
     }
     public async void StartGameAnimation() {
         var frames = new[] {

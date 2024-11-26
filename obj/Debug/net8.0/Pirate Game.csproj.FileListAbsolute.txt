@@ -72,3 +72,11 @@ C:\Users\lucas quint\Documents\Pirate-Game-C#\obj\Debug\net8.0\refint\Pirate Gam
 C:\Users\lucas quint\Documents\Pirate-Game-C#\obj\Debug\net8.0\Pirate Game.pdb
 C:\Users\lucas quint\Documents\Pirate-Game-C#\obj\Debug\net8.0\Pirate Game.genruntimeconfig.cache
 C:\Users\lucas quint\Documents\Pirate-Game-C#\obj\Debug\net8.0\ref\Pirate Game.dll
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.GeneratedMSBuildEditorConfig.editorconfig
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.AssemblyInfoInputs.cache
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.AssemblyInfo.cs
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.csproj.CoreCompileInputs.cache
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.sourcelink.json
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.dll
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\refint\Pirate Game.dll
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.pdb
