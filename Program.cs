@@ -220,6 +220,9 @@ public class PirateGame {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
     }
+    //-----------------------------------------
+    // Animations start
+    //-----------------------------------------
     public async void StartGameAnimation() {
         var frames = new[] {
             "                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
@@ -287,6 +290,9 @@ public class PirateGame {
             }
         }
     }
+    //-----------------------------------------
+    // Animations End
+    //-----------------------------------------
     public void GameStatsReset() { // resets player stats to default after death.
                 playerShip.Cannons = 5;
                 playerShip.Crew = 50;
