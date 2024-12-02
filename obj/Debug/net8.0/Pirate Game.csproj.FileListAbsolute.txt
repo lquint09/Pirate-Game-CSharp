@@ -80,3 +80,10 @@ E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.sourcelink.jso
 E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.dll
 E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\refint\Pirate Game.dll
 E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.pdb
+E:\Pirate Game C#\Pirate-Game-CSharp\bin\Debug\net8.0\Pirate Game.exe
+E:\Pirate Game C#\Pirate-Game-CSharp\bin\Debug\net8.0\Pirate Game.deps.json
+E:\Pirate Game C#\Pirate-Game-CSharp\bin\Debug\net8.0\Pirate Game.runtimeconfig.json
+E:\Pirate Game C#\Pirate-Game-CSharp\bin\Debug\net8.0\Pirate Game.dll
+E:\Pirate Game C#\Pirate-Game-CSharp\bin\Debug\net8.0\Pirate Game.pdb
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\Pirate Game.genruntimeconfig.cache
+E:\Pirate Game C#\Pirate-Game-CSharp\obj\Debug\net8.0\ref\Pirate Game.dll

@@ -213,6 +213,7 @@ public class Ship {
 //-----------------------------------------
 public class PirateGame {
     bool menuanimationcancel = false; // token system for menu animation
+    bool restartAnimationCancel = true;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
@@ -253,13 +254,68 @@ public class PirateGame {
             }
         }
     }
+    public async void RestartGameAnimation() { // new animation screen for when the player ship dies 
+                var frames = new[] {
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                   |> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^   ^^^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                   |>> \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^  ^^^^^^^^        ^^^^^\n^^^^      ^^^    ^^^    ^^\n      ^^^^   ^^   ^^^^^^^^  ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                  |> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /--------- \n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^ \n      ^^^      ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit ",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                    |> \n               |    |    | \n              )_)  )_)  )_)   \n             )___))___))___)\\ \n            )____)____)_____)\\ \n          _____|____|____|____\\____\n---------\\                  /---------\n^^^^^ ^^^^^   ^^^^^^ ^^^^   ^^^^^^\n^^^^      ^^^     ^^^    ^^\n      ^^^      ^^^  \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
+            "----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------\n                 |>> \n            |    |    | \n           )_)  )_)  )_)   \n          )___))___))___)\\ \n         )____)____)_____)\\ \n       _____|____|____|____\\____ \n-------\\                  /---------\n^      ^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^   ^^^     ^^    ^^ \n      ^^^         ^^^ \n \n \n \n    Press any key to continue \n       Press 'esc' to exit "
+        };
+         // Determine the maximum frame length
+        int maxWidth = frames.Max(f => f.Split('\n').Max(line => line.Length));
+        int maxHeight = frames.Max(f => f.Split('\n').Length);
+
+        // Pad each frame to ensure uniform size
+        for (int i = 0; i < frames.Length; i++) {
+            var lines = frames[i].Split('\n').ToList();
+            while (lines.Count < maxHeight)
+                lines.Add(""); // Add empty lines to match height
+            frames[i] = string.Join('\n', lines.Select(line => line.PadRight(maxWidth)));
+        }
+        Console.Clear(); // Clear the screen once at the start
+        while (!restartAnimationCancel) {
+            foreach (var frame in frames) {
+                Console.SetCursorPosition(0, 0); // Reset the cursor to the top-left corner
+                Console.WriteLine(frame);
+                await Task.Delay(1000); // Wait time between frames (1 second)
+                if (restartAnimationCancel) {
+                    break;
+                }
+            }
+        }
+    }
+    public void GameStatsReset() { // resets player stats to default after death.
+                playerShip.Cannons = 5;
+                playerShip.Crew = 50;
+                playerShip.Bank = 0;
+                playerShip.Health = 100;
+                playerShip.Items = 0;
+                playerShip.Cannonballs = 100;
+                playerShip.CursedCannonBalls = 0;
+                playerShip.Wood = 50;
+                playerShip.Cargo = 0;
+                playerShip.MaxCargo = 500;
+                playerShip.MaxCannons = 10;
+                playerShip.MaxCrew = 50;
+                playerShip.MaxHealth = 100;
+    }
     public void Start() {
-        StartGameAnimation();
+        if  (playerShip.Health > 0) { // declares what start screen to show based on player health.
+            StartGameAnimation();
+        } else {
+            restartAnimationCancel = false;
+            RestartGameAnimation();
+            GameStatsReset();
+        }
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // if 'esc' key is pressed closes the game
             if (keyInfo.Key == ConsoleKey.Escape) {
                 Environment.Exit(0);
             } else {
+            restartAnimationCancel = true;
             menuanimationcancel = true; // if any other key is pressed, turns off menu animation and starts game.
             Console.Clear();
             EnterNameMenu();
@@ -550,9 +606,7 @@ public class PirateGame {
             }
             if (playerShip.Health <= 0) {   // if player ship health goes below or is equal to 0 game closes
                 Console.Clear();
-                Console.WriteLine("----------------------------------------------\n    Your ship was destroyed. Game over!\n----------------------------------------------");
-                Task.Delay(2500).Wait();
-                Environment.Exit(1);
+                Start();
             }   
             if (enemyShip.Health <= 0) { // runs stolen function if enemyship is sunk
                 Console.Clear();
