@@ -111,7 +111,7 @@ public class Ship {
                     Console.WriteLine($"----------------------------------------------\n You won the board\n----------------------------------------------\n You now have {Items} captured ships\n----------------------------------------------\n Crew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 } else {
-                    Crew = 25; // sets player states to very low amounts for failing to board.
+                    Crew = 25; // sets player stats to very low amounts for failing to board.
                     Health = 1; // ^
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\n You lost the board\n----------------------------------------------\n Crew: {Crew}/{MaxCrew}\n----------------------------------------------\n Health: {Health}/{MaxHealth}\n----------------------------------------------");
@@ -657,7 +657,7 @@ public class PirateGame {
                     FightMenu();
                     break;
                 case '3':
-                    if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship 
+                    if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship
                         Console.Clear();
                         playerShip.Repair();
                         enemyShip.EnemyRepair();
