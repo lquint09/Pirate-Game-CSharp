@@ -111,7 +111,7 @@ public class Ship {
                     Console.WriteLine($"----------------------------------------------\n You won the board\n----------------------------------------------\n You now have {Items} captured ships\n----------------------------------------------\n Crew {Crew}/{MaxCrew}\n----------------------------------------------");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 } else {
-                    Crew = 25; // sets player states to very low amounts for failing to board.
+                    Crew = 25; // sets player stats to very low amounts for failing to board.
                     Health = 1; // ^
                     Console.Clear();
                     Console.WriteLine($"----------------------------------------------\n You lost the board\n----------------------------------------------\n Crew: {Crew}/{MaxCrew}\n----------------------------------------------\n Health: {Health}/{MaxHealth}\n----------------------------------------------");
@@ -221,6 +221,9 @@ public class PirateGame {
         playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
         enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
     }
+    //-----------------------------------------
+    // Animations start
+    //-----------------------------------------
     public async void StartGameAnimation() {
         var frames = new[] {
             "                  |>> \n             |    |    | \n            )_)  )_)  )_)   \n           )___))___))___)\\ \n          )____)____)_____)\\ \n        _____|____|____|____\\____ \n--------\\                  /---------\n^^^^^ ^^^^^^^  ^^^^^^^^^     ^^^^ \n^^^^      ^^^^     ^^    ^^\n      ^^^      ^^^ \n \n \n \n    Press any key to continue\n       Press 'esc' to exit",
@@ -290,6 +293,9 @@ public class PirateGame {
             }
         }
     }
+    //-----------------------------------------
+    // Animations End
+    //-----------------------------------------
     public void GameStatsReset() { // resets player stats to default after death.
                 playerShip.Cannons = 5;
                 playerShip.Crew = 50;
@@ -655,7 +661,7 @@ public class PirateGame {
                     FightMenu();
                     break;
                 case '3':
-                    if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship 
+                    if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship
                         Console.Clear();
                         playerShip.Repair();
                         enemyShip.EnemyRepair();
