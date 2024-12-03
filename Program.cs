@@ -214,6 +214,7 @@ public class Ship {
 public class PirateGame {
     bool menuanimationcancel = false; // token system for menu animation
     bool restartAnimationCancel = true;
+    bool inMenu = false;
     private Ship playerShip;
     private Ship enemyShip;
     public PirateGame() {
@@ -234,6 +235,7 @@ public class PirateGame {
         // Determine the maximum frame length
         int maxWidth = frames.Max(f => f.Split('\n').Max(line => line.Length));
         int maxHeight = frames.Max(f => f.Split('\n').Length);
+        inMenu = false;
 
         // Pad each frame to ensure uniform size
         for (int i = 0; i < frames.Length; i++) {
@@ -267,6 +269,7 @@ public class PirateGame {
          // Determine the maximum frame length
         int maxWidth = frames.Max(f => f.Split('\n').Max(line => line.Length));
         int maxHeight = frames.Max(f => f.Split('\n').Length);
+        inMenu = false;
 
         // Pad each frame to ensure uniform size
         for (int i = 0; i < frames.Length; i++) {
@@ -313,7 +316,7 @@ public class PirateGame {
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // if 'esc' key is pressed closes the game
             if (keyInfo.Key == ConsoleKey.Escape) {
-                Environment.Exit(0);
+                QuitMenu();
             } else {
             restartAnimationCancel = true;
             menuanimationcancel = true; // if any other key is pressed, turns off menu animation and starts game.
@@ -463,6 +466,7 @@ public class PirateGame {
 // End of Devtools code
 //--------------------------------------------
         void StartMenu() {
+            inMenu = true;
             Console.WriteLine(" \n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n---------\\                  /---------------------------\n^^^^^ ^^^^^^^^^         ^^^^^^^^^^^^^     ^^^^^^^\n^^^^      ^^^^     ^^^           ^^^^^^^^^^^^^^^^  ^^\n      ^^^^   ^^^^^^^^^^^^^^^^^^^   ^^^ \n \n \n \n-------------------------------------------------------\n1. Leave Outpost \n2. Shop \n3. Deposit gold\n4. Quit\n-------------------------------------------------------");
             while (true) {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
@@ -865,6 +869,9 @@ public class PirateGame {
             }
         }
         void QuitMenu() {
+            menuanimationcancel = true;
+            restartAnimationCancel = true;
+            Console.Clear();
             Console.WriteLine("-------------------------------------------------------\n Are you sure you want to quit?\n-------------------------------------------------------\n1. Yes\n2. No\n-------------------------------------------------------");
             while (true) {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
@@ -878,12 +885,24 @@ public class PirateGame {
                     break;
                 case '2':
                     Console.Clear();
-                    StartMenu(); // goes back to game if player deson't want to leave game
-                    break;
+                    if (inMenu == true) {
+                        StartMenu(); // goes back to game if player deson't want to leave game
+                        break;
+                    } else {
+                        menuanimationcancel = false;
+                        Start();
+                        break;
+                    }
                 case (char)ConsoleKey.Escape: // 'esc' as back otion on by defualt
                     Console.Clear();
-                    StartMenu();
-                    break;
+                    if (inMenu == true) {
+                        StartMenu(); // goes back to game if player deson't want to leave game
+                        break;
+                    } else {
+                        menuanimationcancel = false;
+                        Start();
+                        break;
+                    }
                 default:
                     Console.Clear(); // thorws 'invalid option' error
                     Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
