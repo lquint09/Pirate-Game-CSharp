@@ -910,7 +910,7 @@ public class PirateGame {
                         break;
                     }
                 default:
-                    Console.Clear(); // thorws 'invalid option' error
+                    Console.Clear(); // throws 'invalid option' error
                     Console.WriteLine("------------------------------\n Invalid choice. Try again. \n------------------------------");
                     QuitMenu();
                     break;
