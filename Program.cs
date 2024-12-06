@@ -895,7 +895,7 @@ public class PirateGame {
                         StartMenu(); // goes back to game if player deson't want to leave game
                         break;
                     } else {
-                        menuanimationcancel = false;
+                        menuanimationcancel = false; // sends player back to start menu
                         Start();
                         break;
                     }
