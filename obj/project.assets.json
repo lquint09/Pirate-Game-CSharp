@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp-main\\Pirate-Game-CSharp\\Pirate Game.csproj",
+      "projectUniqueName": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp\\Pirate Game.csproj",
       "projectName": "Pirate Game",
-      "projectPath": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp-main\\Pirate-Game-CSharp\\Pirate Game.csproj",
+      "projectPath": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp\\Pirate Game.csproj",
       "packagesPath": "C:\\Users\\lucas quint\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp-main\\Pirate-Game-CSharp\\obj\\",
+      "outputPath": "C:\\Users\\lucas quint\\Documents\\Pirate-Game-CSharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lucas quint\\AppData\\Roaming\\NuGet\\NuGet.Config"
