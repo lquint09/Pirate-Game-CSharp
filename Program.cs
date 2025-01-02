@@ -297,7 +297,7 @@ public class PirateGame {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Animations End
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    public void GameStatsReset() { // resets player stats to default after death.
+    public void PlayerStatsReset() { // resets player stats to default after death.
                 playerShip.Cannons = 5;
                 playerShip.Crew = 50;
                 playerShip.Bank = 0;
@@ -318,7 +318,7 @@ public class PirateGame {
         } else {
             restartAnimationCancel = false;
             RestartGameAnimation();
-            GameStatsReset();
+            PlayerStatsReset();
         }
         while (true) {
             ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true); // if 'esc' key is pressed closes the game
