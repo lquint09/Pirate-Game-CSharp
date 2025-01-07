@@ -73,7 +73,7 @@ public class Ship {
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Enemy Attack Function
+    // Enemy Attack Function 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void EnemyAttack(Ship target) {
         int chance = random.Next(1, 5); // defines if the enemy ships cannons hit the player ship
