@@ -2,14 +2,15 @@ public class Ship {
     public string Name {get; set;}
     public int Chance {get; set;} 
     public int Crew {get; set;} = 50;
-    public int StolenShips {get; set;} = 0;
     public int EnemyCrew {get; set;}
     public int Wood {get; set;} = 50;
     public float Bank {get; set;} = 0;
     public int Cannons {get; set;} = 5;
     public float Cargo {get; set;} = 0;
     public int MaxCrew {get; set;} = 50;
+    public int barWidth {get; set;} = 30;
     public float Health {get; set;} = 100;
+    public int StolenShips {get; set;} = 0;
     public int MaxCannons {get; set;} = 10;
     public float MaxCargo {get; set;} = 500;
     public float MaxHealth {get; set;} = 100;
@@ -40,7 +41,7 @@ public class Ship {
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     private static readonly Random random = new Random();
     public int treasureChance; 
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryStolenShips, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryStolenShips, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -105,6 +106,15 @@ public class Ship {
         target.Health = Math.Max(target.Health, 0);
         Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You hit the enemy ship with a cursed ball and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+        public void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
+        double healthPercentage = (double)currentHealth / maxHealth;
+        int filledWidth = (int)(healthPercentage * barWidth);
+        // Create the filled and unfilled portions of the bar
+        string filledBar = new string('█', filledWidth);
+        string emptyBar = new string('-', barWidth - filledWidth);
+        // Print the label and health information in the same line
+        Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
+    }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // function to determine what happens when board attempt is a attempted
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,7 +135,8 @@ public class Ship {
                     Health = 1; // ^
 
                     Console.Clear();
-                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You lost the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew: {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Health: {Health}/{MaxHealth}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You lost the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew: {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
+                    DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
                     return;
                 }
             }
@@ -228,8 +239,8 @@ public class PirateGame {
     public Ship playerShip;
     public Ship enemyShip;
     public PirateGame() {
-        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 0, 50, 10, 0, 500, 100, 0, 50);
-        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, new Random().Next(1, 6), 50, 10, 0, 0, 0, 0, 0);
+        playerShip = new Ship("Player Ship", 5, 50, 0, 100, 0, 50, 10, 0, 500, 100, 0, 50);
+        enemyShip = new Ship("Enemy Ship", new Random().Next(1, 6), new Random().Next(10, 51), 0, new Random().Next(75, 151), 0, 50, 10, 0, 0, 0, 0, 0);
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Animations start
@@ -572,8 +583,8 @@ public class PirateGame {
         }
        void AttackMenu() {
             int barWidth = 50; // Width of the health bars
-            DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-            DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+            playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+            enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
             Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Do you want to fight this ship?\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Fight ship\n2. No\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
@@ -605,23 +616,23 @@ public class PirateGame {
             int barWidth = 50; // Width of the health bars
             if (enemyShip.Health > 30) { // don't mess with this, this is the most scuffe logic ever used in code (determiens what options the player should have depends on if they are allowed to board and if they have the ability to use cursed cannon balls)
                 if (playerShip.CursedCannonBalls > 0) {
-                    DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Curse cannon balls left {playerShip.CursedCannonBalls}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
             }
             if (enemyShip.Health <= 30) {
                 if (playerShip.CursedCannonBalls > 0) {
-                    DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Curse cannon balls left {playerShip.CursedCannonBalls}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
             }
@@ -639,15 +650,6 @@ public class PirateGame {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                 FightChoiceHandler(keyInfo.KeyChar);
             }
-        }
-        void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
-            double healthPercentage = (double)currentHealth / maxHealth;
-            int filledWidth = (int)(healthPercentage * barWidth);
-            // Create the filled and unfilled portions of the bar
-            string filledBar = new string('█', filledWidth);
-            string emptyBar = new string('-', barWidth - filledWidth);
-            // Print the label and health information in the same line
-            Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
         }
 
         void FightChoiceHandler(char choice) {
