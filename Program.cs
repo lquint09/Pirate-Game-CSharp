@@ -1,4 +1,5 @@
 public class Ship {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public int Chance {get; set;}
     public string Name {get; set;} 
     public int EnemyCrew {get; set;}
