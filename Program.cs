@@ -464,11 +464,11 @@ public class PirateGame {
         }
         void AskIfContinue() {
             Console.WriteLine("Would you like to change any other values?\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1. Yes\n 2. No\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            string continueInput = Console.ReadLine();
-            if (continueInput == "1") {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+            if (keyInfo.KeyChar == '1') {
                 Console.Clear();
                 DevToolsStartMenu();
-            } else if (continueInput == "2") {
+            } else if (keyInfo.KeyChar == '2') {
                 Console.Clear();
                 StartMenu();
             } else {
