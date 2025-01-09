@@ -2,7 +2,7 @@ public class Ship {
     public string Name {get; set;}
     public int Chance {get; set;} 
     public int Crew {get; set;} = 50;
-    public int Items {get; set;} = 0;
+    public int StolenShips {get; set;} = 0;
     public int EnemyCrew {get; set;}
     public int Wood {get; set;} = 50;
     public float Bank {get; set;} = 0;
@@ -40,7 +40,7 @@ public class Ship {
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     private static readonly Random random = new Random();
     public int treasureChance; 
-    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryItems, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
+    public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryStolenShips, int chance, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
         Crew = crew;
@@ -49,7 +49,7 @@ public class Ship {
         Bank = bank;
         Health = 100;
         MaxHealth = maxhealth;
-        Items = inventoryItems;
+        StolenShips = inventoryStolenShips;
         Chance = random.Next(1, 6);
         Cargo = cargo;
         MaxCargo = maxcargo;
@@ -114,10 +114,10 @@ public class Ship {
         if (target.Health < 31) { // makes sure that enemy ship is less than 31 (extra security level, not sure if needed)
             if (Crew > EnemyCrew) { 
                 if (Chance >= boardChance) {
-                    Items += 1;
+                    StolenShips += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
-                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You won the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {Items} captured ships\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You won the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {StolenShips} captured ships\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 } else {
                     Crew = 25; // sets player stats to very low amounts for failing to board.
@@ -310,7 +310,7 @@ public class PirateGame {
                 playerShip.Crew = 50;
                 playerShip.Bank = 0;
                 playerShip.Health = 100;
-                playerShip.Items = 0;
+                playerShip.StolenShips = 0;
                 playerShip.Cannonballs = 100;
                 playerShip.CursedCannonBalls = 0;
                 playerShip.Wood = 50;
@@ -397,7 +397,7 @@ public class PirateGame {
         }
         void ShowAll() {
             Console.Clear();
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAvailable commands\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nlist\nhelp\nclear\nnone\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nEditable values\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncannons\ncrew\nbank\nhealth\nitems\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAvailable commands\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nlist\nhelp\nclear\nnone\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nEditable values\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncannons\ncrew\nbank\nhealth\nStolenShips\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         void HandleValueEdit(string field) {
             var intFieldActions = new Dictionary<string, Action<int>> {
@@ -405,7 +405,7 @@ public class PirateGame {
                 { "crew", value => playerShip.Crew = value },
                 { "bank", value => playerShip.Bank = value },
                 { "health", value => playerShip.Health = value },
-                { "items", value => playerShip.Items = value },
+                { "StolenShips", value => playerShip.StolenShips = value },
                 { "cannonballs", value => playerShip.Cannonballs = value },
                 { "cursedballs", value => playerShip.CursedCannonBalls = value },
                 { "wood", value => playerShip.Wood = value },
@@ -789,7 +789,7 @@ public class PirateGame {
         void ShopMenu() {
             while (true) {
                 Console.WriteLine($"Welcome to the shop, {playerShip.Name}");
-                Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs: {playerShip.Cannonballs} | Cursed cannonballs: {playerShip.CursedCannonBalls} | Wood: {playerShip.Wood} | Cannons: {playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.Items} \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cursed cannonballs (300 coins)        I\nI       3. Buy wood (100) coins                      I\nI       4. Buy cannons (1000 coins)                  I\nI       5. Hire crew members (100 coins)             I\nI       6. Upgrade ship (5000 coins)                 I\nI       7. Sell captured ship (1000 coins)           I\nI       8. Leave shop                                I\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Stats: Health: {playerShip.Health}/{playerShip.MaxHealth} | Cannonballs: {playerShip.Cannonballs} | Cursed cannonballs: {playerShip.CursedCannonBalls} | Wood: {playerShip.Wood} | Cannons: {playerShip.Cannons}/{playerShip.MaxCannons} | Crew: {playerShip.Crew}/{playerShip.MaxCrew} | Gold: {playerShip.Bank} | Captured ships: {playerShip.StolenShips} \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nI       1. Buy connonballs (100 coins)               I\nI       2. Buy cursed cannonballs (300 coins)        I\nI       3. Buy wood (100) coins                      I\nI       4. Buy cannons (1000 coins)                  I\nI       5. Hire crew members (100 coins)             I\nI       6. Upgrade ship (5000 coins)                 I\nI       7. Sell captured ship (1000 coins)           I\nI       8. Leave shop                                I\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                     ShopChoiceHandler(keyInfo.KeyChar);
@@ -876,10 +876,10 @@ public class PirateGame {
                     break;
                 case '7':
                     Console.Clear();
-                    if (playerShip.Items < 1) { // throws 'no inventory items' error
+                    if (playerShip.StolenShips < 1) { // throws 'no inventory StolenShips' error
                         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have any captured ships \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
-                        playerShip.Items -= 1;
+                        playerShip.StolenShips -= 1;
                         playerShip.Bank += 1000; // sells captured ship for 1000 coins
                         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You have sold a captured ship \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
