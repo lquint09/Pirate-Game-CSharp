@@ -1,14 +1,14 @@
 public class Ship {
-    public string Name {get; set;}
-    public int Chance {get; set;} 
-    public int Crew {get; set;} = 50;
+    public int Chance {get; set;}
+    public string Name {get; set;} 
     public int EnemyCrew {get; set;}
+    public int Crew {get; set;} = 50;
     public int Wood {get; set;} = 50;
     public float Bank {get; set;} = 0;
     public int Cannons {get; set;} = 5;
     public float Cargo {get; set;} = 0;
     public int MaxCrew {get; set;} = 50;
-    public int barWidth {get; set;} = 30;
+    public int barWidth {get; set;} = 50;
     public float Health {get; set;} = 100;
     public int StolenShips {get; set;} = 0;
     public int MaxCannons {get; set;} = 10;
@@ -32,9 +32,9 @@ public class Ship {
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
+     public int EnemyAttackAccuracyChance { get; set; } = 2;
     public int PlayerAttackAccuracyChance { get; set; } = 2;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public int EnemyAttackAccuracyChance { get; set; } = 2;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
     public float PlayerAttackMaxDamage { get; set; } = 20.0f;
     public float PlayerRepairMinAmount { get; set; } = 10.0f;
@@ -128,6 +128,7 @@ public class Ship {
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
                     Stolen();
+                    DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You won the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {StolenShips} captured ships\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 } else {
@@ -135,8 +136,8 @@ public class Ship {
                     Health = 1; // ^
 
                     Console.Clear();
-                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You lost the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew: {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
                     DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
+                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You lost the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew: {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
                     return;
                 }
             }
@@ -163,6 +164,7 @@ public class Ship {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Nothing to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Health = MaxHealth;
         }
+        DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
         Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Wood: {Wood}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,14 +195,14 @@ public class Ship {
         int stolenCurseBalls = random.Next(stolenCurseBallsMin,stolenCurseBallsMax); // determiens how many cured cannon balls are given the the player after sinking a ship
         CursedCannonBalls += stolenCurseBalls; //gives the player the amount of cursed cannon balls.
         if (MaxCargo - Cargo < stolenAmount) { // makes sure player cargo does not go over player max cargo
-            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {MaxCargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {MaxCargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Cargo = MaxCargo;
         }
         if (MaxCargo - Cargo >= stolenAmount) {
             Cargo += stolenAmount; //gives the player the amount of cargo stolen if they do not pass their cargo limit
-            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold and stole it\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {Cargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             DisplayHealthBar("Your current health", Health, MaxHealth, barWidth);
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold and stole it\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {Cargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -540,6 +542,7 @@ public class PirateGame {
             }
         }
         void OutofPortChoiceHandler(char choice) {
+            int barWidth = 50; // Width of the health bars
             switch (choice) {
                 case '1':
                     enemyShip.MaxHealth = new Random().Next(75, 151);  // generates enemy health and starts attack sequence
@@ -550,7 +553,7 @@ public class PirateGame {
                 case '2':
                     Console.Clear(); // repair function for playership (does not try to repair enemy ship)
                     playerShip.Repair();
-                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Health: {playerShip.Health}/{playerShip.MaxHealth}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
                     OutofPortMenu();
                     break;
                 case '3':
