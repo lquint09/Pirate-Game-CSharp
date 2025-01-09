@@ -132,8 +132,8 @@ public class Ship {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void Repair() {
         float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount); // generates the repair mount for player ship
-        Health += repairAmount; // applys repair amount to ship
         if (Wood > 0 && Health < MaxHealth) { // determines if the player ship needs to be repairs and if the health goes over max health.
+            Health += repairAmount; // applys repair amount to ship
             if (repairAmount > 15) {  // determines if the health amount should take 1-2 or 3-5 wood to repair
                 Wood -= random.Next(1,2); // takes away determined amount of wood
             }
@@ -665,22 +665,38 @@ public class PirateGame {
                         FightMenu();
                     } else { // if player doesn't have cursed cannon balls it will repair the ship
                         Console.Clear();
-                        playerShip.Repair();
-                        enemyShip.EnemyRepair();
+                        if (enemyShip.Health == enemyShip.MaxHealth) {
+                            enemyShip.EnemyAttack(playerShip);
+                        }
+                         else {
+                            enemyShip.EnemyRepair();
+                         }
                     }
+                    playerShip.Repair();
                     FightMenu();
                     break;
                 case '3':
                     if (playerShip.CursedCannonBalls > 0 && enemyShip.Health > 30) { // if player has cursed cannon balls it will repair the enemy ship
                         Console.Clear();
+                        if (enemyShip.Health == enemyShip.MaxHealth) {
+                            enemyShip.EnemyAttack(playerShip);
+                            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nThe enemy ship is fully repaired and shooting at you\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        }
+                         else {
+                            enemyShip.EnemyRepair();
+                        }
                         playerShip.Repair();
-                        enemyShip.EnemyRepair();
                         FightMenu();
                     }
                     if (playerShip.CursedCannonBalls > 0 && enemyShip.Health <= 30) { // if the player has cursed cannons and can board the ship, it will repair the ship
                         Console.Clear();
+                        if (enemyShip.Health == enemyShip.MaxHealth) {
+                            enemyShip.EnemyAttack(playerShip);
+                        }
+                         else {
+                            enemyShip.EnemyRepair();
+                         }
                         playerShip.Repair();
-                        enemyShip.EnemyRepair();
                         FightMenu();
                         break;
                     }
