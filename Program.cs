@@ -117,6 +117,7 @@ public class Ship {
                     StolenShips += 1;
                     Crew = Math.Max(Crew - 5, 0);
                     Console.Clear();
+                    Stolen();
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You won the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {StolenShips} captured ships\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     target.Health = 0; // sets enemy ship to 0 so it performs the Stolen() fucntion
                 } else {
