@@ -69,6 +69,7 @@ public class Ship {
                 damage = (float)Math.Round(damage, 1); // rounds the damage calcuations to 1 decimal
                 target.Health -= damage; // removes health from enemy ship if the cannon ball hits
                 target.Health = Math.Max(target.Health, 0);
+                Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You hit the enemy ship and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             } else {
                 Console.WriteLine("~~~~~~~~~~~~~\n You missed\n~~~~~~~~~~~~~");
             }
@@ -88,6 +89,7 @@ public class Ship {
             damage = (float)Math.Round(damage, 1); // rounding to 1 decimal
             target.Health -= damage; // removes health from player ship
             target.Health = Math.Max(target.Health, 0);
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n The enemy ship hit you and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         } else {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~\n The enemy ship missed\n~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
@@ -101,6 +103,7 @@ public class Ship {
         damage = (float)Math.Round(damage, 1); // rounds to 1 decimal
         target.Health -= damage;
         target.Health = Math.Max(target.Health, 0);
+        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You hit the enemy ship with a cursed ball and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // function to determine what happens when board attempt is a attempted
@@ -157,7 +160,7 @@ public class Ship {
     public void Treasure() {
         Console.Clear();
         treasureChance = random.Next(1, 10); // determiens if treasure should be given to the player
-        if (treasureChance >= TreasureChance) { 
+         if (treasureChance >= TreasureChance) { 
             float treasureAmount = random.Next(TreasureMinAmount, TreasureMaxAmount); // determines the amount of treasure given the the player
             if (MaxCargo - Cargo < treasureAmount) {  // determines if the amount of treasure given would but the player over max cargo amount
                 Cargo = MaxCargo;
