@@ -536,6 +536,7 @@ public class PirateGame {
                 case '2':
                     Console.Clear(); // repair function for playership (does not try to repair enemy ship)
                     playerShip.Repair();
+                    Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Health: {playerShip.Health}/{playerShip.MaxHealth}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     OutofPortMenu();
                     break;
                 case '3':
