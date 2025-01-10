@@ -107,7 +107,7 @@ public class Ship {
         target.Health = Math.Max(target.Health, 0);
         Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You hit the enemy ship with a cursed ball and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-        public void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
+    public void DisplayHealthBar(string label, float currentHealth, float maxHealth, int barWidth) {
         double healthPercentage = (double)currentHealth / maxHealth;
         int filledWidth = (int)(healthPercentage * barWidth);
         // Create the filled and unfilled portions of the bar
@@ -600,16 +600,16 @@ public class PirateGame {
                     break;
             }
         }
-       void AttackMenu() {
+        void AttackMenu() {
             int barWidth = 50; // Width of the health bars
             playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
             enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
             Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Do you want to fight this ship?\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Fight ship\n2. No\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             while (true) {
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-                    AttackChoiceHandler(keyInfo.KeyChar);
-                }
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                AttackChoiceHandler(keyInfo.KeyChar);
             }
+        }
         void AttackChoiceHandler(char choice) { // lets the player decided if player wants to fight the current enemy ship that has been generated (if the choose not to and try to fight another one, it will regenerate enemy ship stats)
             switch (choice) {
                 case '1':
@@ -672,7 +672,6 @@ public class PirateGame {
                 FightChoiceHandler(keyInfo.KeyChar);
             }
         }
-
         void FightChoiceHandler(char choice) {
             switch (choice) { // both enemy and palyer ship attack eachother 
                 case '1':
