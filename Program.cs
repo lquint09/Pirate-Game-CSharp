@@ -1,4 +1,7 @@
+using System.Runtime.InteropServices;
+
 public class Ship {
+    public bool inAttack = false;
     public int Chance {get; set;}
     public string Name {get; set;} 
     public int EnemyCrew {get; set;}
@@ -72,7 +75,7 @@ public class Ship {
                 target.Health = Math.Max(target.Health, 0);
                 Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You hit the enemy ship and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             } else {
-                Console.WriteLine("~~~~~~~~~~~~~\n You missed\n~~~~~~~~~~~~~");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You missed\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
         else {
@@ -92,7 +95,7 @@ public class Ship {
             target.Health = Math.Max(target.Health, 0);
             Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n The enemy ship hit you and did {damage} damage\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         } else {
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~\n The enemy ship missed\n~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n The enemy ship missed\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,12 +116,13 @@ public class Ship {
         string filledBar = new string('█', filledWidth);
         string emptyBar = new string('-', barWidth - filledWidth);
         // Print the label and health information in the same line
-        Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth} ({healthPercentage:P0})");
+        Console.WriteLine($" {label}: [{filledBar}{emptyBar}] {currentHealth}/{maxHealth}");
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // function to determine what happens when board attempt is a attempted
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void BoardChance(Ship target) {
+        inAttack = false;
         Chance = random.Next(1,5); // devines if the player can baord thie enemy ship or not
         EnemyCrew = random.Next(EnemyCrewMin,EnemyCrewMax); // generates value for eneny crew for the player crew to go against.
         if (target.Health < 31) { // makes sure that enemy ship is less than 31 (extra security level, not sure if needed)
@@ -146,14 +150,25 @@ public class Ship {
     // Player repair fucntion
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void Repair() {
+        int highRepairCost = random.Next(3, 5);
+        int lowRepairCost = random.Next(1, 2);
         float repairAmount = (float)(random.NextDouble() * (PlayerRepairMaxAmount - PlayerRepairMinAmount) + PlayerRepairMinAmount); // generates the repair mount for player ship
         if (Wood > 0 && Health < MaxHealth) { // determines if the player ship needs to be repairs and if the health goes over max health.
-            Health += repairAmount; // applys repair amount to ship
             if (repairAmount > 15) {  // determines if the health amount should take 1-2 or 3-5 wood to repair
-                Wood -= random.Next(1,2); // takes away determined amount of wood
+                if (highRepairCost > Wood) {
+                    Console.WriteLine ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You do not have enough wood to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                } else {
+                    Wood =- highRepairCost;
+                    Health += repairAmount;
+                }
             }
             if (repairAmount <= 15) {
-                Wood -= random.Next(3, 5);
+                if (lowRepairCost > Wood) {
+                    Console.WriteLine ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You do not have enough wood to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                } else {
+                    Wood =- lowRepairCost;
+                    Health += repairAmount;
+                }
             }
         }
         if (Wood <= 0 && Health < MaxHealth) {
@@ -163,8 +178,14 @@ public class Ship {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Nothing to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Health = MaxHealth;
         }
-        DisplayHealthBar("Health:", Health, MaxHealth, barWidth);
-        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Wood: {Wood}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        if (!inAttack) {
+            DisplayHealthBar("Health:", Health, MaxHealth, barWidth);
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Wood: {Wood}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+        if (inAttack == true) {
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Health: {Health}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Wood: {Wood}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Fucntion to randomized amount of traesure gathered
@@ -180,7 +201,7 @@ public class Ship {
             }
             if (MaxCargo - Cargo >= treasureAmount) {
                 Cargo += treasureAmount;
-                Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~n {treasureAmount} gold found\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Gold: {Cargo}/{MaxCargo} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n {treasureAmount} gold found\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Gold: {Cargo}/{MaxCargo} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         } else {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You did not find any treasure\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -195,13 +216,13 @@ public class Ship {
         CursedCannonBalls += stolenCurseBalls; //gives the player the amount of cursed cannon balls.
         if (MaxCargo - Cargo < stolenAmount) { // makes sure player cargo does not go over player max cargo
             DisplayHealthBar("Health:", Health, MaxHealth, barWidth);
-            Console.WriteLine($" Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {MaxCargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You could not carry all of it and stole {MaxCargo - Cargo} gold (upgrade ship to increase)\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {MaxCargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Cargo = MaxCargo;
         }
         if (MaxCargo - Cargo >= stolenAmount) {
             Cargo += stolenAmount; //gives the player the amount of cargo stolen if they do not pass their cargo limit
             DisplayHealthBar("Health:", Health, MaxHealth, barWidth);
-            Console.WriteLine($" Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold and stole it\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {Cargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Enemy ship has been defeated! \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You sank the enemy ship and found {stolenAmount} gold and stole it\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {Cargo}/{MaxCargo} gold \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You found {stolenCurseBalls} cursed cannonballs\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -528,20 +549,20 @@ public class PirateGame {
                     break;
                 default:
                     Console.Clear(); //throws 'invalid option' error
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     StartMenu();
                     break;
             }
         }
         void OutofPortMenu() {
-            Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n~~~~~~~~~\\                  /~~~~~~~~~~~~~~~~~~~~~~~~~~-\n~~~~~ ~~~~~~~~~~~ ~~~~~~~~~~~~  ~~~~~~~~~~\n~~~~      ~~~~  ~~~~~~~~~~~~~~~~~~~~~~   ~~~    ~~\n      ~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     ~~~ \n \n \n \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-");
+            playerShip.inAttack = false;
+            Console.WriteLine("\n              |    |    | \n             )_)  )_)  )_)   \n            )___))___))___)\\ \n           )____)____)_____)\\ \n         _____|____|____|____\\____\n~~~~~~~~~\\                  /~~~~~~~~~~~~~~~~~~~~~~~~~~-\n~~~~~ ~~~~~~~~~~~ ~~~~~~~~~~~~  ~~~~~~~~~~\n~~~~      ~~~~  ~~~~~~~~~~~~~~~~~~~~~~   ~~~    ~~\n      ~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     ~~~ \n \n \n \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Attack Ship \n2. Repair Ship \n3. Search for treausre\n4. Go back to outpost\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             while (true) {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                 OutofPortChoiceHandler(keyInfo.KeyChar);
             }
         }
         void OutofPortChoiceHandler(char choice) {
-            int barWidth = 50; // Width of the health bars
             switch (choice) {
                 case '1':
                     enemyShip.MaxHealth = new Random().Next(75, 151);  // generates enemy health and starts attack sequence
@@ -579,16 +600,16 @@ public class PirateGame {
                     break;
                 default: // throws 'invalid option' error
                     Console.Clear();
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     OutofPortMenu();
                     break;
             }
         }
        void AttackMenu() {
             int barWidth = 50; // Width of the health bars
-            playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-            enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
-            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Do you want to fight this ship?\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Fight ship\n2. No\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
+            enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Do you want to fight this ship?\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Fight ship\n2. No\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             while (true) {
                     ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
                     AttackChoiceHandler(keyInfo.KeyChar);
@@ -598,6 +619,7 @@ public class PirateGame {
             switch (choice) {
                 case '1':
                     Console.Clear(); // continues fight will generaged enemy ship stats
+                    playerShip.inAttack = true;
                     FightMenu();
                     break;
                 case '2': // cancels  the fight
@@ -610,32 +632,32 @@ public class PirateGame {
                     break;
                 default: // throws 'invalid option' error
                     Console.Clear();
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     AttackMenu();
                     break;
             }
         }
         void FightMenu() {
-            int barWidth = 50; // Width of the health bars
+            int barWidth = 50; // Width of the health 
             if (enemyShip.Health > 30) { // don't mess with this, this is the most scuffe logic ever used in code (determiens what options the player should have depends on if they are allowed to board and if they have the ability to use cursed cannon balls)
                 if (playerShip.CursedCannonBalls > 0) {
-                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Curse cannon balls left {playerShip.CursedCannonBalls}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Repair your ship\n3. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
             }
             if (enemyShip.Health <= 30) {
                 if (playerShip.CursedCannonBalls > 0) {
-                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Curse cannon balls left {playerShip.CursedCannonBalls}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Shoot cursed cannon ball\n3. Repair your ship\n4. Board Ship\n5. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    playerShip.DisplayHealthBar("Your current health", playerShip.Health, playerShip.MaxHealth, barWidth);
-                    enemyShip.DisplayHealthBar("Enemy ship health", enemyShip.Health, enemyShip.MaxHealth, barWidth);
+                    playerShip.DisplayHealthBar("Your health:", playerShip.Health, playerShip.MaxHealth, barWidth);
+                    enemyShip.DisplayHealthBar("Enemy health:", enemyShip.Health, enemyShip.MaxHealth, barWidth);
                     Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Cannonballs left {playerShip.Cannonballs}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1. Shoot cannons\n2. Repair your ship\n3. Board Ship\n4. Leave fight\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 }
             }
@@ -645,6 +667,7 @@ public class PirateGame {
             }   
             if (enemyShip.Health <= 0) { // runs stolen function if enemyship is sunk
                 Console.Clear();
+                playerShip.inAttack = false;
                 playerShip.Stolen();
                 OutofPortMenu();
                 return;
@@ -732,7 +755,7 @@ public class PirateGame {
                     }
                     if (playerShip.CursedCannonBalls <= 0 && enemyShip.Health > 30) { // if the player doesn't have cannon balls and can't board the ship it will thorw an 'invalid option' error
                         Console.Clear();
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         FightMenu();
                         break;
                     }
@@ -749,18 +772,18 @@ public class PirateGame {
                         break;
                     } else {
                         Console.Clear(); // if they can not board the ship and don't have cursed cannon balls, throw an 'invald option' error.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         FightMenu();
                         break;
                     }
                 case (char)ConsoleKey.Escape: // 'esc' as back
                     Console.Clear();
+                    playerShip.inAttack = false;
                     OutofPortMenu();
                     break;
                 default:
                     Console.Clear(); // throws 'invalid option' error
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    FightMenu();
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     break;
             }
         }
@@ -776,6 +799,7 @@ public class PirateGame {
                 case '1':
                     Console.Clear();
                     OutofPortMenu(); // leaves fight and sends back to open ocean
+                    playerShip.inAttack = false;
                     break;
                 case '2':
                     Console.Clear();
@@ -787,7 +811,7 @@ public class PirateGame {
                     break;
                 default:
                     Console.Clear(); // throws 'invalid option' error
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  Invalid choice. Try again.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     LeaveFightMenu();
                     break;
             }
@@ -807,11 +831,11 @@ public class PirateGame {
                  case '1':
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
                         playerShip.Bank -= 100;
                         playerShip.Cannonballs += 10; // removes correct amount of gold and gives player corret amount of cannons.
-                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Cannonballs} cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Cannonballs} cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
                     ShopMenu();
                     break;
@@ -822,29 +846,29 @@ public class PirateGame {
                     } else {
                         playerShip.Bank -= 300;
                         playerShip.CursedCannonBalls += 2; // removes correct amount of gold and gives player correct amount of cursed cannon balls
-                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.CursedCannonBalls} cursed cannonballs \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
                     ShopMenu();
                     break;
                 case '3':
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
                         playerShip.Bank -= 100;
                         playerShip.Wood += 10; //gives palyer correct amount of wood and removes correct amount of coins
-                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Wood} wood \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Wood} wood \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
                     ShopMenu();
                     break;
                 case '4':
                     Console.Clear();
                     if (playerShip.Bank < 1000) { // throws 'not enough gold' error is player doesn't have enough gold.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else if (playerShip.Cannons < playerShip.MaxCannons) {
                         playerShip.Bank -= 1000;
                         playerShip.Cannons += 1; //gives player correcnt amount of cannons and takes gold
-                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Cannons} cannons \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Cannons} cannons \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else { // makes sure that player cannont go past max cannon limit
                         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You have reached your max cannons amount (upgrade ship to increase) \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
@@ -853,14 +877,14 @@ public class PirateGame {
                 case '5':
                     Console.Clear();
                     if (playerShip.Bank < 100) { // throws 'not enough gold' error is player doesn't have enough gold.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else if (playerShip.Crew < playerShip.MaxCrew) { 
                         playerShip.Bank -= 100;
                         playerShip.Crew += 10;
                         if (playerShip.Crew > playerShip.MaxCrew) {
                             playerShip.Crew = playerShip.MaxCrew; // makes sure that playerr cannont go over limit (will scam you if you have less than 10 crew members missing from max crew limit)
                         }
-                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Crew} crew members \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You now have {playerShip.Crew} crew members \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
                         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  You have reached your max crew amount (upgrade ship to increase) \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }   
@@ -869,7 +893,7 @@ public class PirateGame {
                 case '6':
                     Console.Clear();
                     if (playerShip.Bank < 5000) { // throws 'not enough gold' error is player doesn't have enough gold.
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have enough coins \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
                         playerShip.Bank -= 5000; // applies buffs to player ship and removes 5000 coins
                         playerShip.MaxHealth += 50;
@@ -883,11 +907,11 @@ public class PirateGame {
                 case '7':
                     Console.Clear();
                     if (playerShip.StolenShips < 1) { // throws 'no inventory StolenShips' error
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have any captured ships \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You don't have any captured ships \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     } else {
                         playerShip.StolenShips -= 1;
                         playerShip.Bank += 1000; // sells captured ship for 1000 coins
-                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You have sold a captured ship \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You have sold a captured ship \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     }
                     ShopMenu();
                     break;
@@ -901,7 +925,7 @@ public class PirateGame {
                     break;
                 default:
                     Console.Clear(); // throws 'invalid option' error
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Invalid choice. Try again. \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Invalid choice. Try again. \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     ShopMenu();
                     break;
             }
@@ -943,7 +967,7 @@ public class PirateGame {
                     }
                 default:
                     Console.Clear(); // throws 'invalid option' error
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Invalid choice. Try again. \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Invalid choice. Try again. \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     QuitMenu();
                     break;
             }
