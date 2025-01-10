@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 public class Ship {
     public bool inAttack = false;
     public int Chance {get; set;}
@@ -158,7 +156,7 @@ public class Ship {
                 if (highRepairCost > Wood) {
                     Console.WriteLine ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You do not have enough wood to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    Wood =- highRepairCost;
+                    Wood -= highRepairCost;
                     Health += repairAmount;
                 }
             }
@@ -166,13 +164,10 @@ public class Ship {
                 if (lowRepairCost > Wood) {
                     Console.WriteLine ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You do not have enough wood to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 } else {
-                    Wood =- lowRepairCost;
+                    Wood -= lowRepairCost;
                     Health += repairAmount;
                 }
             }
-        }
-        if (Wood <= 0 && Health < MaxHealth) {
-            Console.WriteLine ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n You do not have enough wood to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         if (Health > MaxHealth) {
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Nothing to repair\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
