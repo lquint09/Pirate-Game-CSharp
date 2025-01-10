@@ -18,9 +18,9 @@ public class Ship {
     public int boardChance { get; set; } = 3;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
+    public int TreasureChance {get; set;} = 6;
     public int enemyRepairMin {get; set;} = 10;
     public int enemyRepairMax {get; set;} = 21;
-    public int TreasureChance {get; set;} = 6;
     public int CursedCannonBalls {get; set;} = 0;
     public int enemyRepairChance {get; set;} = 4;
     public int StolenMinAmount { get; set; } = 75;
@@ -32,7 +32,7 @@ public class Ship {
     public float CursedBallMinDamage { get; set; } = 15;
     public float CursedBallMaxDamage { get; set; } = 40;
     public float EnemyAttackMinDamage { get; set; } = 5.0f;
-     public int EnemyAttackAccuracyChance { get; set; } = 2;
+    public int EnemyAttackAccuracyChance { get; set; } = 2;
     public int PlayerAttackAccuracyChance { get; set; } = 2;
     public float EnemyAttackMaxDamage { get; set; } = 15.0f;
     public float PlayerAttackMinDamage { get; set; } = 10.0f;
