@@ -134,7 +134,6 @@ public class Ship {
                 } else {
                     Crew = 25; // sets player stats to very low amounts for failing to board.
                     Health = 1; // ^
-
                     Console.Clear();
                     DisplayHealthBar("Health:", Health, MaxHealth, barWidth);
                     Console.WriteLine($" You lost the board\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Crew: {Crew}/{MaxCrew}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
