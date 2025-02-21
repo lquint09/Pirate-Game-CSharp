@@ -6,8 +6,6 @@ public class Ship {
     public string Name {get; set;}
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
-    public int AngelicCannonballs {get; set;} = 0;
-    public int SheetMetal {get; set;} = 0;
     public int Wood {get; set;} = 50;
     public float Bank {get; set;} = 0;
     public int Cannons {get; set;} = 5;
@@ -15,6 +13,7 @@ public class Ship {
     public int MaxCrew {get; set;} = 50;
     public int barWidth {get; set;} = 50;
     public float Health {get; set;} = 100;
+    public int SheetMetal {get; set;} = 0;
     public int StolenShips {get; set;} = 0;
     public int MaxCannons {get; set;} = 10;
     public float MaxCargo {get; set;} = 500;
@@ -29,6 +28,7 @@ public class Ship {
     public int CursedCannonBalls {get; set;} = 0;
     public int enemyRepairChance {get; set;} = 4;
     public int StolenMinAmount { get; set; } = 75;
+    public int AngelicCannonballs {get; set;} = 0;
     public int StolenMaxAmount { get; set; } = 150;
     public int stolenCurseBallsMin {get; set;} = 1;
     public int stolenCurseBallsMax {get; set;} = 3;
