@@ -45,7 +45,7 @@ public class Ship {
     public float PlayerRepairMinAmount { get; set; } = 10.0f;
     public float PlayerRepairMaxAmount { get; set; } = 20.0f;
     private static readonly Random random = new Random();
-    public int treasureChance; 
+    public int treasureChance;
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryStolenShips, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
@@ -224,7 +224,7 @@ public class Ship {
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Fucntion to randomized amount of traesure gathered
+    // Function to randomized amount of traesure gathered
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void Treasure() {
         Console.Clear();
@@ -244,7 +244,7 @@ public class Ship {
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // fucntion to determine what is given to players are the sink an enemy ship
+    // function to determine what is given to players are the sink an enemy ship
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void Stolen() {
         int stolenAmount = random.Next(StolenMinAmount, StolenMaxAmount); // determines how much gold is given to player after sinking a ship
@@ -262,7 +262,7 @@ public class Ship {
         }
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // fucntion to deposit gold into bank
+    // function to deposit gold into bank
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void Depot() {
         Bank += Cargo;
@@ -469,7 +469,7 @@ public class PirateGame {
         }
         void ShowAll() {
             Console.Clear();
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAvailable commands\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nlist\nhelp\nclear\nnone\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nEditable values\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncannons\ncrew\nbank\nhealth\nStolenShips\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAvailable commands\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nlist\nhelp\nclear\nnone\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nEditable values\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncannons\ncrew\nbank\nhealth\nStolenShips\ncannonballs\ncursedballs\nwood\ncago\nmax-cargo\nplayer-attack-damage-min\nplayer-attack-damage-max\nplayer-attack-accuracy-chance\nenemy-repair-chance\nenemy-attack-damage-min\nenemy-attack-damage-max\nenemy-attack-accuracy-chance\ncursedball-attack-damage-min\ncursedball-attack-damage-max\nboard-chance\nenemy-crew-min\nenemy-crew-max\nplayer-repair-min-amount\nplayer-repair-max-amount\nenemy-repair-min\nenemy-repair-max\ntreasure-min-amount\ntreasure-max-amount\ntreasure-chance\nstolen-min-amount\nstolen-max-amount\nstolen-cursedball-min\nstolen-cursedball-max\nsheet-metal\nangelic-Cannon-ball\nblackmarket\nironhull\ninAttack\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         void HandleValueEdit(string field) {
             var intFieldActions = new Dictionary<string, Action<int>> {
@@ -496,6 +496,8 @@ public class PirateGame {
                 { "enemy-repair-chance", value => playerShip.enemyRepairChance = value },
                 { "cargo", value => playerShip.Cargo = value},
                 { "max-cargo", value => playerShip.MaxCargo = value },
+                { "sheet-metal", value => playerShip.SheetMetal = value },
+                { "angelic-Cannon-ball", value => playerShip.AngelicCannonballs = value },
             };
             var floatFieldActions = new Dictionary<string, Action<float>> {
                 { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
@@ -504,6 +506,11 @@ public class PirateGame {
                 { "enemy-attack-damage-max", value => enemyShip.EnemyAttackMaxDamage = value },
                 { "player-repair-min-amount", value => playerShip.PlayerRepairMinAmount = value },
                 { "player-repair-max-amount", value => playerShip.PlayerRepairMaxAmount = value }
+            };
+            var boolFieldActions = new Dictionary<string , Action<bool>> {
+                { "blackmarket", value => playerShip.BlackMarketAcess = value },
+                { "ironhull", value => playerShip.IronHull = value },
+                { "inAttack", value => playerShip.inAttack = value },
             };
             // Check if the field exists in integer or float dictionaries
             if (intFieldActions.ContainsKey(field)) {
@@ -514,8 +521,16 @@ public class PirateGame {
                 Console.WriteLine($"{field} has been changed to {newValue}");
                 AskIfContinue();
             } else if (floatFieldActions.ContainsKey(field)) {
+                Console.Clear();
                 float newValue = GetValidInput($"Enter a new value for {field}:", input => (float.TryParse(input, out var value), value));
                 floatFieldActions[field](newValue);
+                Console.Clear();
+                Console.WriteLine($"{field} has been changed to {newValue}");
+                AskIfContinue();
+            } else if (boolFieldActions.ContainsKey(field)) {
+                Console.Clear();
+                bool newValue = GetValidInput($"Enter a new value for {field}:", input => (bool.TryParse(input, out var value), value));
+                boolFieldActions[field](newValue);
                 Console.Clear();
                 Console.WriteLine($"{field} has been changed to {newValue}");
                 AskIfContinue();
@@ -1119,9 +1134,8 @@ public class PirateGame {
                     Console.Clear(); // throws 'invalid option' error
                     Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n Invalid choice. Try again. \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \n \n");
                     ShopMenu();
-                    break; 
+                    break;
                     }
-
                 case (char)ConsoleKey.Escape: // 'esc' as back option
                     Console.Clear();
                     StartMenu();
