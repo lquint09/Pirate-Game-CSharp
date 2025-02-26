@@ -2,6 +2,7 @@ public class Ship {
     public bool BlackMarketAcess = false;
     public bool IronHull = false;
     public bool inAttack = false;
+    public bool hasboarded = false;
     public int Chance {get; set;}
     public string Name {get; set;}
     public int EnemyCrew {get; set;}
