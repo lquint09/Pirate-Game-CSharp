@@ -4,7 +4,7 @@ public class Ship {
     public bool inAttack = false;
     public bool hasboarded = false;
     public int Chance {get; set;}
-    public string Name {get; set;}
+    public string Name {get; set;} = "unset";
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
     public int Wood {get; set;} = 50;
