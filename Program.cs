@@ -1,10 +1,8 @@
 public class Ship {
-    public bool BlackMarketAcess = false;
     public bool IronHull = false;
     public bool inAttack = false;
     public bool hasboarded = false;
     public int Chance {get; set;}
-    public string Name {get; set;} = "unset";
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
     public int Wood {get; set;} = 50;
@@ -12,12 +10,14 @@ public class Ship {
     public int Cannons {get; set;} = 5;
     public float Cargo {get; set;} = 0;
     public int MaxCrew {get; set;} = 50;
+    public bool BlackMarketAcess = false;
     public int barWidth {get; set;} = 50;
     public float Health {get; set;} = 100;
     public int SheetMetal {get; set;} = 0;
     public int StolenShips {get; set;} = 0;
     public int MaxCannons {get; set;} = 10;
     public float MaxCargo {get; set;} = 500;
+    public string Name {get; set;} = "unset";
     public float MaxHealth {get; set;} = 100;
     public int Cannonballs {get; set;} = 100;
     public int boardChance { get; set; } = 3;
