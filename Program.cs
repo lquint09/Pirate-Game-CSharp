@@ -1,8 +1,8 @@
 public class Ship {
+    public int Chance {get; set;}
     public bool IronHull = false;
     public bool inAttack = false;
     public bool hasboarded = false;
-    public int Chance {get; set;}
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
     public int Wood {get; set;} = 50;
