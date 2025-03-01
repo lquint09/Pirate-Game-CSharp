@@ -1,10 +1,6 @@
 public class Ship {
-    public bool BlackMarketAcess = false;
-    public bool IronHull = false;
-    public bool inAttack = false;
-    public bool hasboarded = false;
+
     public int Chance {get; set;}
-    public string Name {get; set;} = "unset";
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
     public int Wood {get; set;} = 50;
@@ -23,30 +19,36 @@ public class Ship {
     public int boardChance { get; set; } = 3;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
+    public string Name {get; set;} = "unset";
     public int TreasureChance {get; set;} = 6;
     public int enemyRepairMin {get; set;} = 10;
     public int enemyRepairMax {get; set;} = 21;
+    public int StolenMinAmount {get; set;} = 75;
     public int CursedCannonBalls {get; set;} = 0;
     public int enemyRepairChance {get; set;} = 4;
-    public int StolenMinAmount { get; set; } = 75;
     public int AngelicCannonballs {get; set;} = 0;
+    public int TreasureMinAmount {get; set;} = 10;
+    public int TreasureMaxAmount {get; set;} = 20;
     public int StolenMaxAmount { get; set; } = 150;
     public int stolenCurseBallsMin {get; set;} = 1;
     public int stolenCurseBallsMax {get; set;} = 3;
-    public int TreasureMinAmount { get; set; } = 10;
-    public int TreasureMaxAmount { get; set; } = 20;
-    public float CursedBallMinDamage { get; set; } = 15;
-    public float CursedBallMaxDamage { get; set; } = 40;
-    public float EnemyAttackMinDamage { get; set; } = 5.0f;
-    public int EnemyAttackAccuracyChance { get; set; } = 2;
-    public int PlayerAttackAccuracyChance { get; set; } = 2;
-    public float EnemyAttackMaxDamage { get; set; } = 15.0f;
-    public float PlayerAttackMinDamage { get; set; } = 10.0f;
-    public float PlayerAttackMaxDamage { get; set; } = 20.0f;
-    public float PlayerRepairMinAmount { get; set; } = 10.0f;
-    public float PlayerRepairMaxAmount { get; set; } = 20.0f;
+    public float CursedBallMinDamage {get; set;} = 15;
+    public float CursedBallMaxDamage {get; set;} = 40;
+    public float EnemyAttackMinDamage {get; set;} = 5.0f;
+    public int EnemyAttackAccuracyChance {get; set;} = 2;
+    public int PlayerAttackAccuracyChance {get; set;} = 2;
+    public float EnemyAttackMaxDamage {get; set;} = 15.0f;
+    public float PlayerAttackMinDamage {get; set;} = 10.0f;
+    public float PlayerAttackMaxDamage {get; set;} = 20.0f;
+    public float PlayerRepairMinAmount {get; set;} = 10.0f;
+    public float PlayerRepairMaxAmount {get; set;} = 20.0f;
     private static readonly Random random = new Random();
+    public bool BlackMarketAcess = false;
+    public bool hasboarded = false;
+    public bool IronHull = false;
+    public bool inAttack = false;
     public int treasureChance;
+    
     public Ship(string name, int cannons, int crew, int bank, int maxhealth, int inventoryStolenShips, int maxcrew, int maxcannons, int cargo, int maxcargo, int cannonballs, int cursedcannonballs, int wood) {
         Name = name;
         Cannons = cannons;
