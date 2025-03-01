@@ -1,5 +1,4 @@
 public class Ship {
-
     public int Chance {get; set;}
     public int EnemyCrew {get; set;}
     public int Crew {get; set;} = 50;
@@ -14,12 +13,12 @@ public class Ship {
     public int StolenShips {get; set;} = 0;
     public int MaxCannons {get; set;} = 10;
     public float MaxCargo {get; set;} = 500;
+    public string Name {get; set;} = "unset";
     public float MaxHealth {get; set;} = 100;
     public int Cannonballs {get; set;} = 100;
     public int boardChance { get; set; } = 3;
     public int EnemyCrewMin {get; set;} = 25;
     public int EnemyCrewMax {get; set;} = 50;
-    public string Name {get; set;} = "unset";
     public int TreasureChance {get; set;} = 6;
     public int enemyRepairMin {get; set;} = 10;
     public int enemyRepairMax {get; set;} = 21;
