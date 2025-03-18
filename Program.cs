@@ -499,7 +499,7 @@ public class PirateGame {
                 { "cargo", value => playerShip.Cargo = value},
                 { "max-cargo", value => playerShip.MaxCargo = value },
                 { "sheet-metal", value => playerShip.SheetMetal = value },
-                { "angelic-Cannon-ball", value => playerShip.AngelicCannonballs = value },
+              5  { "angelic-Cannon-ball", value => playerShip.AngelicCannonballs = value },
             };
             var floatFieldActions = new Dictionary<string, Action<float>> {
                 { "player-attack-damage-min", value => playerShip.PlayerAttackMinDamage = value },
