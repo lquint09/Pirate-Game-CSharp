@@ -464,7 +464,7 @@ public class PirateGame {
                     return;
             }
             DevToolsStartMenu(); // Call the menu again to keep the flow
-        }   
+        }
         void ShowHelp() {
             Console.Clear();
             Console.WriteLine("List of all Commands\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n list \n help \n clear \n none \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
